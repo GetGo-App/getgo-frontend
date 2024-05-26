@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tv"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/signinbackground">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="64dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="64dp" />
+
+    <TextView
+        android:id="@+id/tvsignup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="43dp"
+        android:text="Sign up"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="344dp"
+        android:layout_height="456dp"
+        android:background="@drawable/background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="37dp"
+            android:text="Sign In"
+            android:textColor="#000000"
+            android:textSize="48sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnGg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="#B9E8F9"
+            android:text="with Google"
+            android:textSize="15sp"
+            app:icon="@drawable/google"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <ImageButton
+            android:id="@+id/btnfacebook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/shape_rectangle"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btnGg"
+            app:layout_constraintStart_toEndOf="@+id/btnGg"
+            app:layout_constraintTop_toTopOf="@+id/btnGg"
+            app:srcCompat="@drawable/facebook" />
+
+        <ImageButton
+            android:id="@+id/btntwitter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/shape_rectangle"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btnfacebook"
+            app:layout_constraintStart_toEndOf="@+id/btnfacebook"
+            app:layout_constraintTop_toTopOf="@+id/btnfacebook"
+            app:srcCompat="@drawable/twitter" />
+
+        <EditText
+            android:id="@+id/edEmail"
+            android:layout_width="272dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="56dp"
+            android:background="@drawable/shape_rectangle"
+            android:ems="10"
+            android:hint="Email/Phone number"
+            android:inputType="text"
+            android:textSize="12sp"
+            android:paddingLeft="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnGg" />
+
+        <EditText
+            android:id="@+id/edPassword"
+            android:layout_width="272dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_rectangle"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textSize="12sp"
+            android:paddingLeft="20dp"
+            app:layout_constraintEnd_toEndOf="@+id/edEmail"
+            app:layout_constraintStart_toStartOf="@+id/edEmail"
+            app:layout_constraintTop_toBottomOf="@+id/edEmail" />
+
+        <TextView
+            android:id="@+id/tvForget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textStyle="italic"
+            android:textSize="12sp"
+            android:text="Forget your pasword?"
+            app:layout_constraintEnd_toEndOf="@+id/edPassword"
+            app:layout_constraintStart_toStartOf="@+id/edPassword"
+            app:layout_constraintTop_toBottomOf="@+id/edPassword" />
+
+        <Button
+            android:id="@+id/btnSignin"
+            android:layout_width="234dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Sign In"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:backgroundTint="#FF9CAF"
+            app:layout_constraintEnd_toEndOf="@+id/tvForget"
+            app:layout_constraintStart_toStartOf="@+id/tvForget"
+            app:layout_constraintTop_toBottomOf="@+id/tvForget" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
