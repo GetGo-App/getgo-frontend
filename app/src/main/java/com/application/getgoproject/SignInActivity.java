@@ -48,25 +48,27 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 signIn();
-
             }
         });
         btnGg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(SignInActivity.this,"Sign in with Google", Toast.LENGTH_SHORT).show();
+                homeForm();
             }
         });
         btnFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(SignInActivity.this,"Sign in with Facebook", Toast.LENGTH_SHORT).show();
+                homeForm();
             }
         });
         btnTwitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(SignInActivity.this,"Sign in with Twitter", Toast.LENGTH_SHORT).show();
+                homeForm();
             }
         });
     }
@@ -104,9 +106,12 @@ public class SignInActivity extends AppCompatActivity {
             return ;
         }
         Toast.makeText(SignInActivity.this,"Sign in successful!", Toast.LENGTH_SHORT).show();
-//        Intent intent = new Intent(this, MainActivity.class);
-//        startActivity(intent);
-//        finish();
+        homeForm();
+    }
+    private void homeForm() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
     private void forgetForm() {
         Intent intent = new Intent(this, ForgetPasswordActivity.class);

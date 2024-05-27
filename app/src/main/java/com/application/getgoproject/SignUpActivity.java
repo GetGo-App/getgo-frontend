@@ -36,25 +36,27 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 signUp();
-
             }
         });
         btnGg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(SignUpActivity.this,"Sign in with Google", Toast.LENGTH_SHORT).show();
+                homeForm();
             }
         });
         btnFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(SignUpActivity.this,"Sign in with Facebook", Toast.LENGTH_SHORT).show();
+                homeForm();
             }
         });
         btnTwitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(SignUpActivity.this,"Sign in with Twitter", Toast.LENGTH_SHORT).show();
+                homeForm();
             }
         });
     }
@@ -91,15 +93,18 @@ public class SignUpActivity extends AppCompatActivity {
         return true;
     }
 
+    private void homeForm() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
     private void signUp(){
         //Invalid
         if (!checkInput()) {
             return ;
         }
         Toast.makeText(SignUpActivity.this,"Create account successful!", Toast.LENGTH_SHORT).show();
-//        Intent intent = new Intent(this, MainActivity.class);
-//        startActivity(intent);
-//        finish();
+        signInForm();
     }
     private void signInForm() {
         Intent intent = new Intent(this, SignInActivity.class);

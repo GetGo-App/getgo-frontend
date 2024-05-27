@@ -99,7 +99,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageButton" />
 
         <ImageButton
-            android:id="@+id/userStory1"
+            android:id="@+id/imgAvatar"
             android:layout_width="74dp"
             android:layout_height="74dp"
             android:layout_marginStart="24dp"
@@ -117,9 +117,9 @@
             android:textStyle="bold"
             android:textSize="15sp"
             android:fontFamily="@font/kufam"
-            app:layout_constraintEnd_toEndOf="@+id/userStory1"
-            app:layout_constraintStart_toStartOf="@+id/userStory1"
-            app:layout_constraintTop_toBottomOf="@+id/userStory1" />
+            app:layout_constraintEnd_toEndOf="@+id/imgAvatar"
+            app:layout_constraintStart_toStartOf="@+id/imgAvatar"
+            app:layout_constraintTop_toBottomOf="@+id/imgAvatar" />
 
         <ImageButton
             android:id="@+id/userStory2"
@@ -129,9 +129,9 @@
             android:elevation="8dp"
 
             android:background="@drawable/border_gradient"
-            app:layout_constraintStart_toEndOf="@+id/userStory1"
-            app:layout_constraintTop_toTopOf="@+id/userStory1"
-            app:layout_constraintBottom_toBottomOf="@+id/userStory1" />
+            app:layout_constraintStart_toEndOf="@+id/imgAvatar"
+            app:layout_constraintTop_toTopOf="@+id/imgAvatar"
+            app:layout_constraintBottom_toBottomOf="@+id/imgAvatar" />
 
         <TextView
             android:id="@+id/userStoryName2"
@@ -322,7 +322,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textTrend">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/imgPlace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/sapabackground" />

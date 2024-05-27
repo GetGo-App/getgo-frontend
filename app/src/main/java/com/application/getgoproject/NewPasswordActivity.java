@@ -12,66 +12,72 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ForgetPasswordActivity extends AppCompatActivity {
+public class NewPasswordActivity extends AppCompatActivity {
     private ImageButton btnGoback;
-    private Button btnSend;
-    private EditText edEmail;
+    private Button btnSignin;
+    private EditText etVerify, etPassword;
     private final String REQUIRE = "Require";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_forgetpassword);
+        setContentView(R.layout.activity_newpassword);
 
         anhXa();
 
         btnGoback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signInForm();
+                forgetForm();
             }
         });
 
-        btnSend.setOnClickListener(new View.OnClickListener() {
+        btnSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                send();
+                signIn();
 
             }
         });
     }
     private void anhXa() {
         btnGoback = findViewById(R.id.imgbtnGoback);
-        btnSend = findViewById(R.id.btnSend);
-        edEmail = findViewById(R.id.edEmail);
+        btnSignin = findViewById(R.id.btnSignin);
+        etVerify = findViewById(R.id.etVerify);
+        etPassword = findViewById(R.id.etPassword);
     }
 
     private boolean checkInput() {
-        // email
-        if (TextUtils.isEmpty(edEmail.getText().toString())){
-            edEmail.setError((REQUIRE));
+        // verification code
+        if (TextUtils.isEmpty(etVerify.getText().toString())){
+            etVerify.setError((REQUIRE));
+            return false;
+        }
+        // password
+        if (TextUtils.isEmpty(etPassword.getText().toString())){
+            etPassword.setError((REQUIRE));
             return false;
         }
         //Valid
         return true;
     }
 
-    private void send(){
+    private void signIn(){
         //Invalid
         if (!checkInput()) {
             return ;
         }
-        Toast.makeText(ForgetPasswordActivity.this,"Please attend your mail!", Toast.LENGTH_SHORT).show();
-        newpassForm();
+        Toast.makeText(NewPasswordActivity.this,"Create new password successful!", Toast.LENGTH_SHORT).show();
+        signInForm();
     }
 
-    private void signInForm() {
-        Intent intent = new Intent(this, SignInActivity.class);
+    private void forgetForm() {
+        Intent intent = new Intent(this, ForgetPasswordActivity.class);
         startActivity(intent);
         finish();
     }
 
-    private void newpassForm() {
-        Intent intent = new Intent(this, NewPasswordActivity.class);
+    private void signInForm() {
+        Intent intent = new Intent(this, SignInActivity.class);
         startActivity(intent);
         finish();
     }
