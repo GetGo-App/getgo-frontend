@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.application.getgoproject.models.Comment;
+
 import java.util.List;
 
 public class CommentAdapter extends BaseAdapter {

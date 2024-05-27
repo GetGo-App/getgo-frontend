@@ -9,6 +9,8 @@ import android.widget.ListView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.application.getgoproject.models.Comment;
+
 import java.util.ArrayList;
 
 

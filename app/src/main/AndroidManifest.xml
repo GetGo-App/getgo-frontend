@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,6 +19,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GetGoProject"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDjRoWlA-3QiL23KMWnc52mjTiPm3-4lBU" />
+
+        <activity
+            android:name=".MapsActivity"
+            android:exported="false" />
         <activity
             android:name=".StartActivity"
             android:exported="true">
@@ -22,16 +36,19 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".LoginActivity"/>
-        <activity android:name=".SignInActivity"/>
-        <activity android:name=".SignUpActivity"/>
-        <activity android:name=".ForgetPasswordActivity"/>
-        <activity android:name=".UserActivity"/>
-        <activity android:name=".CommentActivity"/>
-        <activity android:name=".NewPasswordActivity"/>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".SignInActivity" />
+        <activity android:name=".SignUpActivity" />
+        <activity android:name=".ForgetPasswordActivity" />
+        <activity android:name=".ChatBoxActivity" />
+        <activity android:name=".UserActivity" />
+        <activity android:name=".CommentActivity" />
+        <activity android:name=".NewPasswordActivity" />
+        <activity android:name=".CameraActivity"/>
         <activity android:name=".HotelActivity"/>
         <activity android:name=".DetailHotelActivity"/>
+      
     </application>
 
 </manifest>
