@@ -27,6 +27,7 @@
         <activity android:name=".SignInActivity"/>
         <activity android:name=".SignUpActivity"/>
         <activity android:name=".ForgetPasswordActivity"/>
+        <activity android:name=".AssistantActivity"/>
     </application>
 
 </manifest>
