@@ -7,12 +7,12 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-
-public class CommentActivity extends AppCompatActivity {
+public class DetailHotelActivity extends AppCompatActivity {
     ListView lvComment;
     ArrayList<Comment> arrayComment;
     CommentAdapter adapter;

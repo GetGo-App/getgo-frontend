@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/sapa">
+
+    <ImageButton
+        android:id="@+id/imgbtnGoback"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="24dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/arrow_back" />
+
+    <TextView
+        android:id="@+id/etNameplace"
+        android:layout_width="223dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Hotel/Homestay in Sa Pa"
+        android:fontFamily="@font/kufam"
+        android:textColor="#fff"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.794"
+        app:layout_constraintStart_toEndOf="@+id/imgbtnGoback"
+        app:layout_constraintTop_toBottomOf="@+id/imgbtnGoback" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_rectangle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etNameplace"
+        app:layout_constraintVertical_bias="0.172">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="24dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="24dp" />
+
+        <TextView
+            android:id="@+id/tvNewest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/semiround_button"
+            android:backgroundTint="@color/black"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:text="Trending"
+            android:textColor="#fff"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvTopmonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:text="Top month"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toBottomOf="@+id/tvNewest"
+            app:layout_constraintStart_toEndOf="@+id/tvNewest"
+            app:layout_constraintTop_toTopOf="@+id/tvNewest" />
+
+        <TextView
+            android:id="@+id/tvTopyear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:text="Top year"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTopmonth"
+            app:layout_constraintStart_toEndOf="@+id/tvTopmonth"
+            app:layout_constraintTop_toTopOf="@+id/tvTopmonth" />
+
+        <ListView
+            android:id="@+id/lvHotel"
+            android:layout_width="wrap_content"
+            android:layout_height="700dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvNewest" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

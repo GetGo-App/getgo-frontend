@@ -30,6 +30,8 @@
         <activity android:name=".UserActivity"/>
         <activity android:name=".CommentActivity"/>
         <activity android:name=".NewPasswordActivity"/>
+        <activity android:name=".HotelActivity"/>
+        <activity android:name=".DetailHotelActivity"/>
     </application>
 
 </manifest>
