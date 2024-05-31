@@ -32,6 +32,7 @@
         <activity android:name=".NewPasswordActivity"/>
         <activity android:name=".HotelActivity"/>
         <activity android:name=".DetailHotelActivity"/>
+        <activity android:name=".LocationActivity"/>
     </application>
 
 </manifest>
