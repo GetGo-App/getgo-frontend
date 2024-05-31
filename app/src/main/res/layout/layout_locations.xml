@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/semiround_button"
+    android:backgroundTint="#D9D9D9"
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/imgLocation"
+        android:layout_width="0dp"
+        android:layout_height="@android:dimen/thumbnail_height"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/sapa" />
+
+    <TextView
+        android:id="@+id/tvNameLocation"
+        android:layout_width="77dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/semiround_button"
+        android:backgroundTint="#77FFFFFF"
+        android:fontFamily="@font/kufam"
+        android:gravity="center"
+        android:paddingHorizontal="5dp"
+        android:text="TextView"
+        android:textAllCaps="true"
+        android:textColor="#000000"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="@+id/imgLocation"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imgLocation" />
+
+    <ImageButton
+        android:id="@+id/btnTym"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/semiround_button"
+        android:foregroundGravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/tvNameLocation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvNameLocation"
+        app:layout_constraintTop_toTopOf="@+id/tvNameLocation"
+        app:srcCompat="@drawable/favorite" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
