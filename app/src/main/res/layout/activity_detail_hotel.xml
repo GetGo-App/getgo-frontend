@@ -68,7 +68,7 @@
             android:layout_marginTop="39dp"
             android:fontFamily="@font/kufam"
             android:text="Pictures"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toTopOf="parent" />
@@ -77,7 +77,7 @@
             android:id="@+id/image1"
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:background="@drawable/semiround_button"
+            android:background="@drawable/round_picture"
             android:elevation="16dp"
             android:padding="10dp"
             app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -88,7 +88,7 @@
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:layout_marginStart="10dp"
-            android:background="@drawable/semiround_button"
+            android:background="@drawable/round_picture"
             android:elevation="16dp"
             android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/image1"
@@ -100,7 +100,7 @@
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:layout_marginStart="10dp"
-            android:background="@drawable/semiround_button"
+            android:background="@drawable/round_picture"
             android:elevation="16dp"
             android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/image2"
@@ -112,7 +112,7 @@
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:layout_marginStart="10dp"
-            android:background="@drawable/semiround_button"
+            android:background="@drawable/round_picture"
             android:elevation="16dp"
             android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/image3"
@@ -125,100 +125,247 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:fontFamily="@font/kufam"
-            android:text="Most popular facilities"
-            android:textSize="15sp"
+            android:text="Description"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/image1" />
 
-        <LinearLayout
-            android:id="@+id/list"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/contentDescription"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:text="Located in Sa Pa, 6.1 km from Fansipan Legend Cable Car Station, Pao's Sapa Leisure Hotel provides accommodation with a fitness centre, free private parking, a garden and a shared lounge. Among the facilities of this property are a restaurant, a kids' club and room service, along with free WiFi. The accommodation offers a 24-hour front desk, a concierge service and currency exchange for guests"
+            android:fontFamily="@font/kufam"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/textView2">
-            <ListView
-                android:id="@+id/lvSevices"
-                android:layout_width="200dp"
-                android:layout_height="500dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/tvNewest" />
-            <ListView
-                android:id="@+id/lvExtensions"
-                android:layout_width="200dp"
-                android:layout_height="500dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/tvNewest" />
-        </LinearLayout>
+            app:layout_constraintEnd_toStartOf="@+id/guideline2">
+        </TextView>
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Muong Hoa Street, Sapa Town, Sapa District, Lao Cai Province, Sa Pa, Vietnam"
+            android:textStyle="bold"
+            android:drawableStart="@drawable/marker_icon"
+            app:layout_constraintTop_toBottomOf="@+id/contentDescription"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"/>
+
+        <TextView
+            android:id="@+id/hotelPrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="900.000 VND - 4.000.000 VND"
+            android:fontFamily="@font/kufam"
+            android:textStyle="bold"
+            android:textSize="17sp"
+            android:textColor="#93BC66"
+            android:drawableStart="@drawable/money_icon"
+            android:drawablePadding="4dp"
+            app:layout_constraintTop_toBottomOf="@+id/address"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"/>
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
             android:fontFamily="@font/kufam"
-            android:text="Guest reviews"
-            android:textSize="15sp"
+            android:text="Reviews"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/list" />
+            app:layout_constraintTop_toBottomOf="@+id/hotelPrice" />
 
         <LinearLayout
-            android:id="@+id/listReview"
-            android:layout_width="match_parent"
+            android:id="@+id/reviewStatus"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toBottomOf="@+id/textView3">
-            <ListView
-                android:id="@+id/lvstaff"
-                android:layout_width="200dp"
-                android:layout_height="500dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/tvNewest" />
-            <ListView
-                android:id="@+id/lvdevice"
-                android:layout_width="200dp"
-                android:layout_height="500dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/tvNewest" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/ratingAverage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4.8"
+                    android:fontFamily="@font/kufam"
+                    android:textSize="30sp"
+                    />
+
+                <RatingBar
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:id="@+id/ratingBarReview"
+                    android:rating="4.8"
+                    android:progressTint="#FFE500"
+                    android:stepSize="0.1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/reviewCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="6.9k reviews"
+                    android:fontFamily="@font/kufam"
+                    android:textSize="15sp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textSize="15sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ProgressBar
+                    android:id="@+id/progress5Star"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_marginBottom="5dp"
+                    android:progress="86"
+                    android:progressTint="#FFE500"
+                    android:progressBackgroundTint="#D7D7D7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+                <ProgressBar
+                    android:id="@+id/progress4Star"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_marginBottom="5dp"
+                    android:progress="75"
+                    android:progressTint="#FFE500"
+                    android:progressBackgroundTint="#D7D7D7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+                <ProgressBar
+                    android:id="@+id/progress3Star"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_marginBottom="5dp"
+                    android:progress="50"
+                    android:progressTint="#FFE500"
+                    android:progressBackgroundTint="#D7D7D7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+                <ProgressBar
+                    android:id="@+id/progress2Star"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_marginBottom="5dp"
+                    android:progress="30"
+                    android:progressTint="#FFE500"
+                    android:progressBackgroundTint="#D7D7D7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+                <ProgressBar
+                    android:id="@+id/progress1Star"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:progress="10"
+                    android:progressTint="#FFE500"
+                    android:progressBackgroundTint="#D7D7D7"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
             android:fontFamily="@font/kufam"
-            android:text="Comments"
-            android:textSize="15sp"
+            android:text="Comment"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintTop_toBottomOf="@+id/reviewStatus" />
 
         <TextView
-            android:id="@+id/tvNewest"
+            android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/semiround_button"
-            android:backgroundTint="@color/black"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="10dp"
-            android:text="Newest"
-            android:textColor="#fff"
-            app:layout_constraintStart_toStartOf="@+id/textView4"
+            android:fontFamily="@font/kufam"
+            android:text="Share your experience to help others"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <EditText
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/inputComment"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:background="#D9D9D9"
+            android:paddingStart="10dp"
+            android:hint="Write your thoughts"
+            android:textColorHint="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/feedbackRating"
+            />
+
+        <RatingBar
+            android:id="@+id/feedbackRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:progressTint="#FFE500"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
         <ListView
             android:id="@+id/lvComment"
-            android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:layout_marginTop="10dp"
+            android:layout_width="0dp"
+            android:layout_height="800dp"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/tvNewest" />
-
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/inputComment"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

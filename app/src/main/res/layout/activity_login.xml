@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/startbackground">
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/textView"
@@ -14,7 +14,7 @@
         android:fontFamily="@font/kufam"
         android:gravity="center"
         android:text="Enjoy your"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="50sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,7 +30,7 @@
         android:fontFamily="@font/kufam"
         android:gravity="center"
         android:text="Vacation"
-        android:textColor="#CDFFB0"
+        android:textColor="#93BC66"
         android:textSize="50sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,7 +60,7 @@
         android:text="Sign In"
         android:textStyle="bold"
         android:textSize="18sp"
-        android:backgroundTint="#B0D0E7"
+        android:backgroundTint="@color/black"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -74,7 +74,7 @@
         android:text="Sign Up"
         android:textStyle="bold"
         android:textSize="18sp"
-        android:backgroundTint="#8DC989"
+        android:backgroundTint="#93BC66"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline"
