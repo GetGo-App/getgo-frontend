@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         imgPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cmtForm();
+                locationListForm();
             }
         });
     }
@@ -41,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
         avatar = findViewById(R.id.avatar);
         imgPlace = findViewById(R.id.imgPlace);
     }
-    private void cmtForm(){
-        Intent intent = new Intent(this, CommentActivity.class);
+    private void locationListForm(){
+        Intent intent = new Intent(this, LocationActivity.class);
         startActivity(intent);
         finish();
     }

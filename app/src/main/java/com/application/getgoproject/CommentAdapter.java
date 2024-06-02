@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.application.getgoproject.models.Comment;
@@ -48,7 +49,7 @@ public class CommentAdapter extends BaseAdapter {
         TextView time = (TextView) convertView.findViewById(R.id.tvTime);
         TextView comment = (TextView) convertView.findViewById(R.id.tvComment);
         ImageView avatar = (ImageView) convertView.findViewById(R.id.imgAvatar);
-        ImageView star = (ImageView) convertView.findViewById(R.id.imgAvatar);
+        RatingBar star = (RatingBar) convertView.findViewById(R.id.ratingBarComment);
 
         //gan gia tri
         Comment comments = commentList.get(position);
@@ -56,7 +57,7 @@ public class CommentAdapter extends BaseAdapter {
         time.setText(comments.getTime());
         comment.setText(comments.getComment());
         avatar.setImageResource(comments.getAvatar());
-        star.setImageResource(comments.getStar());
+        star.setRating(comments.getStar());
 
         return convertView;
     }

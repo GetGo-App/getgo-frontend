@@ -27,10 +27,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="43dp"
         android:text="Sign up"
-        android:fontFamily="@font/kufam"
+        android:fontFamily="@font/kufam_bold"
         android:textColor="#93BC66"
         android:textSize="13sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -152,12 +151,11 @@
             android:layout_height="55dp"
             android:layout_marginTop="20dp"
             android:backgroundTint="#000000"
-            android:fontFamily="@font/kufam"
+            android:fontFamily="@font/kufam_bold"
             android:gravity="center"
             android:text="Sign In"
             android:textColor="#fff"
             android:textSize="20sp"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/tvForget"
             app:layout_constraintStart_toStartOf="@+id/tvForget"
             app:layout_constraintTop_toBottomOf="@+id/tvForget" />
