@@ -32,11 +32,10 @@
         android:id="@+id/tvName"
         android:layout_width="33dp"
         android:layout_height="14dp"
-        android:fontFamily="@font/kufam"
+        android:fontFamily="@font/kufam_bold"
         android:text="Yen Vi"
         android:layout_marginLeft="5dp"
         android:textSize="10sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imgAvatar"
         app:layout_constraintTop_toTopOf="@+id/imgAvatar" />
 

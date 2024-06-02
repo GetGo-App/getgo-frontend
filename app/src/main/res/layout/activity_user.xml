@@ -60,11 +60,10 @@
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/kufam"
+        android:fontFamily="@font/kufam_italic"
         android:text="Hoang Le Huong"
         android:textColor="#93BC66"
         android:textSize="32sp"
-        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="@+id/avatar"
         app:layout_constraintStart_toStartOf="@+id/avatar"
         app:layout_constraintTop_toBottomOf="@+id/avatar" />
@@ -74,9 +73,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Change infomation"
-        android:textStyle="bold|italic"
         android:textSize="12sp"
-        android:fontFamily="@font/kufam"
+        android:fontFamily="@font/kufam_bold_italic"
         app:layout_constraintEnd_toEndOf="@+id/tvName"
         app:layout_constraintStart_toStartOf="@+id/tvName"
         app:layout_constraintTop_toBottomOf="@+id/tvName" />

@@ -27,10 +27,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Pao's Sapa Leisure Hotel"
-        android:fontFamily="@font/kufam"
+        android:fontFamily="@font/kufam_bold"
         android:textColor="#fff"
         android:textSize="24sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.794"
         app:layout_constraintStart_toEndOf="@+id/imgbtnGoback"
@@ -66,10 +65,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="39dp"
-            android:fontFamily="@font/kufam"
+            android:fontFamily="@font/kufam_bold"
             android:text="Pictures"
             android:textSize="20sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -124,10 +122,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:fontFamily="@font/kufam"
+            android:fontFamily="@font/kufam_bold"
             android:text="Description"
             android:textSize="20sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/image1" />
 
@@ -159,8 +156,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="900.000 VND - 4.000.000 VND"
-            android:fontFamily="@font/kufam"
-            android:textStyle="bold"
+            android:fontFamily="@font/kufam_bold"
             android:textSize="17sp"
             android:textColor="#93BC66"
             android:drawableStart="@drawable/money_icon"
@@ -174,10 +170,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:fontFamily="@font/kufam"
+            android:fontFamily="@font/kufam_bold"
             android:text="Reviews"
             android:textSize="20sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/hotelPrice" />
 
@@ -320,10 +315,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:fontFamily="@font/kufam"
+            android:fontFamily="@font/kufam_bold"
             android:text="Comment"
             android:textSize="20sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/reviewStatus" />
 

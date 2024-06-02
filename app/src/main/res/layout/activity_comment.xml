@@ -64,10 +64,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="39dp"
-            android:fontFamily="@font/kufam"
+            android:fontFamily="@font/kufam_bold"
             android:text="Trending places"
             android:textSize="15sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -122,10 +121,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:fontFamily="@font/kufam"
+            android:fontFamily="@font/kufam_bold"
             android:text="Comments"
             android:textSize="15sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/image1" />
 
@@ -134,10 +132,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:fontFamily="@font/kufam"
+            android:fontFamily="@font/kufam_bold"
             android:text="(16k)"
             android:textSize="15sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/textView2"
             app:layout_constraintStart_toEndOf="@+id/textView2"
             app:layout_constraintTop_toTopOf="@+id/textView2" />
