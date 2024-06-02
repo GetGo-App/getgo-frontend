@@ -48,6 +48,7 @@
         <activity android:name=".CameraActivity"/>
         <activity android:name=".HotelActivity"/>
         <activity android:name=".DetailHotelActivity"/>
+        <activity android:name=".StatusActivity"/>
       
     </application>
 
