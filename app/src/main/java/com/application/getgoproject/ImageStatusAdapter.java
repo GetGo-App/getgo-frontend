@@ -7,9 +7,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 
-public class ImageStatusAdapter extends BaseAdapter {
+public class ImageStatusAdapter extends RecyclerView.Adapter<ImageStatusAdapter.ViewHolder> {
     private Context context;
     private ArrayList<Integer> imageResources;
 
@@ -18,30 +21,31 @@ public class ImageStatusAdapter extends BaseAdapter {
         this.imageResources = imageResources;
     }
 
+    @NonNull
     @Override
-    public int getCount() {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_image_status, parent, false);
+
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        int imgRes = imageResources.get(position);
+        holder.imageViewStatus.setImageResource(imgRes);
+    }
+
+    @Override
+    public int getItemCount() {
         return imageResources.size();
     }
 
-    @Override
-    public Object getItem(int i) {
-        return imageResources.get(i);
-    }
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView imageViewStatus;
 
-    @Override
-    public long getItemId(int i) {
-        return i;
-    }
-
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.layout_image_status, viewGroup, false);
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            imageViewStatus = itemView.findViewById(R.id.imageStatus);
         }
-
-        ImageView imageViewStatus = view.findViewById(R.id.imageStatus);
-        imageViewStatus.setImageResource(imageResources.get(i));
-
-        return view;
     }
 }

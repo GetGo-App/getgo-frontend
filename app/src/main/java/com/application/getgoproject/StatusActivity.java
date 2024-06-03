@@ -1,5 +1,7 @@
 package com.application.getgoproject;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +26,6 @@ public class StatusActivity extends AppCompatActivity {
 
     private FrameLayout statusLayout;
     private Button tabStatus, tabImage, tabMessage;
-    private LayoutInflater childLayout;
     private List<Image> imageList;
     private List<Message> messageList;
     private List<Status> statusList;
@@ -33,7 +34,6 @@ public class StatusActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_status);
-        childLayout = LayoutInflater.from(StatusActivity.this);
         mapping();
 
         addLayoutStatus();
@@ -70,18 +70,29 @@ public class StatusActivity extends AppCompatActivity {
     private void addLayoutStatus() {
         statusLayout.removeAllViewsInLayout();
 
+        tabStatus.setBackgroundResource(R.drawable.underline_button);
+        tabStatus.setTextColor(getColor(R.color.black));
+
+        tabImage.setBackgroundResource(R.drawable.not_underline_button);
+        tabImage.setTextColor(Color.parseColor("#858585"));
+
+        tabMessage.setBackgroundResource(R.drawable.not_underline_button);
+        tabMessage.setTextColor(Color.parseColor("#858585"));
+
         LayoutInflater inflater = LayoutInflater.from(this);
         View layoutStatus = inflater.inflate(R.layout.layout_status, statusLayout, false);
 
         statusList = new ArrayList<>();
 
         ArrayList<Integer> arrayList = new ArrayList<>();
+        arrayList.add(R.drawable.sapa);
+        arrayList.add(R.drawable.sapabackground);
+        arrayList.add(R.drawable.sapabackground);
+        arrayList.add(R.drawable.sapa);
         arrayList.add(R.drawable.sapabackground);
         arrayList.add(R.drawable.sapa);
 
         ArrayList<Integer> arrayList2 = new ArrayList<>();
-        arrayList2.add(R.drawable.sapa);
-        arrayList2.add(R.drawable.sapabackground);
         arrayList2.add(R.drawable.sapa);
 
         statusList.add(new Status("Phan Hieu Nghia", "The Good Place", "This is the beautiful place", "4 days ago", R.drawable.avatar, arrayList));
@@ -97,6 +108,16 @@ public class StatusActivity extends AppCompatActivity {
 
     private void addLayoutImage() {
         statusLayout.removeAllViewsInLayout();
+
+        tabStatus.setBackgroundResource(R.drawable.not_underline_button);
+        tabStatus.setTextColor(Color.parseColor("#858585"));
+
+
+        tabImage.setBackgroundResource(R.drawable.underline_button);
+        tabImage.setTextColor(getColor(R.color.black));
+
+        tabMessage.setBackgroundResource(R.drawable.not_underline_button);
+        tabMessage.setTextColor(Color.parseColor("#858585"));
 
         imageList = new ArrayList<>();
 
@@ -122,6 +143,15 @@ public class StatusActivity extends AppCompatActivity {
 
     private void addLayoutMessage() {
         statusLayout.removeAllViewsInLayout();
+
+        tabStatus.setBackgroundResource(R.drawable.not_underline_button);
+        tabStatus.setTextColor(Color.parseColor("#858585"));
+
+        tabImage.setBackgroundResource(R.drawable.not_underline_button);
+        tabImage.setTextColor(Color.parseColor("#858585"));
+
+        tabMessage.setBackgroundResource(R.drawable.underline_button);
+        tabMessage.setTextColor(getColor(R.color.black));
 
         messageList = new ArrayList<>();
 
