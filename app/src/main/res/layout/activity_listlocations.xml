@@ -43,7 +43,7 @@
         android:paddingVertical="5dp"
         android:textColorHint="#fff"
         android:background="@drawable/semiround_button"
-        android:backgroundTint="#000000"
+        android:backgroundTint="#80D9D9D9"
         app:layout_constraintBottom_toBottomOf="@+id/imgbtnGoback"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toEndOf="@+id/imgbtnGoback"

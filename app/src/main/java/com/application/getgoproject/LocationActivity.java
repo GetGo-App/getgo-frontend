@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.util.TypedValue;
 
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 
 public class LocationActivity extends AppCompatActivity {
     private TextView tvAll, tvTrending, tvTopyear, tvFavorite;
-    private EditText etSearchLocation;
+    private SearchView etSearchLocation;
     private RecyclerView recycler;
     private LocationAdapter adapter;
     private ArrayList<Locations> arrayLocation, arrayTopyear, arrayTrending, arrayFavor;
@@ -78,7 +79,7 @@ public class LocationActivity extends AppCompatActivity {
     }
     private void anhXa(){
         imgbtnGoback = findViewById(R.id.imgbtnGoback);
-        etSearchLocation = findViewById(R.id.etSearchLocation);
+//        etSearchLocation = findViewById(R.id.etSearchLocation);
         tvAll = findViewById(R.id.tvAll);
         tvTrending = findViewById(R.id.tvTrending);
         tvTopyear = findViewById(R.id.tvTopyear);
