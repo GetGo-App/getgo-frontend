@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.application.getgoproject.models.Status;
 
@@ -37,6 +38,17 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Status status = statusList.get(position);
 
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+
+        if (status.getUserImage().size() == 1) {
+            staggeredGridLayoutManager.setSpanCount(1);
+        }
+        else if (status.getUserImage().size() >= 2) {
+            staggeredGridLayoutManager.setSpanCount(2);
+        }
+
+        holder.listImage.setLayoutManager(staggeredGridLayoutManager);
+
         ImageStatusAdapter adapter = new ImageStatusAdapter(context, status.getUserImage());
 
         holder.avatar.setImageResource(status.getUserAvatar());
@@ -46,7 +58,6 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
         holder.content.setText(status.getContent());
         holder.listImage.setAdapter(adapter);
 
-        setGridViewHeightBasedOnChildren(holder.listImage, 2);
     }
 
     @Override
@@ -60,7 +71,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
         TextView lastTime;
         TextView title;
         TextView content;
-        GridView listImage;
+        RecyclerView listImage;
         ImageButton heartButton;
 
 
@@ -72,34 +83,8 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
             lastTime = itemView.findViewById(R.id.userLastUploadTime);
             title = itemView.findViewById(R.id.statusTitle);
             content = itemView.findViewById(R.id.statusContent);
-            listImage = itemView.findViewById(R.id.gridViewImage);
+            listImage = itemView.findViewById(R.id.recyclerViewImage);
             heartButton = itemView.findViewById(R.id.heartButton);
         }
-    }
-
-    private void setGridViewHeightBasedOnChildren(GridView gridView, int numColumns) {
-        ListAdapter listAdapter = gridView.getAdapter();
-        if (listAdapter == null) {
-            return;
-        }
-
-        int totalHeight = 0;
-        int items = listAdapter.getCount();
-        int rows = 0;
-
-        View listItem = listAdapter.getView(0, null, gridView);
-        listItem.measure(0, 0);
-        totalHeight = listItem.getMeasuredHeight();
-
-        float x = 1;
-        if (items > numColumns) {
-            x = (float) items / numColumns;
-            rows = (int) (x + 1);
-            totalHeight *= rows;
-        }
-
-        ViewGroup.LayoutParams params = gridView.getLayoutParams();
-        params.height = totalHeight;
-        gridView.setLayoutParams(params);
     }
 }
