@@ -9,6 +9,9 @@ import android.widget.ListView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.application.getgoproject.adapter.HotelAdapter;
+import com.application.getgoproject.models.Hotel;
+
 import java.util.ArrayList;
 
 public class HotelActivity extends AppCompatActivity {

@@ -164,26 +164,27 @@
             app:layout_constraintStart_toStartOf="@+id/userStory3"
             app:layout_constraintTop_toBottomOf="@+id/userStory3" />
 
+
         <EditText
             android:id="@+id/findFriends"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:layout_marginTop="32dp"
-            android:inputType="text"
+            android:layout_marginTop="28dp"
             android:background="@drawable/round_button"
             android:backgroundTint="@color/black"
-            android:hint="Find all your friends"
-            android:textColorHint="@color/white"
-            android:textSize="15sp"
-            android:padding="8dp"
-            android:elevation="8dp"
             android:drawableEnd="@drawable/search_icon"
             android:drawableTint="@color/white"
+            android:elevation="8dp"
+            android:ems="10"
+            android:hint="Find all your friends"
+            android:inputType="text"
+            android:padding="8dp"
+            android:textColorHint="@color/white"
+            android:textSize="15sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
 
         <ImageButton
             android:id="@+id/assistantButton"

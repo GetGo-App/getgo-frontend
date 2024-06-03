@@ -43,13 +43,18 @@
         <activity android:name=".ForgetPasswordActivity" />
         <activity android:name=".ChatBoxActivity" />
         <activity android:name=".UserActivity" />
+        <activity android:name=".AvatarActvity"/>
         <activity android:name=".CommentActivity" />
         <activity android:name=".NewPasswordActivity" />
         <activity android:name=".CameraActivity"/>
         <activity android:name=".HotelActivity"/>
         <activity android:name=".DetailHotelActivity"/>
         <activity android:name=".StatusActivity"/>
-      
+        <activity android:name=".LocationActivity"/>
+        <activity android:name=".ChangeProfileActivity"/>
+        <activity android:name=".PackageActivity"/>
+        <activity android:name=".PaymentMethodActivity"/>
+        <activity android:name=".TransactionActivity"/>
     </application>
 
 </manifest>

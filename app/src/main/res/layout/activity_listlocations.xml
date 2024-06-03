@@ -27,26 +27,27 @@
         android:layout_height="40dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="24dp"
+        app:tint="#000000"
         android:background="@android:color/transparent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/arrow_back"
-        app:tint="@color/black" />
-
-    <EditText
+        app:srcCompat="@drawable/arrow_back" />
+    <SearchView
         android:id="@+id/etSearchLocation"
         android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/semiround_button"
-        android:backgroundTint="#000000"
-        android:hint="Search something..."
-        android:paddingHorizontal="20dp"
+        android:layout_height="35dp"
+        android:textAlignment="textStart"
+        android:inputType="text"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="65dp"
         android:paddingVertical="5dp"
-        android:textColorHint="#8F8C8C"
+        android:textColorHint="#fff"
+        android:background="@drawable/semiround_button"
+        android:backgroundTint="#80D9D9D9"
         app:layout_constraintBottom_toBottomOf="@+id/imgbtnGoback"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toEndOf="@+id/imgbtnGoback"
-        app:layout_constraintTop_toTopOf="@+id/imgbtnGoback" />
+        app:layout_constraintTop_toTopOf="@+id/imgbtnGoback"/>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -64,7 +65,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/kufam"
             android:text="All"
-            android:textSize="13dp"
+            android:textSize="13sp"
             android:textColor="@drawable/color_selector"
             android:background="@drawable/background_selector"
             android:clickable="true"
@@ -77,7 +78,7 @@
             android:layout_marginStart="17dp"
             android:fontFamily="@font/kufam"
             android:text="Trending"
-            android:textSize="13dp"
+            android:textSize="13sp"
             android:textColor="@drawable/color_selector"
             android:background="@drawable/background_selector"
             android:clickable="true"
@@ -90,7 +91,7 @@
             android:layout_marginStart="17dp"
             android:fontFamily="@font/kufam"
             android:text="Top year"
-            android:textSize="13dp"
+            android:textSize="13sp"
             android:textColor="@drawable/color_selector"
             android:background="@drawable/background_selector"
             android:clickable="true"
@@ -124,4 +125,6 @@
         android:layout_marginTop="10dp"
         android:padding="8dp"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

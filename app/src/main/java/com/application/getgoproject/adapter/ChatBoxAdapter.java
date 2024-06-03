@@ -1,4 +1,4 @@
-package com.application.getgoproject;
+package com.application.getgoproject.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.application.getgoproject.R;
 import com.application.getgoproject.models.ChatBox;
 
 import java.util.List;

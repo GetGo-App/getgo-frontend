@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.util.TypedValue;
 
@@ -14,12 +15,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.application.getgoproject.adapter.LocationAdapter;
+import com.application.getgoproject.models.Locations;
+
 import java.util.ArrayList;
 
 public class LocationActivity extends AppCompatActivity {
     private TextView tvAll, tvTrending, tvTopyear, tvFavorite;
-    private EditText etSearchLocation;
-    private RecyclerView recyler;
+    private SearchView etSearchLocation;
+    private RecyclerView recycler;
     private LocationAdapter adapter;
     private ArrayList<Locations> arrayLocation, arrayTopyear, arrayTrending, arrayFavor;
     private ImageButton imgbtnGoback;
@@ -30,13 +34,13 @@ public class LocationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_listlocations);
         anhXa();
 
-        recyler.setLayoutManager(new GridLayoutManager(this, 2));
+        recycler.setLayoutManager(new GridLayoutManager(this, 2));
 
         int spacingInPixels = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, getResources().getDisplayMetrics());
-        recyler.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+        recycler.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
 
         adapter = new LocationAdapter(this, R.layout.layout_locations, arrayLocation);
-        recyler.setAdapter(adapter);
+        recycler.setAdapter(adapter);
 
         imgbtnGoback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,12 +79,12 @@ public class LocationActivity extends AppCompatActivity {
     }
     private void anhXa(){
         imgbtnGoback = findViewById(R.id.imgbtnGoback);
-        etSearchLocation = findViewById(R.id.etSearchLocation);
+//        etSearchLocation = findViewById(R.id.etSearchLocation);
         tvAll = findViewById(R.id.tvAll);
         tvTrending = findViewById(R.id.tvTrending);
         tvTopyear = findViewById(R.id.tvTopyear);
         tvFavorite = findViewById(R.id.tvFavorite);
-        recyler = findViewById(R.id.recyclerView);
+        recycler = findViewById(R.id.recyclerView);
 
         arrayLocation = new ArrayList<>();
         arrayLocation.add(new Locations("Phú Yên", "", "", "", 0,5, R.drawable.sapa, true,"","","","","",5,true, true));

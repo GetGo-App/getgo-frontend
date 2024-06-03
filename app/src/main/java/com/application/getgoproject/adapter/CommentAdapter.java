@@ -1,4 +1,4 @@
-package com.application.getgoproject;
+package com.application.getgoproject.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.application.getgoproject.R;
 import com.application.getgoproject.models.Comment;
 
 import java.util.List;
