@@ -26,8 +26,18 @@
         <activity
             android:name=".MapsActivity"
             android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".StartActivity"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
+
         <activity
-            android:name=".StartActivity"
+            android:name=".PackageActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,7 +45,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".SignInActivity" />
@@ -43,12 +52,17 @@
         <activity android:name=".ForgetPasswordActivity" />
         <activity android:name=".ChatBoxActivity" />
         <activity android:name=".UserActivity" />
+        <activity android:name=".AvatarActvity"/>
         <activity android:name=".CommentActivity" />
         <activity android:name=".NewPasswordActivity" />
         <activity android:name=".CameraActivity"/>
         <activity android:name=".HotelActivity"/>
         <activity android:name=".DetailHotelActivity"/>
-      
+        <activity android:name=".LocationActivity"/>
+        <activity android:name=".ChangeProfileActivity"/>
+<!--        <activity android:name=".PackageActivity"/>-->
+        <activity android:name=".PaymentMethodActivity"/>
+        <activity android:name=".TransactionActivity"/>
     </application>
 
 </manifest>

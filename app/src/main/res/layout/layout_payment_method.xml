@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingVertical="10dp"
+    android:paddingHorizontal="20dp">
+
+    <ImageView
+        android:id="@+id/imgPayment"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/momo" />
+
+    <TextView
+        android:id="@+id/tvTitlePayment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:fontFamily="@font/kufam"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/imgPayment"
+        app:layout_constraintStart_toEndOf="@+id/imgPayment"
+        app:layout_constraintTop_toTopOf="@+id/imgPayment" />
+
+    <RadioButton
+        android:id="@+id/radioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTitlePayment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvTitlePayment" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

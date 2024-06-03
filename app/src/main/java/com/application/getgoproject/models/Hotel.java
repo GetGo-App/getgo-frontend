@@ -1,4 +1,4 @@
-package com.application.getgoproject;
+package com.application.getgoproject.models;
 
 public class Hotel {
     private int imgHotel;

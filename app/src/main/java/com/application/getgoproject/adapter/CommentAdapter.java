@@ -1,4 +1,4 @@
-package com.application.getgoproject;
+package com.application.getgoproject.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.application.getgoproject.R;
 import com.application.getgoproject.models.Comment;
 
 import java.util.List;
@@ -44,11 +45,11 @@ public class CommentAdapter extends BaseAdapter {
         convertView = inflater.inflate(layout, null);
 
         //ánh xạ view
-        TextView name = (TextView) convertView.findViewById(R.id.tvName);
-        TextView time = (TextView) convertView.findViewById(R.id.tvTime);
-        TextView comment = (TextView) convertView.findViewById(R.id.tvComment);
-        ImageView avatar = (ImageView) convertView.findViewById(R.id.imgAvatar);
-        ImageView star = (ImageView) convertView.findViewById(R.id.imgAvatar);
+        TextView name = convertView.findViewById(R.id.tvName);
+        TextView time = convertView.findViewById(R.id.tvTime);
+        TextView comment = convertView.findViewById(R.id.tvComment);
+        ImageView avatar = convertView.findViewById(R.id.imgAvatar);
+        ImageView star = convertView.findViewById(R.id.imgAvatar);
 
         //gan gia tri
         Comment comments = commentList.get(position);
