@@ -1,4 +1,4 @@
-package com.application.getgoproject;
+package com.application.getgoproject.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,24 +6,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
+
+import com.application.getgoproject.R;
+import com.application.getgoproject.models.ListItem;
 
 import java.util.List;
 
-public class HotelAdapter extends BaseAdapter {
+public class PaymentMethodAdapter extends BaseAdapter {
     private Context context;
     private int layout;
-    private List<Hotel> hotelList;
+    private List<ListItem> itemlList;
 
-    public HotelAdapter(Context context, int layout, List<Hotel> hotelList) {
+    public PaymentMethodAdapter(Context context, int layout, List<ListItem> itemlList) {
         this.context = context;
         this.layout = layout;
-        this.hotelList = hotelList;
+        this.itemlList = itemlList;
     }
 
     @Override
     public int getCount() {
-        return hotelList.size();
+        return itemlList.size();
     }
 
     @Override
@@ -42,17 +46,15 @@ public class HotelAdapter extends BaseAdapter {
         convertView = inflater.inflate(layout, null);
 
         //ánh xạ view
-        TextView name = (TextView) convertView.findViewById(R.id.tvNamehotel);
-        TextView money = (TextView) convertView.findViewById(R.id.tvMoneyHotel);
-        TextView comment = (TextView) convertView.findViewById(R.id.tvDetailHotel);
-        ImageView imgHotel = (ImageView) convertView.findViewById(R.id.imgHotel);
+        TextView tvTitlePayment = convertView.findViewById(R.id.tvTitlePayment);
+        ImageView imgPayment = convertView.findViewById(R.id.imgPayment);
+        RadioButton radioButton = convertView.findViewById(R.id.radioButton);
 
         //gan gia tri
-        Hotel hotel = hotelList.get(position);
-        name.setText(hotel.getNameHotel());
-        money.setText(hotel.getMoney());
-        comment.setText(hotel.getCommentHotel());
-        imgHotel.setImageResource(hotel.getImgHotel());
+        ListItem item = itemlList.get(position);
+        tvTitlePayment.setText(item.getTitle());
+        imgPayment.setImageResource(item.getIcon());
+        radioButton.setChecked(false);
 
         return convertView;
     }

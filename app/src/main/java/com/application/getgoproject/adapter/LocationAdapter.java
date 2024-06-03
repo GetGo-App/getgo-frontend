@@ -1,5 +1,6 @@
-package com.application.getgoproject;
+package com.application.getgoproject.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.application.getgoproject.R;
+import com.application.getgoproject.models.Locations;
 
 import java.util.ArrayList;
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHolder> {
@@ -23,6 +27,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         this.locationList = locationList;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setData(ArrayList<Locations> locationList) {
         this.locationList = locationList;
         notifyDataSetChanged();
@@ -61,9 +66,9 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             // Ánh xạ view
-            name = (TextView) itemView.findViewById(R.id.tvNameLocation);
-            imgLocation = (ImageView) itemView.findViewById(R.id.imgLocation);
-            tym = (ImageButton) itemView.findViewById(R.id.btnTym);
+            name = itemView.findViewById(R.id.tvNameLocation);
+            imgLocation = itemView.findViewById(R.id.imgLocation);
+            tym = itemView.findViewById(R.id.btnTym);
         }
     }
 }

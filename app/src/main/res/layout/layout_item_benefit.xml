@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:layout_gravity="center_vertical"
+    android:padding="10dp">
+
+
+    <ImageView
+        android:id="@+id/imgIcon"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/add_location_alt" />
+
+    <TextView
+        android:id="@+id/tvTitleIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="Detailed and customized roadmap"
+        android:fontFamily="@font/kufam"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imgIcon"
+        app:layout_constraintTop_toTopOf="@+id/imgIcon" />
+
+    <TextView
+        android:id="@+id/tvDetailIcon"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/kufam"
+        android:text="The roadmap is built in detail by day, with activities and places to eat, rest, and specifically recommended entertainment."
+        android:textColor="#666666"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/tvTitleIcon"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleIcon" />
+</androidx.constraintlayout.widget.ConstraintLayout>

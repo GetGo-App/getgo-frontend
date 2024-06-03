@@ -1,4 +1,4 @@
-package com.application.getgoproject;
+package com.application.getgoproject.models;
 
 import java.util.List;
 
