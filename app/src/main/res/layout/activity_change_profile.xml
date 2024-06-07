@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff">
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="36dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="36dp" />
+    android:background="#ffff">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
 
     <ImageButton
         android:id="@+id/imgbtnGoback"
@@ -29,191 +20,248 @@
         android:background="@android:color/transparent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/arrow_back"
-        app:tint="@color/black" />
+        app:srcCompat="@drawable/arrow_back" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/kufam"
+        android:fontFamily="@font/kufam_bold_italic"
         android:text="Change Profile"
-        android:textSize="15sp"
-        android:textStyle="bold|italic"
+        android:textColor="#fff"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/imgbtnGoback"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toEndOf="@+id/imgbtnGoback"
         app:layout_constraintTop_toTopOf="@+id/imgbtnGoback" />
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/kufam"
-        android:text="Username"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/imgbtnGoback" />
-
-    <EditText
-        android:id="@+id/edtUsername"
-        android:layout_width="340dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:fontFamily="@font/kufam"
-        android:hint="Nguyen Van A"
-        android:inputType="text"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/textView10"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/shape_rectangle"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgbtnGoback">
 
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/kufam"
-        android:text="Phone number"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="@+id/edtUsername"
-        app:layout_constraintTop_toBottomOf="@+id/edtUsername" />
-
-    <EditText
-        android:id="@+id/edtPhone"
-        android:layout_width="340dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:fontFamily="@font/kufam"
-        android:hint="0987 123 456"
-        android:inputType="number"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="@+id/textView11"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/kufam"
-        android:text="Password"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="@+id/edtPhone"
-        app:layout_constraintTop_toBottomOf="@+id/edtPhone" />
-
-    <EditText
-        android:id="@+id/edtPassword"
-        android:layout_width="340dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="A-Z, a-z, 0-9"
-        android:inputType="textPassword"
-        app:layout_constraintStart_toStartOf="@+id/textView12"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
-
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/kufam"
-        android:text="Confirm Password"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="@+id/edtPassword"
-        app:layout_constraintTop_toBottomOf="@+id/edtPassword" />
-
-    <EditText
-        android:id="@+id/edtConfirmPassword"
-        android:layout_width="340dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="A-Z, a-z, 0-9"
-        android:inputType="textPassword"
-        app:layout_constraintStart_toStartOf="@+id/textView13"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
-
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/kufam"
-        android:text="Birthday"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="@+id/edtConfirmPassword"
-        app:layout_constraintTop_toBottomOf="@+id/edtConfirmPassword" />
-
-    <EditText
-        android:id="@+id/edtBirthday"
-        android:layout_width="340dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="dd/MM/yyyy"
-        android:inputType="text"
-        app:layout_constraintStart_toStartOf="@+id/textView14"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
-
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/kufam"
-        android:text="Gender"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="@+id/edtBirthday"
-        app:layout_constraintTop_toBottomOf="@+id/edtBirthday"/>
-
-    <RadioGroup
-        android:id="@+id/btnRadioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/textView15"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView15"
-        app:layout_constraintTop_toBottomOf="@+id/textView15">
-
-        <RadioButton
-            android:id="@+id/btnMale"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="Male"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="36dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="36dp" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/kufam_bold"
+            android:text="Username"
+            android:textSize="15sp"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <RadioButton
-            android:id="@+id/btnFemale"
+        <EditText
+            android:id="@+id/edtUsername"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:background="@drawable/semiround_button"
+            android:backgroundTint="#EEEEEE"
+            android:paddingLeft="10dp"
+            android:ems="10"
+            android:fontFamily="@font/kufam"
+            android:hint="Nguyen Van A"
+            android:inputType="text"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintHorizontal_bias="0.12"
+            app:layout_constraintStart_toStartOf="@+id/textView10"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+        <TextView
+            android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="false"
-            android:text="Female"
-            app:layout_constraintBottom_toBottomOf="@+id/btnMale"
-            app:layout_constraintStart_toEndOf="@+id/btnMale"
-            app:layout_constraintTop_toTopOf="@+id/btnMale" />
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/kufam_bold"
+            android:text="Phone number"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@+id/edtUsername"
+            app:layout_constraintTop_toBottomOf="@+id/edtUsername" />
 
-        <RadioButton
-            android:id="@+id/btnOther"
+        <EditText
+            android:id="@+id/edtPhone"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:background="@drawable/semiround_button"
+            android:backgroundTint="#EEEEEE"
+            android:ems="10"
+            android:fontFamily="@font/kufam"
+            android:hint="0987 123 456"
+            android:inputType="number"
+            android:paddingLeft="10dp"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/textView11"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+        <TextView
+            android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="false"
-            android:text="Other"
-            app:layout_constraintBottom_toBottomOf="@+id/btnFemale"
-            app:layout_constraintStart_toEndOf="@+id/btnFemale"
-            app:layout_constraintTop_toTopOf="@+id/btnFemale" />
-    </RadioGroup>
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/kufam_bold"
+            android:text="Password"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@+id/edtPhone"
+            app:layout_constraintTop_toBottomOf="@+id/edtPhone" />
 
-    <Button
-        android:id="@+id/btnChange"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#93BC66"
-        android:text="Change Profile"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/btnRadioGroup" />
+        <EditText
+            android:id="@+id/edtPassword"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:background="@drawable/semiround_button"
+            android:backgroundTint="#EEEEEE"
+            android:ems="10"
+            android:hint="A-Z, a-z, 0-9"
+            android:inputType="textPassword"
+            android:paddingLeft="10dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/textView12"
+            app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/kufam_bold"
+            android:text="Confirm Password"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@+id/edtPassword"
+            app:layout_constraintTop_toBottomOf="@+id/edtPassword" />
+
+        <EditText
+            android:id="@+id/edtConfirmPassword"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:background="@drawable/semiround_button"
+            android:backgroundTint="#EEEEEE"
+            android:ems="10"
+            android:hint="A-Z, a-z, 0-9"
+            android:inputType="textPassword"
+            android:paddingLeft="10dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/textView13"
+            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/kufam_bold"
+            android:text="Birthday"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@+id/edtConfirmPassword"
+            app:layout_constraintTop_toBottomOf="@+id/edtConfirmPassword" />
+
+        <EditText
+            android:id="@+id/edtBirthday"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:background="@drawable/semiround_button"
+            android:backgroundTint="#EEEEEE"
+            android:ems="10"
+            android:hint="dd/MM/yyyy"
+            android:inputType="text"
+            android:paddingLeft="10dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/textView14"
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/kufam_bold"
+            android:text="Gender"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@+id/edtBirthday"
+            app:layout_constraintTop_toBottomOf="@+id/edtBirthday" />
+
+        <RadioGroup
+            android:id="@+id/btnRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/textView15"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textView15"
+            app:layout_constraintTop_toBottomOf="@+id/textView15">
+
+            <RadioButton
+                android:id="@+id/btnMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Male"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+            <RadioButton
+                android:id="@+id/btnFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:checked="false"
+                android:text="Female"
+                app:layout_constraintBottom_toBottomOf="@+id/btnMale"
+                app:layout_constraintStart_toEndOf="@+id/btnMale"
+                app:layout_constraintTop_toTopOf="@+id/btnMale" />
+
+            <RadioButton
+                android:id="@+id/btnOther"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:layout_marginLeft="10dp"
+                android:text="Other"
+                app:layout_constraintBottom_toBottomOf="@+id/btnFemale"
+                app:layout_constraintStart_toEndOf="@+id/btnFemale"
+                app:layout_constraintTop_toTopOf="@+id/btnFemale" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btnChange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:backgroundTint="#93BC66"
+            android:text="Change Profile"
+            app:layout_constraintStart_toEndOf="@+id/btnCancel"
+            app:layout_constraintTop_toTopOf="@+id/btnCancel" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="#F44336"
+            android:text="Cancel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/btnRadioGroup" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

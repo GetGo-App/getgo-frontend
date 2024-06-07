@@ -20,7 +20,7 @@ import java.util.Calendar;
 public class ChangeProfileActivity extends AppCompatActivity {
     private EditText edtUsername, edtPhone, edtPassword, edtConfirmPassword, edtBirthday;
     private RadioButton btnMale, btnFemale;
-    private Button btnChange;
+    private Button btnChange, btnCancel;
     private ImageButton imgbtnGoback;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,6 +41,13 @@ public class ChangeProfileActivity extends AppCompatActivity {
             }
         });
 
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancelForm();
+            }
+        });
+
         edtBirthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,8 +65,15 @@ public class ChangeProfileActivity extends AppCompatActivity {
         btnMale = findViewById(R.id.btnMale);
         btnFemale = findViewById(R.id.btnFemale);
         btnChange = findViewById(R.id.btnChange);
+        btnCancel = findViewById(R.id.btnCancel);
         imgbtnGoback = findViewById(R.id.imgbtnGoback);
     }
+    private void cancelForm() {
+        Intent intent = new Intent(this, UserActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     private void userForm() {
         Intent intent = new Intent(this, UserActivity.class);
         startActivity(intent);

@@ -1,6 +1,6 @@
 package com.application.getgoproject.models;
 
-public class Hotel {
+public class Hotel{
     private int imgHotel;
     private String nameHotel;
     private String commentHotel;

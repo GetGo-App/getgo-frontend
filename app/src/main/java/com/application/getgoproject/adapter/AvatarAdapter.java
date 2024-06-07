@@ -5,12 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.application.getgoproject.AvatarActivity;
 import com.application.getgoproject.R;
 import com.application.getgoproject.models.Avatar;
+import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.List;
 
@@ -42,6 +45,10 @@ public class AvatarAdapter extends RecyclerView.Adapter<AvatarAdapter.ViewHolder
     public void onBindViewHolder(@NonNull AvatarAdapter.ViewHolder holder, int position) {
         Avatar item = avatarList.get(position);
         holder.imgAvatar.setImageResource(item.getImgAvatar());
+//        Toast.makeText(AvatarActivity.this, "dang xu li", Toast.LENGTH_SHORT).show();
+//        if (position == selectedPosition) {
+//            holder.avatar.setImageResource(item.getImgAvatar());
+//        }
     }
 
     public interface OnItemClickListener {
@@ -60,6 +67,17 @@ public class AvatarAdapter extends RecyclerView.Adapter<AvatarAdapter.ViewHolder
             super(itemView);
             // Ánh xạ view
             imgAvatar = itemView.findViewById(R.id.imgAvatar);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onItemClickListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            onItemClickListener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
     public void setSelectedPosition(int position) {

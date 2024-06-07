@@ -3,6 +3,7 @@ package com.application.getgoproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
@@ -14,7 +15,7 @@ import com.application.getgoproject.models.Hotel;
 
 import java.util.ArrayList;
 
-public class HotelActivity extends AppCompatActivity {
+public class ListLocationlActivity extends AppCompatActivity {
     ListView lvHotel;
     ArrayList<Hotel> arrayHotel;
     HotelAdapter adapter;
@@ -23,12 +24,22 @@ public class HotelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_hotel);
+        setContentView(R.layout.activity_list_locations);
 
         anhXa();
 
-        adapter = new HotelAdapter(this, R.layout.layout_hotel, arrayHotel);
+        adapter = new HotelAdapter(this, R.layout.layout_item_locations, arrayHotel);
         lvHotel.setAdapter(adapter);
+
+        lvHotel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ListLocationlActivity.this, DetailLocationActivity.class);
+//                intent.putExtra("detail location", arrayHotel.get(position));
+                startActivity(intent);
+                finish();
+            }
+        });
         imgbtnGoback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

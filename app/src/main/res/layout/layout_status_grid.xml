@@ -12,7 +12,6 @@
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:layout_marginTop="36dp"
-        android:layout_marginStart="24dp"
         android:background="#CEE9BE"
         app:circularflow_radiusInDP="20dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,30 +35,30 @@
         android:id="@+id/userLastUploadTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:fontFamily="@font/kufam"
         android:text="2 days ago"
         android:textColor="#D2D1D1"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/username"
-        app:layout_constraintStart_toEndOf="@+id/username"
-        app:layout_constraintTop_toTopOf="@+id/username" />
+        app:layout_constraintStart_toStartOf="@+id/username"
+        app:layout_constraintTop_toBottomOf="@+id/username"/>
 
     <TextView
         android:id="@+id/statusTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/kufam_bold"
         android:text="The Stone Church"
         android:textSize="13sp"
-        app:layout_constraintStart_toEndOf="@+id/avatar"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintStart_toStartOf="@+id/avatar"
+        app:layout_constraintTop_toBottomOf="@+id/avatar" />
 
     <TextView
         android:id="@+id/statusContent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:paddingRight="25dp"
         android:fontFamily="@font/kufam"
         android:text="Centrally located in Sapa town, this architecture has been existence for over 100 years. Although, it is small but the design is nice and harmonized with the surroundings. Love it as i always like capturing photos of old architecture."
         android:textSize="13sp"
@@ -73,6 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:numColumns="2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/avatar"
         app:layout_constraintTop_toBottomOf="@+id/statusContent" />
 
@@ -85,5 +85,26 @@
         app:layout_constraintStart_toStartOf="@+id/recyclerViewImage"
         app:layout_constraintTop_toBottomOf="@+id/recyclerViewImage"
         app:srcCompat="@drawable/heart_icon" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="6.7k reactions"
+        android:textSize="15sp"
+        android:textColor="#666666"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/heartButton" />
+
+    <ImageButton
+        android:id="@+id/btnMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/username"
+        app:srcCompat="@drawable/three_dot" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

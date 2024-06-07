@@ -1,19 +1,21 @@
-package com.application.getgoproject;
+package com.application.getgoproject.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.application.getgoproject.R;
+import com.application.getgoproject.StatusActivity;
 import com.application.getgoproject.models.Status;
 
 import java.util.List;
@@ -72,12 +74,11 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
         TextView title;
         TextView content;
         RecyclerView listImage;
-        ImageButton heartButton;
+        ImageButton heartButton, btnMenu;
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             avatar = itemView.findViewById(R.id.avatar);
             username = itemView.findViewById(R.id.username);
             lastTime = itemView.findViewById(R.id.userLastUploadTime);
@@ -85,6 +86,32 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
             content = itemView.findViewById(R.id.statusContent);
             listImage = itemView.findViewById(R.id.recyclerViewImage);
             heartButton = itemView.findViewById(R.id.heartButton);
+            btnMenu = itemView.findViewById(R.id.btnMenu);
+
+            btnMenu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    showMenu();
+                }
+            });
         }
+
+//        private void showMenu() {
+//            PopupMenu menu = new PopupMenu(itemView, btnMenu);
+//            menu.getMenuInflater().inflate(R.menu.menu_popup, menu.getMenu());
+//            menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                @Override
+//                public boolean onMenuItemClick(MenuItem item) {
+//                    switch ((item.getItemId())){
+//                        case (R.id.menuEdit):
+//                            break;
+//                        case (R.id.menuDelete):
+//                            break;;
+//                    }
+//                    return false;
+//                }
+//            });
+//            menu.show();
+//        }
     }
 }

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageButton
@@ -16,27 +17,14 @@
         app:srcCompat="@drawable/arrow_back"
         app:tint="@color/black" />
 
-    <ImageButton
-        android:id="@+id/imgbtnMenu"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="24dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline10"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/menu_icon"
-        app:tint="@color/black" />
-
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/avatar"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_marginTop="72dp"
-        android:layout_marginStart="8dp"
         android:background="#CEE9BE"
         app:circularflow_radiusInDP="20dp"
-        app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgbtnGoback"
+        app:layout_constraintTop_toBottomOf="@+id/imgbtnGoback"
         app:shapeAppearanceOverlay="@style/roundedImage"
         app:srcCompat="@drawable/avatar" />
 
@@ -49,15 +37,6 @@
         android:textColor="#93BC66"
         app:layout_constraintStart_toStartOf="@+id/avatar"
         app:layout_constraintTop_toBottomOf="@+id/avatar" />
-
-    <TextView
-        android:id="@+id/userDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="No deadline no life"
-        android:fontFamily="@font/kufam_italic"
-        app:layout_constraintStart_toStartOf="@+id/username"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <TextView
         android:id="@+id/userStatusNumber"
@@ -75,7 +54,7 @@
         android:id="@+id/textView22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="statuses"
+        android:text="Statuses"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="@+id/userStatusNumber"
         app:layout_constraintStart_toStartOf="@+id/userStatusNumber"
@@ -102,19 +81,6 @@
         app:layout_constraintStart_toStartOf="@+id/userFriendNumber"
         app:layout_constraintTop_toBottomOf="@+id/userFriendNumber" />
 
-    <Button
-        android:id="@+id/changeProfileButton"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Change profile"
-        android:backgroundTint="#93BC66"
-        android:fontFamily="@font/kufam"
-        app:layout_constraintEnd_toStartOf="@+id/userStatusNumber"
-        app:layout_constraintStart_toStartOf="@+id/userDescription"
-        app:layout_constraintTop_toBottomOf="@+id/userDescription" />
-
     <View
         android:id="@+id/view"
         android:layout_width="0dp"
@@ -128,13 +94,12 @@
         android:id="@+id/tabStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Status"
-        android:textStyle="bold"
         android:background="@drawable/underline_button"
+        android:text="Status"
         android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@+id/changeProfileButton" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSettingAccount" />
 
     <Button
         android:id="@+id/tabImage"
@@ -184,5 +149,27 @@
         app:layout_constraintTop_toBottomOf="@+id/tabStatus">
 
     </FrameLayout>
+
+    <Button
+        android:id="@+id/btnAddStatus"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:backgroundTint="#93BC66"
+        android:text="New status"
+        app:layout_constraintStart_toEndOf="@+id/btnSettingAccount"
+        app:layout_constraintTop_toTopOf="@+id/btnSettingAccount" />
+
+    <Button
+        style="@style/Widget.MaterialComponents.Button"
+        android:id="@+id/btnSettingAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Setting Account"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="@+id/username"
+        app:layout_constraintTop_toBottomOf="@+id/username" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

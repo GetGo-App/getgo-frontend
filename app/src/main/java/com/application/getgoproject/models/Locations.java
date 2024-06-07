@@ -1,8 +1,8 @@
 package com.application.getgoproject.models;
 
-import java.util.List;
+import java.io.Serializable;
 
-public class Locations {
+public class Locations implements Serializable {
     private String name;
     private String address;
     private String shortDescription;

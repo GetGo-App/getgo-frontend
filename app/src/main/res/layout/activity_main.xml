@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff4f4"
+    android:background="#fff"
     tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -64,18 +64,15 @@
             android:id="@+id/avatar"
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:layout_marginTop="48dp"
-            android:background="#CEE9BE"
-            app:shapeAppearanceOverlay="@style/roundedImage"
+            android:background="#DADADA"
             app:circularflow_radiusInDP="20dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintHorizontal_bias="0.672"
-            app:layout_constraintStart_toEndOf="@+id/username"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/username"
+            app:shapeAppearanceOverlay="@style/roundedImage"
             app:srcCompat="@drawable/avatar" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/imgAddStory"
             android:layout_width="74dp"
             android:layout_height="74dp"
             android:layout_marginTop="16dp"
@@ -91,11 +88,12 @@
             android:layout_height="wrap_content"
             android:text="You"
             android:textColor="#93BC66"
+            android:textStyle="bold"
             android:textSize="15sp"
-            android:fontFamily="@font/kufam_bold"
-            app:layout_constraintEnd_toEndOf="@+id/imageButton"
-            app:layout_constraintStart_toStartOf="@+id/imageButton"
-            app:layout_constraintTop_toBottomOf="@+id/imageButton" />
+            android:fontFamily="@font/kufam"
+            app:layout_constraintEnd_toEndOf="@+id/imgAddStory"
+            app:layout_constraintStart_toStartOf="@+id/imgAddStory"
+            app:layout_constraintTop_toBottomOf="@+id/imgAddStory" />
 
         <ImageButton
             android:id="@+id/imgAvatar"
@@ -104,17 +102,18 @@
             android:layout_marginStart="24dp"
             android:elevation="8dp"
             android:background="@drawable/border_gradient"
-            app:layout_constraintStart_toEndOf="@+id/imageButton"
-            app:layout_constraintTop_toTopOf="@+id/imageButton"
-            app:layout_constraintBottom_toBottomOf="@+id/imageButton" />
+            app:layout_constraintStart_toEndOf="@+id/imgAddStory"
+            app:layout_constraintTop_toTopOf="@+id/imgAddStory"
+            app:layout_constraintBottom_toBottomOf="@+id/imgAddStory" />
 
         <TextView
             android:id="@+id/userStoryName1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mai"
+            android:textStyle="bold"
             android:textSize="15sp"
-            android:fontFamily="@font/kufam_bold"
+            android:fontFamily="@font/kufam"
             app:layout_constraintEnd_toEndOf="@+id/imgAvatar"
             app:layout_constraintStart_toStartOf="@+id/imgAvatar"
             app:layout_constraintTop_toBottomOf="@+id/imgAvatar" />
@@ -136,8 +135,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Phuc"
+            android:textStyle="bold"
             android:textSize="15sp"
-            android:fontFamily="@font/kufam_bold"
+            android:fontFamily="@font/kufam"
             app:layout_constraintEnd_toEndOf="@+id/userStory2"
             app:layout_constraintStart_toStartOf="@+id/userStory2"
             app:layout_constraintTop_toBottomOf="@+id/userStory2" />
@@ -158,153 +158,136 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nghia"
+            android:textStyle="bold"
             android:textSize="15sp"
-            android:fontFamily="@font/kufam_bold"
+            android:fontFamily="@font/kufam"
             app:layout_constraintEnd_toEndOf="@+id/userStory3"
             app:layout_constraintStart_toStartOf="@+id/userStory3"
             app:layout_constraintTop_toBottomOf="@+id/userStory3" />
-
 
         <EditText
             android:id="@+id/findFriends"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:ems="10"
+            android:layout_marginTop="32dp"
+            android:inputType="text"
             android:background="@drawable/round_button"
             android:backgroundTint="@color/black"
-            android:drawableEnd="@drawable/search_icon"
-            android:drawableTint="@color/white"
-            android:elevation="8dp"
-            android:ems="10"
             android:hint="Find all your friends"
-            android:inputType="text"
-            android:padding="8dp"
             android:textColorHint="@color/white"
             android:textSize="15sp"
+            android:padding="8dp"
+            android:elevation="8dp"
+            android:drawableEnd="@drawable/search_icon"
+            android:drawableTint="@color/white"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
+
         <ImageButton
-            android:id="@+id/assistantButton"
+            android:id="@+id/btnAssistant"
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:background="@drawable/semiround_button"
             android:layout_marginTop="32dp"
             android:layout_marginStart="24dp"
             android:elevation="16dp"
+            android:backgroundTint="#000000"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toBottomOf="@+id/findFriends"
-            app:srcCompat="@drawable/assistant_icon" />
+            app:srcCompat="@drawable/forum" />
 
         <TextView
             android:id="@+id/textAssistant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/kufam"
             android:text="Assistant"
             android:textSize="16sp"
-            android:fontFamily="@font/kufam_bold"
-            app:layout_constraintEnd_toEndOf="@+id/assistantButton"
-            app:layout_constraintStart_toStartOf="@+id/assistantButton"
-            app:layout_constraintTop_toBottomOf="@+id/assistantButton" />
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/btnAssistant"
+            app:layout_constraintStart_toStartOf="@+id/btnAssistant"
+            app:layout_constraintTop_toBottomOf="@+id/btnAssistant" />
 
         <ImageButton
-            android:id="@+id/thirdPartyButton"
+            android:id="@+id/btnStatus"
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:background="@drawable/semiround_button"
             android:elevation="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/assistantButton"
-            app:layout_constraintEnd_toStartOf="@+id/settingButton"
-            app:layout_constraintStart_toEndOf="@+id/assistantButton"
-            app:layout_constraintTop_toTopOf="@+id/assistantButton"
-            app:srcCompat="@drawable/notes_icon"/>
+            android:backgroundTint="#000000"
+            app:layout_constraintBottom_toBottomOf="@+id/btnAssistant"
+            app:layout_constraintEnd_toStartOf="@+id/btnQr"
+            app:layout_constraintHorizontal_bias="0.558"
+            app:layout_constraintStart_toEndOf="@+id/btnAssistant"
+            app:layout_constraintTop_toTopOf="@+id/btnAssistant"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/clinical_notes" />
 
         <TextView
             android:id="@+id/textThirdParty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Third Party"
+            android:text="Status"
+            android:textStyle="bold"
             android:textSize="16sp"
-            android:fontFamily="@font/kufam_bold"
-            app:layout_constraintEnd_toEndOf="@+id/thirdPartyButton"
-            app:layout_constraintStart_toStartOf="@+id/thirdPartyButton"
-            app:layout_constraintTop_toBottomOf="@+id/thirdPartyButton" />
+            android:fontFamily="@font/kufam"
+            app:layout_constraintEnd_toEndOf="@+id/btnStatus"
+            app:layout_constraintStart_toStartOf="@+id/btnStatus"
+            app:layout_constraintTop_toBottomOf="@+id/btnStatus" />
 
         <ImageButton
-            android:id="@+id/settingButton"
+            android:id="@+id/btnQr"
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:layout_marginEnd="24dp"
             android:background="@drawable/semiround_button"
             android:elevation="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/thirdPartyButton"
+            android:backgroundTint="#000000"
+            app:layout_constraintBottom_toBottomOf="@+id/btnStatus"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintTop_toTopOf="@+id/thirdPartyButton"
-            app:srcCompat="@drawable/setting_icon" />
+            app:layout_constraintTop_toTopOf="@+id/btnStatus"
+            app:srcCompat="@drawable/qr_code" />
 
         <TextView
             android:id="@+id/textSetting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Setting"
+            android:text="QR Code"
+            android:textStyle="bold"
             android:textSize="16sp"
-            android:fontFamily="@font/kufam_bold"
-            app:layout_constraintEnd_toEndOf="@+id/settingButton"
-            app:layout_constraintStart_toStartOf="@+id/settingButton"
-            app:layout_constraintTop_toBottomOf="@+id/settingButton" />
+            android:fontFamily="@font/kufam"
+            app:layout_constraintEnd_toEndOf="@+id/btnQr"
+            app:layout_constraintStart_toStartOf="@+id/btnQr"
+            app:layout_constraintTop_toBottomOf="@+id/btnQr" />
+
+        <ImageView
+            android:id="@+id/imgBanner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textAssistant"
+            app:srcCompat="@drawable/banner" />
 
         <TextView
             android:id="@+id/textDiscover"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="10dp"
             android:text="Discover"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toBottomOf="@+id/textAssistant" />
-
-        <TextView
-            android:id="@+id/textTrend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="Trend"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toBottomOf="@+id/textDiscover" />
-
-        <TextView
-            android:id="@+id/textTopYear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="Top year"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            app:layout_constraintStart_toEndOf="@+id/textTrend"
-            app:layout_constraintTop_toTopOf="@+id/textTrend"
-            app:layout_constraintBottom_toBottomOf="@+id/textTrend"/>
-
-        <TextView
-            android:id="@+id/textFavourite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="Favourite"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            app:layout_constraintStart_toEndOf="@+id/textTopYear"
-            app:layout_constraintTop_toTopOf="@+id/textTopYear"
-            app:layout_constraintBottom_toBottomOf="@+id/textTopYear"/>
+            app:layout_constraintTop_toBottomOf="@+id/imgBanner" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
@@ -312,22 +295,23 @@
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:cardCornerRadius="40dp"
-            app:layout_constraintStart_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toBottomOf="@+id/textTrend">
+            app:layout_constraintStart_toStartOf="@+id/textDiscover"
+            app:layout_constraintTop_toBottomOf="@+id/textDiscover">
 
             <ImageView
                 android:id="@+id/imgPlace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/sapabackground" />
+                app:srcCompat="@drawable/sapa" />
 
             <TextView
                 android:id="@+id/textSaPa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sa Pa"
-                android:fontFamily="@font/kufam_bold"
+                android:fontFamily="@font/kufam"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 android:textColor="@color/white"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"/>

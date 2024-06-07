@@ -12,21 +12,18 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.getgoproject.adapter.AvatarAdapter;
-import com.application.getgoproject.adapter.BenefitAdapter;
-import com.application.getgoproject.adapter.PackageAdapter;
 import com.application.getgoproject.models.Avatar;
-import com.application.getgoproject.models.ListItem;
-import com.application.getgoproject.models.ListPackage;
+import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.ArrayList;
 
-public class AvatarActvity extends AppCompatActivity {
+public class AvatarActivity extends AppCompatActivity {
     private Button btnUpload, btnSave;
-    private TextView btnClose;
+
+    private ShapeableImageView avatar;
     private ImageView imgbtnGoback;
     private ArrayList<Avatar> arrayAvatar;
     private AvatarAdapter avatarAdapter;
@@ -48,18 +45,18 @@ public class AvatarActvity extends AppCompatActivity {
         avatarAdapter.setOnItemClickListener(new AvatarAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-//                index = position;
-//                avatarAdapter.setSelectedPosition(position);
+                index = position;
+                avatarAdapter.setSelectedPosition(position);
 //
 //                Avatar clickedItem = arrayAvatar.get(position);
-//                Toast.makeText(AvatarActvity.this," "+ clickedItem.getImgAvatar(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AvatarActivity.this, "" + position, Toast.LENGTH_SHORT).show();
             }
         });
 
         imgbtnGoback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AvatarActvity.this, UserActivity.class);
+                Intent intent = new Intent(AvatarActivity.this, UserActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -81,6 +78,7 @@ public class AvatarActvity extends AppCompatActivity {
         imgbtnGoback = findViewById(R.id.imgbtnGoback);
         btnUpload = findViewById(R.id.btnUpload);
         btnSave = findViewById(R.id.btnSave);
+        avatar = findViewById(R.id.avatar);
         recyclerAvatar = findViewById(R.id.recyclerAvatar);
 
         arrayAvatar = new ArrayList<>();

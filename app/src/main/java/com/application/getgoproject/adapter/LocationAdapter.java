@@ -20,11 +20,26 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
     private Context context;
     private ArrayList<Locations> locationList;
     private int layout;
+    private LocationAdapter.OnItemClickListener onItemClickListener;
+    private int selectedPosition = -1;
 
     public LocationAdapter(Context context, int layout, ArrayList<Locations> locationList) {
         this.context = context;
         this.layout = layout;
         this.locationList = locationList;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(LocationAdapter.OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public void setSelectedPosition(int position) {
+        this.selectedPosition = position;
+        notifyDataSetChanged();
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -37,7 +52,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_locations, parent, false);
-        return new ViewHolder(view);
+        return new LocationAdapter.ViewHolder(view, onItemClickListener);
     }
 
     @Override
@@ -45,12 +60,12 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         Locations location = locationList.get(position);
         holder.name.setText(location.getName());
         holder.imgLocation.setImageResource(location.getImage());
-        holder.tym.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        holder.tym.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
     }
 
     @Override
@@ -63,12 +78,24 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         TextView name;
         ImageView imgLocation;
         ImageButton tym;
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, final LocationAdapter.OnItemClickListener onItemClickListener) {
             super(itemView);
             // Ánh xạ view
             name = itemView.findViewById(R.id.tvNameLocation);
             imgLocation = itemView.findViewById(R.id.imgLocation);
             tym = itemView.findViewById(R.id.btnTym);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onItemClickListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            onItemClickListener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 }

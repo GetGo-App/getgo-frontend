@@ -1,4 +1,4 @@
-package com.application.getgoproject;
+package com.application.getgoproject.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.application.getgoproject.R;
 import com.application.getgoproject.models.Image;
 
 import java.util.List;

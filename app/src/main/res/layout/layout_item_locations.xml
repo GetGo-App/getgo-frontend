@@ -125,16 +125,5 @@
         app:layout_constraintStart_toEndOf="@+id/tvMoneyHotel"
         app:layout_constraintTop_toTopOf="@+id/tvMoneyHotel" />
 
-    <Button
-        android:id="@+id/btnCheckAvailable"
-        android:layout_width="140dp"
-        android:layout_height="35dp"
-        android:backgroundTint="#93BC66"
-        android:fontFamily="@font/kufam_bold"
-        android:text="Check availability"
-        android:textColor="#fff"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="@+id/tvDetailHotel"
-        app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
