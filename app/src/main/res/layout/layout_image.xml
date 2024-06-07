@@ -8,8 +8,10 @@
     <GridView
         android:id="@+id/listImage"
         android:layout_width="match_parent"
-        android:layout_height="1000dp"
-        android:numColumns="3"
+        android:layout_height="670dp"
+        android:numColumns="2"
+        android:horizontalSpacing="5dp"
+        android:verticalSpacing="5dp"
         android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,5 +1,6 @@
 package com.application.getgoproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChatBoxActivity extends AppCompatActivity {
-
+    private ImageButton buttonBack;
     private RecyclerView recyclerView;
     private ChatBoxAdapter chatBoxAdapter;
     private List<ChatBox> chatBoxList;
@@ -26,6 +27,7 @@ public class ChatBoxActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatbox);
+
 
         recyclerView = findViewById(R.id.recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -38,6 +40,7 @@ public class ChatBoxActivity extends AppCompatActivity {
         chatBoxAdapter = new ChatBoxAdapter(chatBoxList);
         recyclerView.setAdapter(chatBoxAdapter);
 
+        buttonBack = findViewById(R.id.buttonBack);
         EditText editTextMessage = findViewById(R.id.editTextMessage);
         ImageButton sendButton = findViewById(R.id.buttonSend);
 
@@ -56,6 +59,12 @@ public class ChatBoxActivity extends AppCompatActivity {
                 }
             }
         });
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                homeForm();
+            }
+        });
     }
 
     private void simulateReceivedMessage() {
@@ -68,5 +77,10 @@ public class ChatBoxActivity extends AppCompatActivity {
                 recyclerView.scrollToPosition(chatBoxList.size() - 1);
             }
         }, 1000);
+    }
+    private void homeForm(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

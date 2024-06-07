@@ -20,24 +20,26 @@
 
     <TextView
         android:id="@+id/tvTitleIcon"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:text="Detailed and customized roadmap"
         android:fontFamily="@font/kufam"
+        android:text="Detailed and customized roadmap"
         android:textSize="15sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imgIcon"
         app:layout_constraintTop_toTopOf="@+id/imgIcon" />
 
     <TextView
         android:id="@+id/tvDetailIcon"
-        android:layout_width="350dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/kufam"
         android:text="The roadmap is built in detail by day, with activities and places to eat, rest, and specifically recommended entertainment."
         android:textColor="#666666"
         android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvTitleIcon"
         app:layout_constraintTop_toBottomOf="@+id/tvTitleIcon" />
 </androidx.constraintlayout.widget.ConstraintLayout>

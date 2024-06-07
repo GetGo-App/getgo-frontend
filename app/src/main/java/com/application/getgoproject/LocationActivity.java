@@ -3,7 +3,6 @@ package com.application.getgoproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -24,14 +23,14 @@ public class LocationActivity extends AppCompatActivity {
     private TextView tvAll, tvTrending, tvTopyear, tvFavorite;
     private SearchView etSearchLocation;
     private RecyclerView recycler;
-    private LocationAdapter adapter;
+    private LocationAdapter locationAdapter;
     private ArrayList<Locations> arrayLocation, arrayTopyear, arrayTrending, arrayFavor;
     private ImageButton imgbtnGoback;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_listlocations);
+        setContentView(R.layout.activity_locations);
         anhXa();
 
         recycler.setLayoutManager(new GridLayoutManager(this, 2));
@@ -39,8 +38,19 @@ public class LocationActivity extends AppCompatActivity {
         int spacingInPixels = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, getResources().getDisplayMetrics());
         recycler.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
 
-        adapter = new LocationAdapter(this, R.layout.layout_locations, arrayLocation);
-        recycler.setAdapter(adapter);
+        locationAdapter = new LocationAdapter(this, R.layout.layout_locations, arrayLocation);
+        recycler.setAdapter(locationAdapter);
+
+        locationAdapter.setOnItemClickListener(new LocationAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                locationAdapter.setSelectedPosition(position);
+
+                Intent intent = new Intent(LocationActivity.this, ListLocationlActivity.class);
+                intent.putExtra("location", arrayLocation.get(position));
+                startActivity(intent);
+            }
+        });
 
         imgbtnGoback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,34 +62,40 @@ public class LocationActivity extends AppCompatActivity {
         tvAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.setData(arrayLocation);
+                locationAdapter.setData(arrayLocation);
             }
         });
 
         tvTrending.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.setData(arrayTrending);
+                locationAdapter.setData(arrayTrending);
             }
         });
 
         tvTopyear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.setData(arrayTopyear);
+                locationAdapter.setData(arrayTopyear);
             }
         });
 
         tvFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.setData(arrayFavor);
+                locationAdapter.setData(arrayFavor);
+            }
+        });
+        etSearchLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
     private void anhXa(){
         imgbtnGoback = findViewById(R.id.imgbtnGoback);
-//        etSearchLocation = findViewById(R.id.etSearchLocation);
+        etSearchLocation = findViewById(R.id.etSearchLocation);
         tvAll = findViewById(R.id.tvAll);
         tvTrending = findViewById(R.id.tvTrending);
         tvTopyear = findViewById(R.id.tvTopyear);

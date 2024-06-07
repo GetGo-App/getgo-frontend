@@ -21,7 +21,7 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.ViewHold
     private List<ListPackage> packageList;
 
     private OnItemClickListener onItemClickListener;
-    private int selectedPosition = -1;
+    private int selectedPosition = 0;
     public PackageAdapter(Context context, int layout, List<ListPackage> packageList) {
         this.context = context;
         this.layout = layout;
