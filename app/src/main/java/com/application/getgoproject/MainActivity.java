@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,12 +14,16 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.application.getgoproject.models.UserAuthentication;
+import com.application.getgoproject.utils.SharedPrefManager;
 import com.google.android.material.imageview.ShapeableImageView;
 
 public class MainActivity extends AppCompatActivity {
     private ShapeableImageView avatar;
     private ImageView imgPlace, imgBanner;
     private ImageButton btnAssistant, btnStatus, btnQr, imgAddStory;
+    private TextView tvUsername;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +31,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mapping();
+
+        UserAuthentication userAuthentication = SharedPrefManager.getInstance(this).getUser();
+        if (userAuthentication != null) {
+            String username = userAuthentication.getUsername();
+            tvUsername.setText(username);
+        } else {
+            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
+            // Optionally redirect to login screen
+        }
+
         btnAssistant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         btnStatus = findViewById(R.id.btnStatus);
         btnQr = findViewById(R.id.btnQr);
         imgAddStory =findViewById(R.id.imgAddStory);
+        tvUsername = findViewById(R.id.username);
     }
     private void packageForm(){
         Intent intent = new Intent(this, PackageActivity.class);
