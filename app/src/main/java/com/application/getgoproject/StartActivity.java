@@ -12,6 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.application.getgoproject.models.UserAuthentication;
+import com.application.getgoproject.utils.SharedPrefManager;
+
 public class StartActivity extends AppCompatActivity {
     TextView textView;
     TextView textView1;
@@ -21,6 +24,12 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        if (isUserSignedIn()) {
+            Intent intent = new Intent(StartActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
         mapping();
 
@@ -61,5 +70,10 @@ public class StartActivity extends AppCompatActivity {
             overridePendingTransition(R.anim.activity_fade, R.anim.activity_fade);
             finish();
         }
+    }
+
+    private boolean isUserSignedIn() {
+        UserAuthentication userAuthentication = SharedPrefManager.getInstance(this).getUser();
+        return userAuthentication != null && userAuthentication.getAccessToken() != null;
     }
 }

@@ -44,6 +44,9 @@ dependencies {
     implementation libs.camera.view
     implementation libs.play.services.maps
     implementation libs.zxing.android.embedded
+    implementation libs.retrofit
+    implementation libs.converter.gson
+    implementation libs.java.jwt
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core

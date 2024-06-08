@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -14,11 +15,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.getgoproject.adapter.ListItemAdapter;
 import com.application.getgoproject.models.ListItem;
+import com.application.getgoproject.models.UserAuthentication;
+import com.application.getgoproject.utils.RetrofitClient;
+import com.application.getgoproject.utils.SharedPrefManager;
 
 import java.util.ArrayList;
 
+import retrofit2.Retrofit;
+
 public class UserActivity extends AppCompatActivity {
     private ImageButton imgBtnHome, imageBtnAdd, imgbtnGoback;
+    private TextView tvName;
     private RecyclerView recyclerUser, recyclerService;
     private ListItemAdapter adapterUser, adapterService;
     private ArrayList<ListItem> arrayPersonal, arrayService;
@@ -29,6 +36,12 @@ public class UserActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_user);
         mapping();
+
+        UserAuthentication userAuthentication = SharedPrefManager.getInstance(this).getUser();
+        if (userAuthentication != null) {
+            String name = userAuthentication.getUsername();
+            tvName.setText(name);
+        }
 
         adapterUser = new ListItemAdapter(this, R.layout.layout_item_profile, arrayPersonal);
         recyclerUser.setAdapter(adapterUser);
@@ -76,6 +89,8 @@ public class UserActivity extends AppCompatActivity {
                     Intent intent = new Intent(UserActivity.this, PrivacyPolicyActivity.class);
                     startActivity(intent);
                     finish();
+                } else if (clickedItem.getTitle().equals("Log out")) {
+                    logout();
                 }
             }
         });
@@ -110,6 +125,7 @@ public class UserActivity extends AppCompatActivity {
         imgbtnGoback = findViewById(R.id.imgbtnGoback);
         recyclerUser = findViewById(R.id.recyclerUser);
         recyclerService = findViewById(R.id.recyclerService);
+        tvName = findViewById(R.id.tvName);
 
         arrayPersonal = new ArrayList<>();
         arrayPersonal.add(new ListItem(R.drawable.profile, "Change Profile",""));
@@ -119,7 +135,7 @@ public class UserActivity extends AppCompatActivity {
         arrayService.add(new ListItem(R.drawable.brightness_alert, "Term of services",""));
         arrayService.add(new ListItem(R.drawable.privacy_tip, "Privacy policy",""));
         arrayService.add(new ListItem(R.drawable.chat_info, "Support",""));
-        arrayService.add(new ListItem(R.drawable.move_item, "Log out ",""));
+        arrayService.add(new ListItem(R.drawable.move_item, "Log out",""));
     }
     private void homeForm(){
         Intent intent = new Intent(this, MainActivity.class);
@@ -128,6 +144,16 @@ public class UserActivity extends AppCompatActivity {
     }
     private void statusForm(){
         Intent intent = new Intent(this, StatusActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void logout() {
+        SharedPrefManager.getInstance(this).clear();
+        Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(UserActivity.this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }
