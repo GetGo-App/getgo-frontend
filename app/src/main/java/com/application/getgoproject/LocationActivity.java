@@ -1,6 +1,8 @@
 package com.application.getgoproject;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -11,6 +13,7 @@ import android.util.TypedValue;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,7 +38,7 @@ public class LocationActivity extends AppCompatActivity {
 
         recycler.setLayoutManager(new GridLayoutManager(this, 2));
 
-        int spacingInPixels = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, getResources().getDisplayMetrics());
+        int spacingInPixels = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3, getResources().getDisplayMetrics());
         recycler.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
 
         locationAdapter = new LocationAdapter(this, R.layout.layout_locations, arrayLocation);
@@ -47,7 +50,7 @@ public class LocationActivity extends AppCompatActivity {
                 locationAdapter.setSelectedPosition(position);
 
                 Intent intent = new Intent(LocationActivity.this, ListLocationlActivity.class);
-                intent.putExtra("location", arrayLocation.get(position));
+                intent.putExtra("location", arrayLocation.get(position).getCity());
                 startActivity(intent);
             }
         });
@@ -59,9 +62,12 @@ public class LocationActivity extends AppCompatActivity {
             }
         });
 
+        updateTextViewStyles(tvAll, tvTrending, tvTopyear, tvFavorite);
+
         tvAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                updateTextViewStyles(tvAll, tvTrending, tvTopyear, tvFavorite);
                 locationAdapter.setData(arrayLocation);
             }
         });
@@ -69,6 +75,7 @@ public class LocationActivity extends AppCompatActivity {
         tvTrending.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                updateTextViewStyles(tvTrending, tvTopyear, tvAll, tvFavorite);
                 locationAdapter.setData(arrayTrending);
             }
         });
@@ -76,6 +83,7 @@ public class LocationActivity extends AppCompatActivity {
         tvTopyear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                updateTextViewStyles(tvTopyear, tvAll, tvTrending, tvFavorite);
                 locationAdapter.setData(arrayTopyear);
             }
         });
@@ -83,6 +91,7 @@ public class LocationActivity extends AppCompatActivity {
         tvFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                updateTextViewStyles(tvFavorite, tvAll, tvTrending, tvTopyear);
                 locationAdapter.setData(arrayFavor);
             }
         });
@@ -103,16 +112,16 @@ public class LocationActivity extends AppCompatActivity {
         recycler = findViewById(R.id.recyclerView);
 
         arrayLocation = new ArrayList<>();
-        arrayLocation.add(new Locations("Phú Yên", "", "", "", 0,5, R.drawable.sapa, true,"","","","","",5,true, true));
-        arrayLocation.add(new Locations("Đăk Lăk", "", "", "", 0,5, R.drawable.sapa, true,"","","","","",5,false, false));
-        arrayLocation.add(new Locations("Gia Lai", "", "", "", 0,5, R.drawable.sapa, true,"","","","","",5,false, false));
-        arrayLocation.add(new Locations("Tp Hồ Chí Minh", "", "", "", 0,5, R.drawable.sapa, true,"","","","","",5,true, false));
-        arrayLocation.add(new Locations("Hà Nội", "", "", "", 0,5, R.drawable.sapa, true,"","","","","",5,true, false));
-        arrayLocation.add(new Locations("Phú Yên", "", "", "", 0,5, R.drawable.sapa, true,"","","","","",5,false, false));
-        arrayLocation.add(new Locations("Đăk Lăk", "", "", "", 0,5, R.drawable.sapa, true,"","","","","",5,false, false));
-        arrayLocation.add(new Locations("Gia Lai", "", "", "", 0,5, R.drawable.sapa, true,"","","","","",5,true, false));
-        arrayLocation.add(new Locations("Tp Hồ Chí Minh", "", "", "", 0,5, R.drawable.sapa, true,"","","","","",5,true, false));
-        arrayLocation.add(new Locations("Hà Nội", "", "", "", 0,5, R.drawable.sapa, true,"","","","","",5,true, true));
+        arrayLocation.add(new Locations("Quận 1", "", "", "HCM", 0,5, R.drawable.sapa, true,"","","","","",5,true, true));
+        arrayLocation.add(new Locations("Quận 2", "", "", "HCM", 0,5, R.drawable.sapa, true,"","","","","",5,false, false));
+        arrayLocation.add(new Locations("Quận 3", "", "", "HCM", 0,5, R.drawable.sapa, true,"","","","","",5,false, false));
+        arrayLocation.add(new Locations("Hoàng Mai", "", "Hà Nội", "", 0,5, R.drawable.sapa, true,"","","","","",5,true, false));
+        arrayLocation.add(new Locations("Đống Đa", "", "", "Hà Nội", 0,5, R.drawable.sapa, true,"","","","","",5,true, false));
+        arrayLocation.add(new Locations("Thanh Yên", "", "", "Hà Nội", 0,5, R.drawable.sapa, true,"","","","","",5,false, false));
+        arrayLocation.add(new Locations("Đăk Lăk", "", "", "Đà Nẵng", 0,5, R.drawable.sapa, true,"","","","","",5,false, false));
+        arrayLocation.add(new Locations("Gia Lai", "", "", "Đà Nẵng", 0,5, R.drawable.sapa, true,"","","","","",5,true, false));
+        arrayLocation.add(new Locations("Tp Hồ Chí Minh", "", "Đà Nẵng", "", 0,5, R.drawable.sapa, true,"","","","","",5,true, false));
+        arrayLocation.add(new Locations("Hà Nội", "", "", "Đà Nẵng", 0,5, R.drawable.sapa, true,"","","","","",5,true, true));
 
         arrayTopyear = new ArrayList<>();
         arrayTrending = new ArrayList<>();
@@ -131,5 +140,14 @@ public class LocationActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+    private void updateTextViewStyles(TextView selectedTextView, TextView... otherTextViews) {
+        selectedTextView.setBackgroundResource(R.drawable.underline_button);
+        selectedTextView.setTextColor(getColor(R.color.black));
+
+        for (TextView textView : otherTextViews) {
+            textView.setBackgroundResource(R.drawable.not_underline_button);
+            textView.setTextColor(Color.parseColor("#858585"));
+        }
     }
 }

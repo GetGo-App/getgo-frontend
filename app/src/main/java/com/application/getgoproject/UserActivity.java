@@ -45,7 +45,6 @@ public class UserActivity extends AppCompatActivity {
 
         adapterUser = new ListItemAdapter(this, R.layout.layout_item_profile, arrayPersonal);
         recyclerUser.setAdapter(adapterUser);
-
         recyclerUser.setLayoutManager(new LinearLayoutManager(this));
 
         adapterService = new ListItemAdapter(this, R.layout.layout_item_profile, arrayService);

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
     android:backgroundTint="#80D9D9D9"
     android:padding="3dp">
 
@@ -19,19 +20,20 @@
 
     <TextView
         android:id="@+id/tvNameLocation"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="23dp"
-        android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/semiround_button"
         android:backgroundTint="#77FFFFFF"
         android:fontFamily="@font/kufam"
-        android:gravity="center"
+        android:gravity="left"
         android:paddingHorizontal="5dp"
+        android:layout_marginHorizontal="5dp"
         android:text="TextView"
         android:textAllCaps="true"
         android:textColor="#000000"
         android:textSize="13sp"
+        app:layout_constraintEnd_toStartOf="@+id/btnTym"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imgLocation" />
 

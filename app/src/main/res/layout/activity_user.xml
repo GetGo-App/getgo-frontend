@@ -94,8 +94,9 @@
         android:layout_height="wrap_content"
         android:paddingLeft="5dp"
         android:text="Personal"
+        android:textColor="#000000"
+        android:fontFamily="@font/kufam_italic"
         android:textSize="12sp"
-        android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="@+id/imageView6"
         app:layout_constraintStart_toEndOf="@+id/imageView6"
         app:layout_constraintTop_toTopOf="@+id/imageView6" />
@@ -129,7 +130,8 @@
         android:paddingLeft="5dp"
         android:text="Service"
         android:textSize="12sp"
-        android:textStyle="italic"
+        android:textColor="#000000"
+        android:fontFamily="@font/kufam_italic"
         app:layout_constraintBottom_toBottomOf="@+id/imageView7"
         app:layout_constraintStart_toEndOf="@+id/imageView7"
         app:layout_constraintTop_toTopOf="@+id/imageView7" />
