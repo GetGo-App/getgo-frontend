@@ -64,9 +64,12 @@
         <activity android:name=".PaymentMethodActivity"/>
         <activity android:name=".TransactionActivity"/>
         <activity android:name=".QRcodeActivity"/>
+        <activity android:name=".CustomCaptureActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".TermOfServiceActivity"/>
         <activity android:name=".PrivacyPolicyActivity"/>
         <activity android:name=".NewStatusActivity"/>
+        <activity android:name=".ListStatusActivity"/>
     </application>
 
 </manifest>

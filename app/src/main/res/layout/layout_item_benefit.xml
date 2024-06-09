@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="#fff"
     android:layout_gravity="center_vertical"
-    android:padding="10dp">
+    android:paddingVertical="5dp">
 
 
     <ImageView
@@ -23,10 +23,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:fontFamily="@font/kufam"
+        android:fontFamily="@font/kufam_bold"
         android:text="Detailed and customized roadmap"
+        android:textColor="#000000"
         android:textSize="15sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imgIcon"
         app:layout_constraintTop_toTopOf="@+id/imgIcon" />
