@@ -28,7 +28,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/shape_rectangle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,6 +55,7 @@
             android:layout_marginTop="30dp"
             android:fontFamily="@font/kufam_bold"
             android:text="Customer information"
+            android:textColor="#000000"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toTopOf="parent" />
@@ -64,10 +65,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:fontFamily="@font/kufam"
+            android:fontFamily="@font/kufam_italic"
             android:text="Name: "
+            android:textColor="#000000"
             android:textSize="15sp"
-            android:textStyle="italic"
             app:layout_constraintStart_toStartOf="@+id/textView16"
             app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
@@ -75,10 +76,10 @@
             android:id="@+id/tvNameCustomer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/kufam"
+            android:fontFamily="@font/kufam_italic"
             android:text="TextView"
+            android:textColor="#000000"
             android:textSize="15sp"
-            android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="@+id/textView17"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toEndOf="@+id/textView17"
@@ -88,10 +89,10 @@
             android:id="@+id/textView22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/kufam"
+            android:fontFamily="@font/kufam_italic"
             android:text="Phone number: "
+            android:textColor="#000000"
             android:textSize="15sp"
-            android:textStyle="italic"
             app:layout_constraintStart_toStartOf="@+id/textView17"
             app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
@@ -99,10 +100,10 @@
             android:id="@+id/tvPhoneCustomer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/kufam"
+            android:fontFamily="@font/kufam_italic"
             android:text="TextView"
+            android:textColor="#000000"
             android:textSize="15sp"
-            android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="@+id/textView22"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toEndOf="@+id/textView22"
@@ -126,10 +127,10 @@
                 android:id="@+id/tvTitlePackage"
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
-                android:fontFamily="@font/kufam"
+                android:fontFamily="@font/kufam_bold"
                 android:text="TextView"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textColor="#000000"
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tvDetailPackage"
@@ -142,48 +143,119 @@
 
         </LinearLayout>
 
-        <ListView
+        <LinearLayout
             android:id="@+id/lvMethod"
             android:layout_width="0dp"
-            android:layout_height="400dp"
-            android:layout_marginTop="16dp"
-            android:divider="@android:color/transparent"
+            android:layout_height="139dp"
+            android:layout_marginTop="15dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+            <RadioGroup
+                android:id="@+id/btnRadioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@+id/textView15"
+                app:layout_constraintStart_toStartOf="@+id/textView15"
+                app:layout_constraintTop_toBottomOf="@+id/textView15">
+
+                <RadioButton
+                    android:id="@+id/btnMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:checked="true"
+                    android:text="VN Pay"
+                    android:textColor="#000000"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+                <RadioButton
+                    android:id="@+id/btnFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:checked="false"
+                    android:text="Momo"
+                    android:textColor="#000000"
+                    app:layout_constraintBottom_toBottomOf="@+id/btnMale"
+                    app:layout_constraintStart_toEndOf="@+id/btnMale"
+                    app:layout_constraintTop_toTopOf="@+id/btnMale" />
+
+                <RadioButton
+                    android:id="@+id/btnOther"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:checked="false"
+                    android:text="Card"
+                    android:textColor="#000000"
+                    app:layout_constraintBottom_toBottomOf="@+id/btnFemale"
+                    app:layout_constraintStart_toEndOf="@+id/btnFemale"
+                    app:layout_constraintTop_toTopOf="@+id/btnFemale" />
+            </RadioGroup>
+
+            <LinearLayout
+                android:id="@+id/listImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="65dp"
+                    android:layout_height="48dp"
+                    app:srcCompat="@drawable/vnpay" />
+
+                <ImageView
+                    android:id="@+id/imageView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/momo" />
+
+                <ImageView
+                    android:id="@+id/imageView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/add_card" />
+            </LinearLayout>
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnPrevious"
-            android:layout_width="140dp"
+            android:layout_width="130dp"
             android:layout_height="50dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginTop="30dp"
             android:backgroundTint="#F44336"
             android:elevation="16dp"
-            android:fontFamily="@font/kufam"
+            android:fontFamily="@font/kufam_bold_italic"
             android:text="Previous"
             android:textColor="#fff"
             android:textSize="20dp"
-            android:textStyle="bold|italic"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline" />
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/lvMethod" />
 
         <Button
             android:id="@+id/btnPay"
-            android:layout_width="140dp"
+            android:layout_width="130dp"
             android:layout_height="50dp"
             android:layout_marginEnd="20dp"
             android:backgroundTint="#93BC66"
             android:elevation="16dp"
-            android:fontFamily="@font/kufam"
+            android:fontFamily="@font/kufam_bold_italic"
             android:text="Pay"
             android:textColor="#fff"
             android:textSize="20dp"
-            android:textStyle="bold|italic"
             app:layout_constraintBottom_toBottomOf="@+id/btnPrevious"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="@+id/btnPrevious" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -23,7 +23,7 @@
         android:layout_height="75dp"
         android:background="#CEE9BE"
         app:circularflow_radiusInDP="20dp"
-        app:layout_constraintStart_toEndOf="@+id/imgbtnGoback"
+        app:layout_constraintStart_toStartOf="@+id/guideline9"
         app:layout_constraintTop_toBottomOf="@+id/imgbtnGoback"
         app:shapeAppearanceOverlay="@style/roundedImage"
         app:srcCompat="@drawable/avatar" />
@@ -41,12 +41,13 @@
     <TextView
         android:id="@+id/userStatusNumber"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="22dp"
         android:layout_marginStart="96dp"
         android:layout_marginTop="16dp"
+        android:fontFamily="@font/kufam"
         android:text="6"
+        android:textColor="#000000"
         android:textSize="16sp"
-        android:textStyle="bold|italic"
         app:layout_constraintStart_toEndOf="@+id/avatar"
         app:layout_constraintTop_toTopOf="@+id/avatar" />
 
@@ -55,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Statuses"
-        android:textStyle="bold|italic"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="@+id/userStatusNumber"
         app:layout_constraintStart_toStartOf="@+id/userStatusNumber"
         app:layout_constraintTop_toBottomOf="@+id/userStatusNumber" />
@@ -63,11 +64,12 @@
     <TextView
         android:id="@+id/userFriendNumber"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="22dp"
         android:layout_marginStart="96dp"
+        android:fontFamily="@font/kufam"
         android:text="91"
+        android:textColor="#000000"
         android:textSize="16sp"
-        android:textStyle="bold|italic"
         app:layout_constraintStart_toEndOf="@+id/userStatusNumber"
         app:layout_constraintTop_toTopOf="@+id/userStatusNumber" />
 
@@ -76,7 +78,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Friends"
-        android:textStyle="bold|italic"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="@+id/userFriendNumber"
         app:layout_constraintStart_toStartOf="@+id/userFriendNumber"
         app:layout_constraintTop_toBottomOf="@+id/userFriendNumber" />
@@ -143,9 +145,11 @@
     <FrameLayout
         android:id="@+id/statusLayout"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/guideline10"
-        app:layout_constraintStart_toStartOf="@+id/guideline9"
+        android:layout_height="0dp"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabStatus">
 
     </FrameLayout>

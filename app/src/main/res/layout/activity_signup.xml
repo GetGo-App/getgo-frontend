@@ -6,29 +6,16 @@
     android:layout_height="match_parent"
     android:background="#fff">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="64dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="64dp" />
-
     <TextView
         android:id="@+id/tvsignin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="43dp"
+        android:layout_marginEnd="40dp"
+        android:fontFamily="@font/kufam_bold"
         android:text="Sign in"
         android:textColor="#93BC66"
-        android:fontFamily="@font/kufam_bold"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -102,7 +89,8 @@
             android:elevation="16dp"
             android:ems="10"
             android:hint="Name"
-            android:textColor="#8F8F8F"
+            android:textColor="#000000"
+            android:textColorHint="#80000000"
             android:backgroundTint="#F2F1F1"
             android:inputType="text"
             android:paddingHorizontal="20dp"
@@ -120,7 +108,8 @@
             android:elevation="16dp"
             android:ems="10"
             android:hint="Email/Phone number"
-            android:textColor="#8F8F8F"
+            android:textColor="#000000"
+            android:textColorHint="#80000000"
             android:backgroundTint="#F2F1F1"
             android:inputType="text"
             android:paddingHorizontal="20dp"
@@ -138,7 +127,8 @@
             android:elevation="16dp"
             android:ems="10"
             android:hint="Password"
-            android:textColor="#8F8F8F"
+            android:textColor="#000000"
+            android:textColorHint="#80000000"
             android:backgroundTint="#F2F1F1"
             android:inputType="textPassword"
             android:paddingHorizontal="20dp"

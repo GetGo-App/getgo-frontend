@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         btnStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                statusForm();
+                listStatusForm();
             }
         });
         btnQr.setOnClickListener(new View.OnClickListener() {
@@ -108,8 +108,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-    private void statusForm(){
-        Intent intent = new Intent(this, StatusActivity.class);
+    private void listStatusForm(){
+        Intent intent = new Intent(this, ListStatusActivity.class);
         startActivity(intent);
         finish();
     }
@@ -118,8 +118,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-    private void userForm(){
-        Intent intent = new Intent(this, UserActivity.class);
+    private void statusForm(){
+        Intent intent = new Intent(this, StatusActivity.class);
         startActivity(intent);
         finish();
     }

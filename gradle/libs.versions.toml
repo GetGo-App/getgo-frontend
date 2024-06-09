@@ -1,6 +1,7 @@
 [versions]
 agp = "8.3.1"
 javaJwt = "3.18.2"
+core = "3.4.0"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
@@ -10,8 +11,11 @@ activity = "1.8.0"
 constraintlayout = "2.1.4"
 cameraView = "1.3.3"
 googleAndroidLibrariesMapsplatformSecretsGradlePlugin = "2.0.1"
+picasso = "2.5.2"
+playServicesAuth = "21.2.0"
 playServicesMaps = "18.2.0"
 retrofit = "2.11.0"
+zxing = "1.0"
 zxingAndroidEmbedded = "4.1.0"
 
 [libraries]
@@ -20,6 +24,7 @@ camera-core = { module = "androidx.camera:camera-core", version.ref = "cameraVie
 camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "cameraView" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 java-jwt = { module = "com.auth0:java-jwt", version.ref = "javaJwt" }
+core = { module = "com.google.zxing:core", version.ref = "core" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -28,8 +33,11 @@ material = { group = "com.google.android.material", name = "material", version.r
 activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "cameraView" }
+picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
+play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+zxing = { module = "me.dm7.barcodescanner:zxing", version.ref = "zxing" }
 zxing-android-embedded = { module = "com.journeyapps:zxing-android-embedded", version.ref = "zxingAndroidEmbedded" }
 
 [plugins]

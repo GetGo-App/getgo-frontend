@@ -1,6 +1,7 @@
 package com.application.getgoproject;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
@@ -31,7 +32,7 @@ import java.util.concurrent.Executors;
 
 public class CameraActivity extends AppCompatActivity {
 
-    ImageButton capture, toggleFlash, flipCamera;
+    ImageButton capture, toggleFlash, flipCamera, buttonBack;
     private PreviewView previewView;
     int cameraFacing = CameraSelector.LENS_FACING_BACK;
     private final ActivityResultLauncher<String> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
@@ -47,11 +48,16 @@ public class CameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
-        previewView = findViewById(R.id.cameraView);
-        capture = findViewById(R.id.buttonCapture);
-        toggleFlash = findViewById(R.id.flashToggle);
-        flipCamera = findViewById(R.id.flipCamera);
+        mapping();
 
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CameraActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         if (ContextCompat.checkSelfPermission(CameraActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             activityResultLauncher.launch(Manifest.permission.CAMERA);
         } else {
@@ -69,6 +75,13 @@ public class CameraActivity extends AppCompatActivity {
                 startCamera(cameraFacing);
             }
         });
+    }
+    private void mapping() {
+        previewView = findViewById(R.id.cameraView);
+        capture = findViewById(R.id.buttonCapture);
+        toggleFlash = findViewById(R.id.flashToggle);
+        flipCamera = findViewById(R.id.flipCamera);
+        buttonBack = findViewById(R.id.buttonBack);
     }
 
     public void startCamera(int cameraFacing) {

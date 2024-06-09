@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,8 +22,7 @@ import java.util.ArrayList;
 public class PaymentMethodActivity extends AppCompatActivity {
     private Button btnPrevious, btnPay;
     private TextView tvNameCustomer, tvPhoneCustomer, tvTitlePackage, tvDetailPackage;
-    private ListView lvMethod;
-    private PaymentMethodAdapter paymentAdapt;
+    private RadioGroup btnRadioGroup;
     private ArrayList<ListItem> arrayPayment;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,15 +41,7 @@ public class PaymentMethodActivity extends AppCompatActivity {
             tvDetailPackage.setText(packages.getPrice());
         }
 
-        paymentAdapt = new PaymentMethodAdapter(this, R.layout.layout_payment_method, arrayPayment);
-        lvMethod.setAdapter(paymentAdapt);
 
-        lvMethod.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(PaymentMethodActivity.this, ""+position, Toast.LENGTH_SHORT).show();
-            }
-        });
         btnPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +64,7 @@ public class PaymentMethodActivity extends AppCompatActivity {
         tvPhoneCustomer = findViewById(R.id.tvPhoneCustomer);
         tvTitlePackage = findViewById(R.id.tvTitlePackage);
         tvDetailPackage = findViewById(R.id.tvDetailPackage);
-        lvMethod = findViewById(R.id.lvMethod);
+        btnRadioGroup = findViewById(R.id.btnRadioGroup);
 
         arrayPayment = new ArrayList<>();
         arrayPayment.add(new ListItem(R.drawable.vnpay,"VN Pay",""));

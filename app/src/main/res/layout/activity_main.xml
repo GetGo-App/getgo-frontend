@@ -6,6 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
+    android:paddingVertical="20dp"
+    android:scrollbars="none"
     tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,9 +18,10 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="28dp"
             android:fontFamily="@font/kufam"
             android:text="Hi"
+            android:textColor="#000000"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toTopOf="parent" />
@@ -99,12 +102,12 @@
             android:id="@+id/imgAvatar"
             android:layout_width="74dp"
             android:layout_height="74dp"
-            android:layout_marginStart="24dp"
-            android:elevation="8dp"
+            android:layout_marginStart="10dp"
             android:background="@drawable/border_gradient"
+            android:elevation="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imgAddStory"
             app:layout_constraintStart_toEndOf="@+id/imgAddStory"
-            app:layout_constraintTop_toTopOf="@+id/imgAddStory"
-            app:layout_constraintBottom_toBottomOf="@+id/imgAddStory" />
+            app:layout_constraintTop_toTopOf="@+id/imgAddStory" />
 
         <TextView
             android:id="@+id/userStoryName1"
@@ -122,13 +125,13 @@
             android:id="@+id/userStory2"
             android:layout_width="74dp"
             android:layout_height="74dp"
-            android:layout_marginStart="24dp"
-            android:elevation="8dp"
-
+            android:layout_marginStart="10dp"
             android:background="@drawable/border_gradient"
+
+            android:elevation="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imgAvatar"
             app:layout_constraintStart_toEndOf="@+id/imgAvatar"
-            app:layout_constraintTop_toTopOf="@+id/imgAvatar"
-            app:layout_constraintBottom_toBottomOf="@+id/imgAvatar" />
+            app:layout_constraintTop_toTopOf="@+id/imgAvatar" />
 
         <TextView
             android:id="@+id/userStoryName2"
@@ -146,12 +149,12 @@
             android:id="@+id/userStory3"
             android:layout_width="74dp"
             android:layout_height="74dp"
-            android:layout_marginStart="24dp"
-            android:elevation="8dp"
+            android:layout_marginStart="10dp"
             android:background="@drawable/border_gradient"
+            android:elevation="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/userStory2"
             app:layout_constraintStart_toEndOf="@+id/userStory2"
-            app:layout_constraintTop_toTopOf="@+id/userStory2"
-            app:layout_constraintBottom_toBottomOf="@+id/userStory2" />
+            app:layout_constraintTop_toTopOf="@+id/userStory2" />
 
         <TextView
             android:id="@+id/userStoryName3"
@@ -170,14 +173,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="10dp"
             android:inputType="text"
             android:background="@drawable/round_button"
             android:backgroundTint="@color/black"
             android:hint="Find all your friends"
             android:textColorHint="@color/white"
             android:textSize="15sp"
-            android:padding="8dp"
+            android:padding="10dp"
             android:elevation="8dp"
             android:drawableEnd="@drawable/search_icon"
             android:drawableTint="@color/white"
@@ -188,13 +191,12 @@
 
         <ImageButton
             android:id="@+id/btnAssistant"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/semiround_button"
-            android:layout_marginTop="32dp"
-            android:layout_marginStart="24dp"
-            android:elevation="16dp"
             android:backgroundTint="#000000"
+            android:elevation="16dp"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toBottomOf="@+id/findFriends"
             app:srcCompat="@drawable/forum" />
@@ -204,18 +206,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:fontFamily="@font/kufam"
+            android:fontFamily="@font/kufam_bold"
             android:text="Assistant"
+            android:textColor="#000000"
             android:textSize="16sp"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/btnAssistant"
             app:layout_constraintStart_toStartOf="@+id/btnAssistant"
             app:layout_constraintTop_toBottomOf="@+id/btnAssistant" />
 
         <ImageButton
             android:id="@+id/btnStatus"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
             android:background="@drawable/semiround_button"
             android:elevation="16dp"
             android:backgroundTint="#000000"
@@ -233,18 +235,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Status"
-            android:textStyle="bold"
+            android:textColor="#000000"
             android:textSize="16sp"
-            android:fontFamily="@font/kufam"
+            android:fontFamily="@font/kufam_bold"
             app:layout_constraintEnd_toEndOf="@+id/btnStatus"
             app:layout_constraintStart_toStartOf="@+id/btnStatus"
             app:layout_constraintTop_toBottomOf="@+id/btnStatus" />
 
         <ImageButton
             android:id="@+id/btnQr"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:layout_marginEnd="24dp"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
             android:background="@drawable/semiround_button"
             android:elevation="16dp"
             android:backgroundTint="#000000"
@@ -259,9 +260,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="QR Code"
-            android:textStyle="bold"
+            android:textColor="#000000"
             android:textSize="16sp"
-            android:fontFamily="@font/kufam"
+            android:fontFamily="@font/kufam_bold"
             app:layout_constraintEnd_toEndOf="@+id/btnQr"
             app:layout_constraintStart_toStartOf="@+id/btnQr"
             app:layout_constraintTop_toBottomOf="@+id/btnQr" />
@@ -280,28 +281,30 @@
         <TextView
             android:id="@+id/textDiscover"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
+            android:fontFamily="@font/kufam_bold"
             android:text="Discover"
+            android:textColor="#000000"
             android:textSize="30sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toBottomOf="@+id/imgBanner" />
 
         <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            android:layout_marginTop="10dp"
             app:cardCornerRadius="40dp"
-            app:layout_constraintStart_toStartOf="@+id/textDiscover"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toBottomOf="@+id/textDiscover">
 
             <ImageView
                 android:id="@+id/imgPlace"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 app:srcCompat="@drawable/sapa" />
 
             <TextView
