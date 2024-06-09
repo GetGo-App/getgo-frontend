@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#000000">
+    android:background="#000000">
 
         <ImageButton
             android:id="@+id/imgbtnGoback"
@@ -29,7 +25,7 @@
             android:fontFamily="@font/kufam_bold"
             android:text="Discover"
             android:textColor="#fff"
-            android:textSize="20sp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@+id/imgbtnGoback"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imgbtnGoback"
@@ -46,113 +42,105 @@
             android:inputType="text"
             android:paddingVertical="5dp"
             android:textAlignment="textStart"
-            android:textColorHint="#fff"
+            android:textColorHint="#000000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imgbtnGoback"
             app:layout_constraintTop_toBottomOf="@+id/textView44" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_rectangle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etSearchLocation">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/shape_rectangle"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etSearchLocation">
+            app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tvAll"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_begin="36dp" />
+                android:background="@drawable/background_selector"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/kufam"
+                android:text="All"
+                android:textColor="@drawable/color_selector"
+                android:textSize="13sp" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline2"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tvTrending"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_end="36dp" />
+                android:gravity="center"
+                android:background="@drawable/background_selector"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/kufam"
+                android:text="Trending"
+                android:textColor="@drawable/color_selector"
+                android:textSize="13sp" />
 
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tvTopyear"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toTopOf="parent">
+                android:gravity="center"
+                android:background="@drawable/background_selector"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/kufam"
+                android:text="Top year"
+                android:textColor="@drawable/color_selector"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTrending"
+                app:layout_constraintStart_toEndOf="@+id/tvTrending"
+                app:layout_constraintTop_toTopOf="@+id/tvTrending" />
 
-                <TextView
-                    android:id="@+id/tvAll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/background_selector"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:fontFamily="@font/kufam"
-                    android:text="All"
-                    android:textColor="@drawable/color_selector"
-                    android:textSize="13sp" />
+            <TextView
+                android:id="@+id/tvFavorite"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="@drawable/background_selector"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/kufam"
+                android:text="Favorite"
+                android:textColor="@drawable/color_selector"
+                android:textSize="13dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTopyear"
+                app:layout_constraintStart_toEndOf="@+id/tvTopyear"
+                app:layout_constraintTop_toTopOf="@+id/tvTopyear" />
 
-                <TextView
-                    android:id="@+id/tvTrending"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="17dp"
-                    android:background="@drawable/background_selector"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:fontFamily="@font/kufam"
-                    android:text="Trending"
-                    android:textColor="@drawable/color_selector"
-                    android:textSize="13sp" />
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tvTopyear"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="17dp"
-                    android:background="@drawable/background_selector"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:fontFamily="@font/kufam"
-                    android:text="Top year"
-                    android:textColor="@drawable/color_selector"
-                    android:textSize="13sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvTrending"
-                    app:layout_constraintStart_toEndOf="@+id/tvTrending"
-                    app:layout_constraintTop_toTopOf="@+id/tvTrending" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:layout_constraintVertical_bias="0.498" />"/>
 
-                <TextView
-                    android:id="@+id/tvFavorite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="17dp"
-                    android:background="@drawable/background_selector"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:fontFamily="@font/kufam"
-                    android:text="Favorite"
-                    android:textColor="@drawable/color_selector"
-                    android:textSize="13dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvTopyear"
-                    app:layout_constraintStart_toEndOf="@+id/tvTopyear"
-                    app:layout_constraintTop_toTopOf="@+id/tvTopyear" />
 
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="0dp"
-                android:layout_height="800dp"
-                android:layout_marginTop="10dp"
-                android:padding="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline2"
-                app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
