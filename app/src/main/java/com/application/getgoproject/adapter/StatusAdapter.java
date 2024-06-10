@@ -42,23 +42,24 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
 
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 
-        if (status.getUserImage().size() == 1) {
+        if (status.getImages().size() == 1) {
             staggeredGridLayoutManager.setSpanCount(1);
         }
-        else if (status.getUserImage().size() >= 2) {
+        else if (status.getImages().size() >= 2) {
             staggeredGridLayoutManager.setSpanCount(2);
         }
 
         holder.listImage.setLayoutManager(staggeredGridLayoutManager);
 
-        ImageStatusAdapter adapter = new ImageStatusAdapter(context, status.getUserImage());
+        ImageStatusAdapter adapter = new ImageStatusAdapter(context, status.getImages());
 
         holder.avatar.setImageResource(status.getUserAvatar());
-        holder.username.setText(status.getUsername());
-        holder.lastTime.setText(status.getLastTime());
+        holder.username.setText(status.getUploader());
+        holder.lastTime.setText(status.getUploader());
         holder.title.setText(status.getTitle());
         holder.content.setText(status.getContent());
         holder.listImage.setAdapter(adapter);
+        holder.reactedUsers.setText((status.getReactedUsers() != null ? status.getReactedUsers().size() : 0) + " reactions");
 
     }
 
@@ -75,6 +76,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
         TextView content;
         RecyclerView listImage;
         ImageButton heartButton, btnMenu;
+        TextView reactedUsers;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -87,6 +89,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
             listImage = itemView.findViewById(R.id.recyclerViewImage);
             heartButton = itemView.findViewById(R.id.heartButton);
             btnMenu = itemView.findViewById(R.id.btnMenu);
+            reactedUsers = itemView.findViewById(R.id.reactedUsers);
 
             btnMenu.setOnClickListener(new View.OnClickListener() {
                 @Override

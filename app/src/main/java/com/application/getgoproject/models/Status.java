@@ -3,28 +3,32 @@ package com.application.getgoproject.models;
 import java.util.ArrayList;
 
 public class Status {
-    private String username;
+    private String uploader;
     private String title;
     private String content;
-    private String lastTime;
+    private String uploadedTime;
+    private String privacyMode;
     private int userAvatar;
-    private ArrayList<Integer> userImage;
+    private ArrayList<Integer> images;
+    private ArrayList<String> reactedUsers;
 
-    public Status(String username, String title, String content, String lastTime, int userAvatar, ArrayList<Integer> userImage) {
-        this.username = username;
+    public Status(String uploader, String title, String content, String uploadedTime, String privacyMode, int userAvatar, ArrayList<Integer> images, ArrayList<String> reactedUsers) {
+        this.uploader = uploader;
         this.title = title;
         this.content = content;
-        this.lastTime = lastTime;
+        this.uploadedTime = uploadedTime;
+        this.privacyMode = privacyMode;
         this.userAvatar = userAvatar;
-        this.userImage = userImage;
+        this.images = images;
+        this.reactedUsers = reactedUsers;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUploader() {
+        return uploader;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUploader(String uploader) {
+        this.uploader = uploader;
     }
 
     public String getTitle() {
@@ -43,12 +47,20 @@ public class Status {
         this.content = content;
     }
 
-    public String getLastTime() {
-        return lastTime;
+    public String getUploadedTime() {
+        return uploadedTime;
     }
 
-    public void setLastTime(String lastTime) {
-        this.lastTime = lastTime;
+    public void setUploadedTime(String uploadedTime) {
+        this.uploadedTime = uploadedTime;
+    }
+
+    public String getPrivacyMode() {
+        return privacyMode;
+    }
+
+    public void setPrivacyMode(String privacyMode) {
+        this.privacyMode = privacyMode;
     }
 
     public int getUserAvatar() {
@@ -59,11 +71,19 @@ public class Status {
         this.userAvatar = userAvatar;
     }
 
-    public ArrayList<Integer> getUserImage() {
-        return userImage;
+    public ArrayList<Integer> getImages() {
+        return images;
     }
 
-    public void setUserImage(ArrayList<Integer> userImage) {
-        this.userImage = userImage;
+    public void setImages(ArrayList<Integer> images) {
+        this.images = images;
+    }
+
+    public ArrayList<String> getReactedUsers() {
+        return reactedUsers;
+    }
+
+    public void setReactedUsers(ArrayList<String> reactedUsers) {
+        this.reactedUsers = reactedUsers;
     }
 }

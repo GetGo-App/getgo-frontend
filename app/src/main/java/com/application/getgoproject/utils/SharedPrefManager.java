@@ -3,6 +3,7 @@ package com.application.getgoproject.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.application.getgoproject.models.User;
 import com.application.getgoproject.models.UserAuthentication;
 
 public class SharedPrefManager {

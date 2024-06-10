@@ -1,25 +1,46 @@
 package com.application.getgoproject.models;
 
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-    private String username;
+    private String id;
+    private String userName;
     private String password;
-    private String gender;
+
+    private boolean gender;
     private String email;
-    private String phonenumber;
+    private String phoneNumber;
+
     private String avatar;
     private String role;
     private boolean isActive;
     private List<String> friends;
     private List<String> favorites;
 
-    public User(String username, String password, String gender, String email, String phonenumber, String avatar, String role, boolean isActive, List<String> friends, List<String> favorites) {
-        this.username = username;
+    public User() {
+        this.id = "";
+        this.userName = "";
+        this.password = "";
+        this.gender = false;
+        this.email = "";
+        this.phoneNumber = "";
+        this.avatar = "";
+        this.role = "";
+        this.isActive = false;
+        this.friends = new ArrayList<>();
+        this.favorites = new ArrayList<>();
+    }
+
+    public User(String id, String userName, String password, boolean gender, String email, String phoneNumber, String avatar, String role, boolean isActive, List<String> friends, List<String> favorites) {
+        this.id = id;
+        this.userName = userName;
         this.password = password;
         this.gender = gender;
         this.email = email;
-        this.phonenumber = phonenumber;
+        this.phoneNumber = phoneNumber;
         this.avatar = avatar;
         this.role = role;
         this.isActive = isActive;
@@ -27,12 +48,20 @@ public class User {
         this.favorites = favorites;
     }
 
-    public String getUsername() {
-        return username;
+    public String getId() {
+        return id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -43,11 +72,11 @@ public class User {
         this.password = password;
     }
 
-    public String getGender() {
+    public boolean isGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(boolean gender) {
         this.gender = gender;
     }
 
@@ -59,12 +88,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPhonenumber() {
-        return phonenumber;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getAvatar() {
