@@ -9,7 +9,7 @@
     android:paddingHorizontal="10dp">
 
     <ImageView
-        android:id="@+id/imgHotel"
+        android:id="@+id/imageLocation"
         android:layout_width="94dp"
         android:layout_height="119dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -18,112 +18,65 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/tvNamehotel"
+        android:id="@+id/tvLocationName"
         android:layout_width="0dp"
-        android:layout_height="27dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:fontFamily="@font/kufam_bold"
         android:textColor="#000000"
         android:text="Pao's Sapa Leisure Hotel "
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imgHotel"
+        app:layout_constraintStart_toEndOf="@+id/imageLocation"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="13dp"
-        android:layout_height="13dp"
-        app:layout_constraintStart_toStartOf="@+id/tvNamehotel"
-        app:layout_constraintTop_toBottomOf="@+id/tvNamehotel"
-        app:srcCompat="@drawable/star_rate"
-        app:tint="#93BC66" />
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="13dp"
-        android:layout_height="13dp"
-        app:tint="#93BC66"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@drawable/star_rate" />
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="13dp"
-        android:layout_height="13dp"
-        app:tint="#93BC66"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="@+id/imageView2"
-        app:srcCompat="@drawable/star_rate" />
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="13dp"
-        android:layout_height="13dp"
-        app:tint="#93BC66"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="@+id/imageView3"
-        app:srcCompat="@drawable/star_rate" />
-    <ImageView
-        android:id="@+id/star5"
-        android:layout_width="13dp"
-        android:layout_height="13dp"
-        app:tint="#93BC66"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-        app:layout_constraintStart_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toTopOf="@+id/imageView4"
-        app:srcCompat="@drawable/star_rate" />
+    <RatingBar
+        style="?android:attr/ratingBarStyleSmall"
+        android:id="@+id/locationRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:progressTint="#93BC66"
+        android:rating="4.2"
+        android:stepSize="0.1"
+        app:layout_constraintStart_toStartOf="@+id/tvLocationName"
+        app:layout_constraintTop_toBottomOf="@+id/tvLocationName"/>
 
     <TextView
-        android:id="@+id/tvDetailHotel"
+        android:id="@+id/tvContent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/kufam"
         android:textColor="#80000000"
+        android:maxLines="5"
         android:text="Located in Sa Pa, 6.1 km from Fansipan Legend Cable Car Station, Pao's Sapa Leisure Hotel provides accommodation with a fitness centre, free private parking, a garden and a shared lounge. Among the facilities of this property are a restaurant, a kids' club and room service, along with free WiFi. The accommodation offers a 24-hour front desk, a concierge service and currency exchange for guests."
         android:textSize="8sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintStart_toStartOf="@+id/locationRating"
+        app:layout_constraintTop_toBottomOf="@+id/locationRating" />
 
     <TextView
-        android:id="@+id/textView19"
+        android:id="@+id/tvLocationPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
-        android:fontFamily="@font/kufam"
-        android:text="Price from"
-        android:textColor="#000000"
-        android:textSize="8sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvMoneyHotel"
-        app:layout_constraintEnd_toStartOf="@+id/tvMoneyHotel"
-        app:layout_constraintTop_toTopOf="@+id/tvMoneyHotel" />
-
-    <TextView
-        android:id="@+id/tvMoneyHotel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
         android:fontFamily="@font/kufam_bold"
         android:text="VND 1,872,000"
         android:textColor="#8DC989"
         android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView21"
-        app:layout_constraintEnd_toStartOf="@+id/textView21"
-        app:layout_constraintTop_toTopOf="@+id/textView21" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tvContent"
+        app:layout_constraintTop_toBottomOf="@+id/tvShowMore" />
 
     <TextView
-        android:id="@+id/textView21"
+        android:id="@+id/tvShowMore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/kufam"
-        android:text="per night"
+        android:fontFamily="@font/kufam_bold"
         android:textColor="#000000"
-        android:textSize="8sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/tvDetailHotel"
-        app:layout_constraintTop_toBottomOf="@+id/tvDetailHotel" />
+        android:clickable="true"
+        android:text="Show more"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@+id/tvContent"
+        app:layout_constraintTop_toBottomOf="@+id/tvContent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

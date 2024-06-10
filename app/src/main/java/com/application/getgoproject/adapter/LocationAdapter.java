@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.getgoproject.R;
 import com.application.getgoproject.models.Locations;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHolder> {
@@ -58,8 +59,21 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Locations location = locationList.get(position);
-        holder.name.setText(location.getName());
-        holder.imgLocation.setImageResource(location.getImage());
+        holder.name.setText(location.getCity());
+        if (location.getImages() != null && !location.getImages().isEmpty()) {
+            Glide.with(context)
+                    .load(location.getImages().get(0))
+                    .into(holder.imgLocation);
+        } else {
+            holder.imgLocation.setImageResource(R.drawable.sapa);
+        }
+
+        holder.itemView.setSelected(selectedPosition == position);
+        holder.itemView.setOnClickListener(v -> {
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(position);
+            }
+        });
 //        holder.tym.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

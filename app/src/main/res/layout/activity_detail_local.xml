@@ -24,7 +24,7 @@
             app:srcCompat="@drawable/arrow_back" />
 
         <TextView
-            android:id="@+id/etNameHotel"
+            android:id="@+id/etNameLocation"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/kufam_bold"
@@ -45,7 +45,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etNameHotel"
+            app:layout_constraintTop_toBottomOf="@+id/etNameLocation"
             app:layout_constraintVertical_bias="0.0">
 
             <androidx.constraintlayout.widget.Guideline
@@ -110,9 +110,21 @@
                 android:fontFamily="@font/kufam"
                 android:text="Located in Sa Pa, 6.1 km from Fansipan Legend Cable Car Station, Pao's Sapa Leisure Hotel provides accommodation with a fitness centre, free private parking, a garden and a shared lounge. Among the facilities of this property are a restaurant, a kids' club and room service, along with free WiFi. The accommodation offers a 24-hour front desk, a concierge service and currency exchange for guests"
                 android:textColor="#000000"
+                android:maxLines="10"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@+id/textView2"/>
+
+            <TextView
+                android:id="@+id/tvShowMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/kufam_bold"
+                android:textColor="#000000"
+                android:clickable="true"
+                android:text="Show more"
+                app:layout_constraintStart_toStartOf="@+id/contentDescription"
+                app:layout_constraintTop_toBottomOf="@+id/contentDescription" />
 
             <TextView
                 android:id="@+id/address"
@@ -124,10 +136,10 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/contentDescription" />
+                app:layout_constraintTop_toBottomOf="@+id/tvShowMore" />
 
             <TextView
-                android:id="@+id/hotelPrice"
+                android:id="@+id/price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -151,7 +163,7 @@
                 android:textColor="#000000"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/hotelPrice" />
+                app:layout_constraintTop_toBottomOf="@+id/price" />
 
             <LinearLayout
                 android:id="@+id/reviewStatus"

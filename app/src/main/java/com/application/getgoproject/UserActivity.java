@@ -156,4 +156,14 @@ public class UserActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        UserAuthentication userAuthentication = SharedPrefManager.getInstance(this).getUser();
+        if (userAuthentication != null) {
+            String name = userAuthentication.getUsername();
+            tvName.setText(name);
+        }
+    }
 }

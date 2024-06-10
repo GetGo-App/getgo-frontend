@@ -1,25 +1,84 @@
 package com.application.getgoproject.models;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Locations implements Serializable {
+    private int id;
     private String name;
     private String address;
-    private String shortDescription;
+    private String content;
     private String city;
     private float latitude;
     private float longitude;
-//    private List<String> image;
-    private int image;
+    private List<String> images;
+    //    private int image;
     private boolean isAvailable;
     private String openTime;
     private String detailUrl;
     private String hotline;
     private String price;
     private String categoryId;
-    private float rating;
+    private RatingStar rating;
+    private RatingStar websiteRating;
+    private float websiteRatingOverall;
     private boolean isTrend;
-    private boolean isTopyear;
+    private boolean isTopYear;
+    public static class RatingStar {
+        private float star1;
+        private float star2;
+        private float star3;
+        private float star4;
+        private float star5;
+
+        public RatingStar(float star1, float star2, float star3, float star4, float star5) {
+            this.star1 = star1;
+            this.star2 = star2;
+            this.star3 = star3;
+            this.star4 = star4;
+            this.star5 = star5;
+        }
+
+        public float getStar1() {
+            return star1;
+        }
+
+        public void setStar1(float star1) {
+            this.star1 = star1;
+        }
+
+        public float getStar2() {
+            return star2;
+        }
+
+        public void setStar2(float star2) {
+            this.star2 = star2;
+        }
+
+        public float getStar3() {
+            return star3;
+        }
+
+        public void setStar3(float star3) {
+            this.star3 = star3;
+        }
+
+        public float getStar4() {
+            return star4;
+        }
+
+        public void setStar4(float star4) {
+            this.star4 = star4;
+        }
+
+        public float getStar5() {
+            return star5;
+        }
+
+        public void setStar5(float star5) {
+            this.star5 = star5;
+        }
+    }
 
 
 //    public Locations(String name, String address, String shortDescription, String city, float latitude, float longitude, List<String> image, boolean isAvailable, String openTime, String detailUrl, String hotline, String price, String categoryId, float rating, boolean isTrend, boolean isTopyear) {
@@ -41,14 +100,16 @@ public class Locations implements Serializable {
 //        this.isTopyear = isTopyear;
 //    }
 
-    public Locations(String name, String address, String shortDescription, String city, float latitude, float longitude, int image, boolean isAvailable, String openTime, String detailUrl, String hotline, String price, String categoryId, float rating, boolean isTrend, boolean isTopyear) {
+
+    public Locations(int id, String name, String address, String content, String city, float latitude, float longitude, List<String> images, boolean isAvailable, String openTime, String detailUrl, String hotline, String price, String categoryId, RatingStar rating, RatingStar websiteRating, float websiteRatingOverall, boolean isTrend, boolean isTopYear) {
+        this.id = id;
         this.name = name;
         this.address = address;
-        this.shortDescription = shortDescription;
+        this.content = content;
         this.city = city;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.image = image;
+        this.images = images;
         this.isAvailable = isAvailable;
         this.openTime = openTime;
         this.detailUrl = detailUrl;
@@ -56,9 +117,20 @@ public class Locations implements Serializable {
         this.price = price;
         this.categoryId = categoryId;
         this.rating = rating;
+        this.websiteRating = websiteRating;
+        this.websiteRatingOverall = websiteRatingOverall;
         this.isTrend = isTrend;
-        this.isTopyear = isTopyear;
+        this.isTopYear = isTopYear;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -75,12 +147,12 @@ public class Locations implements Serializable {
         this.address = address;
     }
 
-    public String getShortDescription() {
-        return shortDescription;
+    public String getContent() {
+        return content;
     }
 
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getCity() {
@@ -107,20 +179,14 @@ public class Locations implements Serializable {
         this.longitude = longitude;
     }
 
-//    public List<String> getImage() {
-//        return image;
-//    }
-//
-//    public void setImage(List<String> image) {
-//        this.image = image;
-//    }
-    public int getImage() {
-        return image;
+    public List<String> getImages() {
+        return images;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public void setImages(List<String> images) {
+        this.images = images;
     }
+
     public boolean isAvailable() {
         return isAvailable;
     }
@@ -169,12 +235,28 @@ public class Locations implements Serializable {
         this.categoryId = categoryId;
     }
 
-    public float getRating() {
+    public RatingStar getRating() {
         return rating;
     }
 
-    public void setRating(float rating) {
+    public void setRating(RatingStar rating) {
         this.rating = rating;
+    }
+
+    public RatingStar getWebsiteRating() {
+        return websiteRating;
+    }
+
+    public void setWebsiteRating(RatingStar websiteRating) {
+        this.websiteRating = websiteRating;
+    }
+
+    public float getWebsiteRatingOverall() {
+        return websiteRatingOverall;
+    }
+
+    public void setWebsiteRatingOverall(float websiteRatingOverall) {
+        this.websiteRatingOverall = websiteRatingOverall;
     }
 
     public boolean isTrend() {
@@ -185,11 +267,11 @@ public class Locations implements Serializable {
         isTrend = trend;
     }
 
-    public boolean isTopyear() {
-        return isTopyear;
+    public boolean isTopYear() {
+        return isTopYear;
     }
 
-    public void setTopyear(boolean topyear) {
-        isTopyear = topyear;
+    public void setTopYear(boolean topYear) {
+        isTopYear = topYear;
     }
 }

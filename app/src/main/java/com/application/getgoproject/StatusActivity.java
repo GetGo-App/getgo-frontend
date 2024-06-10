@@ -3,6 +3,7 @@ package com.application.getgoproject;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,12 +25,28 @@ import com.application.getgoproject.adapter.StatusAdapter;
 import com.application.getgoproject.models.Image;
 import com.application.getgoproject.models.Message;
 import com.application.getgoproject.models.Status;
+import com.application.getgoproject.models.User;
+import com.application.getgoproject.models.UserAuthentication;
+import com.application.getgoproject.service.StatusService;
+import com.application.getgoproject.service.UserService;
+import com.application.getgoproject.utils.RetrofitClient;
+import com.application.getgoproject.utils.SharedPrefManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 public class StatusActivity extends AppCompatActivity {
-    private TextView userStatusNumber, userFriendNumber;
+
+    private UserService userService;
+    private StatusService statusService;
+    private UserAuthentication userAuthentication;
+
+    private TextView userStatusNumber, userFriendNumber, username;
     private ImageButton imgbtnGoback;
     private FrameLayout statusLayout;
     private Button tabStatus, tabImage, tabMessage, btnAddStatus, btnSettingAccount;
@@ -41,14 +59,26 @@ public class StatusActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_status);
+
+        userAuthentication = SharedPrefManager.getInstance(this).getUser();
+        String userToken = "Bearer " + userAuthentication.getAccessToken();
+
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance(this);
+        userService = retrofit.create(UserService.class);
+
         mapping();
 
         addLayoutStatus();
+
+        username.setText(userAuthentication.getUsername());
+
         sizeStatus = statusList.size()+ "";
         userStatusNumber.setText(sizeStatus);
 
         sizeFriend = statusList.size()+ "";
         userFriendNumber.setText(sizeFriend);
+
+        getUserByName(userAuthentication.getUsername(), userToken);
         imgbtnGoback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,6 +130,7 @@ public class StatusActivity extends AppCompatActivity {
         imgbtnGoback= findViewById(R.id.imgbtnGoback);
         btnAddStatus = findViewById(R.id.btnAddStatus);
         btnSettingAccount = findViewById(R.id.btnSettingAccount);
+        username = findViewById(R.id.username);
     }
     private void settingAccount(){
         Intent intent = new Intent(this, UserActivity.class);
@@ -144,8 +175,14 @@ public class StatusActivity extends AppCompatActivity {
         ArrayList<Integer> arrayList2 = new ArrayList<>();
         arrayList2.add(R.drawable.sapa);
 
-        statusList.add(new Status("Phan Hieu Nghia", "The Good Place", "This is the beautiful place", "4 days ago", R.drawable.avatar, arrayList));
-        statusList.add(new Status("Hoang Le Huong", "The New Place", "This is the good place", "4 days ago", R.drawable.avatar, arrayList2));
+        ArrayList<String> reactedUsers = new ArrayList<>();
+        reactedUsers.add("hieu nghia");
+        reactedUsers.add("ngo ngo");
+        reactedUsers.add("phan phuc");
+
+        statusList.add(new Status("Phan Hieu Nghia", "The Good Place", "This is the beautiful place", "4 days ago", "public", R.drawable.avatar, arrayList, reactedUsers));
+        statusList.add(new Status("Hoang Le Huong", "The New Place", "This is the good place", "4 days ago", "public", R.drawable.avatar, arrayList2, reactedUsers));
+
 
         StatusAdapter statusAdapter = new StatusAdapter(this, statusList);
         RecyclerView recyclerView = layoutStatus.findViewById(R.id.image_status_recycler);
@@ -227,4 +264,36 @@ public class StatusActivity extends AppCompatActivity {
         statusLayout.addView(layoutMessage);
     }
 
+    private void getUserByName(String username, String token) {
+        Call<User> call = userService.getUserByUsername(username, token);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    User user = response.body();
+
+                    userFriendNumber.setText(user.getFriends() != null ? user.getFriends().size() + "" : "0");
+
+                }
+                else {
+                    Log.d("Error", "Failed to fetch");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable throwable) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        userAuthentication = SharedPrefManager.getInstance(this).getUser();
+        if (userAuthentication != null) {
+            String name = userAuthentication.getUsername();
+            username.setText(name);
+        }
+    }
 }

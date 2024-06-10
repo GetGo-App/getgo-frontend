@@ -80,8 +80,13 @@ public class ListStatusActivity extends AppCompatActivity {
         ArrayList<Integer> arrayList2 = new ArrayList<>();
         arrayList2.add(R.drawable.sapa);
 
-        statusList.add(new Status("Phan Hieu Nghia", "The Good Place", "This is the beautiful place", "4 days ago", R.drawable.avatar, arrayList));
-        statusList.add(new Status("Hoang Le Huong", "The New Place", "This is the good place", "4 days ago", R.drawable.avatar, arrayList2));
+        ArrayList<String> reactedUsers = new ArrayList<>();
+        reactedUsers.add("hieu nghia");
+        reactedUsers.add("ngo ngo");
+        reactedUsers.add("phan phuc");
+
+        statusList.add(new Status("Phan Hieu Nghia", "The Good Place", "This is the beautiful place", "4 days ago", "public", R.drawable.avatar, arrayList, reactedUsers));
+        statusList.add(new Status("Hoang Le Huong", "The New Place", "This is the good place", "4 days ago", "public", R.drawable.avatar, arrayList2, reactedUsers));
 
         StatusAdapter statusAdapter = new StatusAdapter(this, statusList);
         RecyclerView recyclerView = layoutStatus.findViewById(R.id.image_status_recycler);

@@ -2,6 +2,9 @@ package com.application.getgoproject.utils;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -13,13 +16,17 @@ public class RetrofitClient {
 
     public static Retrofit getRetrofitInstance(Context context) {
         if (retrofit == null) {
+            Gson gson = new GsonBuilder()
+                    .setLenient()
+                    .create();
+
             OkHttpClient okHttpClient = UnsafeOkHttpClient.getUnsafeOkHttpClient().newBuilder()
-                    .addInterceptor(new TokenInterceptor(SharedPrefManager.getInstance(context))).build();
+                    .addInterceptor(new TokenInterceptor(context)).build();
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .client(okHttpClient)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
         }
 
