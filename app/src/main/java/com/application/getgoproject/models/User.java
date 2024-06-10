@@ -1,7 +1,5 @@
 package com.application.getgoproject.models;
 
-import org.jetbrains.annotations.Nullable;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,9 +8,10 @@ public class User {
     private String userName;
     private String password;
 
-    private boolean gender;
+    private String gender;
     private String email;
     private String phoneNumber;
+    private String birthday;
 
     private String avatar;
     private String role;
@@ -24,9 +23,10 @@ public class User {
         this.id = "";
         this.userName = "";
         this.password = "";
-        this.gender = false;
+        this.gender = "";
         this.email = "";
         this.phoneNumber = "";
+        this.birthday = null;
         this.avatar = "";
         this.role = "";
         this.isActive = false;
@@ -34,13 +34,14 @@ public class User {
         this.favorites = new ArrayList<>();
     }
 
-    public User(String id, String userName, String password, boolean gender, String email, String phoneNumber, String avatar, String role, boolean isActive, List<String> friends, List<String> favorites) {
+    public User(String id, String userName, String password, String gender, String email, String phoneNumber, String birthday, String avatar, String role, boolean isActive, List<String> friends, List<String> favorites) {
         this.id = id;
         this.userName = userName;
         this.password = password;
         this.gender = gender;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.birthday = birthday;
         this.avatar = avatar;
         this.role = role;
         this.isActive = isActive;
@@ -72,11 +73,11 @@ public class User {
         this.password = password;
     }
 
-    public boolean isGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(boolean gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
@@ -94,6 +95,14 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 
     public String getAvatar() {

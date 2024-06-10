@@ -23,6 +23,10 @@ import com.application.getgoproject.utils.RetrofitClient;
 import com.application.getgoproject.utils.SharedPrefManager;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Calendar;
 
 import retrofit2.Call;
@@ -37,7 +41,7 @@ public class ChangeProfileActivity extends AppCompatActivity {
     private UserService userService;
 
     private EditText edtUsername, edtPhone, edtPassword, edtConfirmPassword, edtBirthday;
-    private RadioButton btnMale, btnFemale;
+    private RadioButton btnMale, btnFemale, btnOther;
     private Button btnChange, btnCancel;
     private ImageButton imgbtnGoback;
     @Override
@@ -67,12 +71,25 @@ public class ChangeProfileActivity extends AppCompatActivity {
                 String updatedPhone = edtPhone.getText().toString();
                 String updatedPassword = edtPassword.getText().toString();
                 String confirmPassword = edtConfirmPassword.getText().toString();
+                String updatedGender = "other";
+                if (btnMale.isChecked()) {
+                    updatedGender = "male";
+                } else if (btnFemale.isChecked()) {
+                    updatedGender = "female";
+                }
+                LocalDateTime updatedBirthday;
+                try {
+                    updatedBirthday = LocalDateTime.parse(edtBirthday.getText().toString() + "T00:00:00", DateTimeFormatter.ofPattern("dd/MM/yyyy'T'HH:mm:ss"));
+                } catch (DateTimeParseException e) {
+                    Toast.makeText(ChangeProfileActivity.this, "Invalid date format!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (!updatedPassword.equals(confirmPassword)) {
                     Toast.makeText(ChangeProfileActivity.this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                UpdateUserDTO updateUserDTO = new UpdateUserDTO(updatedUsername, updatedPassword, updatedPhone, true, user.getEmail(), user.getAvatar());
+                UpdateUserDTO updateUserDTO = new UpdateUserDTO(updatedUsername, updatedPassword, updatedPhone, updatedGender, user.getEmail(), user.getAvatar() ,updatedBirthday);
                 updateUserByName(user.getUserName(), updateUserDTO, userToken);
 
                 userForm();
@@ -103,6 +120,7 @@ public class ChangeProfileActivity extends AppCompatActivity {
 
         btnMale = findViewById(R.id.btnMale);
         btnFemale = findViewById(R.id.btnFemale);
+        btnOther = findViewById(R.id.btnOther);
         btnChange = findViewById(R.id.btnChange);
         btnCancel = findViewById(R.id.btnCancel);
         imgbtnGoback = findViewById(R.id.imgbtnGoback);
@@ -135,6 +153,9 @@ public class ChangeProfileActivity extends AppCompatActivity {
     }
 
     private void getUserByName(String username, String token) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter isoFormatter = DateTimeFormatter.ISO_DATE_TIME;
+
         Call<User> call = userService.getUserByUsername(username, token);
         call.enqueue(new Callback<User>() {
             @Override
@@ -143,9 +164,31 @@ public class ChangeProfileActivity extends AppCompatActivity {
                     user = response.body();
                     edtUsername.setText(user.getUserName() != null ? user.getUserName() : "");
                     edtPhone.setText(user.getPhoneNumber() != null ? user.getPhoneNumber() : "");
+                    if (user.getBirthday() != null && !user.getBirthday().isEmpty()) {
+                        LocalDateTime birthdayDateTime = LocalDateTime.parse(user.getBirthday(), isoFormatter);
+                        LocalDate birthday = birthdayDateTime.toLocalDate();
+                        edtBirthday.setText(birthday.format(formatter));
+                    }
+                    else {
+                        edtBirthday.setText("");
+                    }
+
+                    if (user.getGender() != null) {
+                        if (user.getGender().equalsIgnoreCase("male")) {
+                            btnMale.setChecked(true);
+                        }
+                        else if (user.getGender().equalsIgnoreCase("female")) {
+                            btnFemale.setChecked(true);
+                        } else if (user.getGender().equalsIgnoreCase("other")) {
+                            btnOther.setChecked(true);
+                        }
+                    }
+                    else {
+                        btnMale.setChecked(true);
+                    }
                 }
                 else {
-                    Log.d("Error", "Failed to fetch");
+                    Log.d("Error", "Failed to fetch " + response);
                 }
             }
 
@@ -162,6 +205,8 @@ public class ChangeProfileActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful() && response.body() != null) {
+                    user = response.body();
+
                     userAuthentication.setUsername(user.getUserName());
                     userAuthentication.setEmail(user.getEmail());
                     SharedPrefManager.getInstance(ChangeProfileActivity.this).saveUser(userAuthentication);

@@ -1,21 +1,30 @@
 package com.application.getgoproject.dto;
 
+import com.application.getgoproject.utils.LocalDateTimeSerializer;
+import com.google.gson.annotations.JsonAdapter;
+
+import java.time.LocalDateTime;
+
 public class UpdateUserDTO {
 
     private String userName;
     private String password;
     private String phoneNumber;
-    private boolean gender;
+    private String gender;
     private String email;
     private String avatar;
 
-    public UpdateUserDTO(String userName, String password, String phoneNumber, boolean gender, String email, String avatar) {
+    @JsonAdapter(LocalDateTimeSerializer.class)
+    private LocalDateTime birthday;
+
+    public UpdateUserDTO(String userName, String password, String phoneNumber, String gender, String email, String avatar, LocalDateTime birthday) {
         this.userName = userName;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.gender = gender;
         this.email = email;
         this.avatar = avatar;
+        this.birthday = birthday;
     }
 
     public String getUserName() {
@@ -42,11 +51,11 @@ public class UpdateUserDTO {
         this.phoneNumber = phoneNumber;
     }
 
-    public boolean isGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(boolean gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
@@ -64,5 +73,13 @@ public class UpdateUserDTO {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public LocalDateTime getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDateTime birthday) {
+        this.birthday = birthday;
     }
 }
