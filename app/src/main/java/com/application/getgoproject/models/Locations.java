@@ -24,6 +24,7 @@ public class Locations implements Serializable {
     private float websiteRatingOverall;
     private boolean isTrend;
     private boolean isTopYear;
+
     public static class RatingStar {
         private float star1;
         private float star2;

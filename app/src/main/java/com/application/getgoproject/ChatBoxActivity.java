@@ -159,6 +159,17 @@ public class ChatBoxActivity extends AppCompatActivity {
                     if (chatAgentMessage.getIds_location() != null && !chatAgentMessage.getIds_location().isEmpty()) {
                         fetchLocationsByIds(chatAgentMessage.getIds_location(), userToken);
                     }
+
+                    if (chatAgentMessage.getMessage() == null && (chatAgentMessage.getIds_location() == null || chatAgentMessage.getIds_location().isEmpty())) {
+                        recyclerView.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                chatBoxList.add(new ChatBox("Sorry, I have no information!", false));
+                                chatBoxAdapter.notifyItemInserted(chatBoxList.size() - 1);
+                                recyclerView.scrollToPosition(chatBoxList.size() - 1);
+                            }
+                        }, 1000);
+                    }
                 } else {
                     recyclerView.postDelayed(new Runnable() {
                         @Override

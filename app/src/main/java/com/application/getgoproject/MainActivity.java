@@ -15,20 +15,28 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.application.getgoproject.models.UserAuthentication;
+import com.application.getgoproject.service.LocationService;
+import com.application.getgoproject.utils.RetrofitClient;
 import com.application.getgoproject.utils.SharedPrefManager;
 import com.google.android.material.imageview.ShapeableImageView;
+
+import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
     private ShapeableImageView avatar;
     private ImageView imgPlace, imgBanner;
     private ImageButton btnAssistant, btnStatus, btnQr, imgAddStory;
     private TextView tvUsername;
+    private LocationService locationService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance(this);
+        locationService = retrofit.create(LocationService.class);
 
         mapping();
 
