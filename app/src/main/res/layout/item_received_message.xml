@@ -5,13 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="start"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:weightSum="2">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:layout_margin="4dp"
         app:cardBackgroundColor="@color/black"
+        android:elevation="4dp"
         app:cardCornerRadius="8dp">
 
         <TextView
