@@ -181,7 +181,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/ratingAverage"
+                        android:id="@+id/ratingOverall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/kufam"
@@ -190,11 +190,12 @@
                         android:textSize="30sp" />
 
                     <RatingBar
-                        android:id="@+id/ratingBarReview"
+                        android:id="@+id/ratingBarOverall"
                         style="?android:attr/ratingBarStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:progressTint="#FFE500"
+                        android:isIndicator="true"
                         android:rating="4.8"
                         android:stepSize="0.1" />
 

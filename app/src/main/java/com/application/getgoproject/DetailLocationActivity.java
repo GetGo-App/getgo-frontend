@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -17,7 +19,7 @@ import com.application.getgoproject.adapter.CommentAdapter;
 import com.application.getgoproject.adapter.ImageLoctionAdapter;
 import com.application.getgoproject.callback.LocationCallback;
 import com.application.getgoproject.models.Comment;
-import com.application.getgoproject.models.Image;
+import com.application.getgoproject.models.ImageLocation;
 import com.application.getgoproject.models.Locations;
 import com.application.getgoproject.models.UserAuthentication;
 import com.application.getgoproject.service.LocationService;
@@ -43,8 +45,10 @@ public class DetailLocationActivity extends AppCompatActivity {
     private ArrayList<Comment> arrayComment;
     private CommentAdapter adapter;
     private ImageButton imgbtnGoback;
-    private TextView etNameLocation, contentDescription, address, price, tvShowMore;
-    private ArrayList<Image> arrayImage;
+    private TextView etNameLocation, contentDescription, address, price, tvShowMore, ratingOverall;
+    private ProgressBar progress5Star, progress4Star, progress3Star, progress2Star, progress1Star;
+    private RatingBar ratingBarOverall;
+    private ArrayList<ImageLocation> arrayImage;
     private ImageLoctionAdapter imageAdapter;
     private RecyclerView recyclerImage;
     @Override
@@ -103,6 +107,26 @@ public class DetailLocationActivity extends AppCompatActivity {
                         locationCity = locations.getCity();
                     }
                 });
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        arrayImage.clear();
+                        if (locations.getImages() != null) {
+                            for (String images : locations.getImages()) {
+                                if (images != null && !images.isEmpty()) {
+                                    arrayImage.add(new ImageLocation(images));
+                                } else {
+                                    arrayImage.add(new ImageLocation(""));
+                                }
+                            }
+                        }
+                        else {
+                            arrayImage.add(new ImageLocation(""));
+                        }
+                        imageAdapter.notifyDataSetChanged();
+                    }
+                });
             }
         });
 
@@ -129,13 +153,26 @@ public class DetailLocationActivity extends AppCompatActivity {
         address = findViewById(R.id.address);
         price = findViewById(R.id.price);
         tvShowMore = findViewById(R.id.tvShowMore);
+        ratingOverall = findViewById(R.id.ratingOverall);
+        progress5Star = findViewById(R.id.progress5Star);
+        progress4Star = findViewById(R.id.progress4Star);
+        progress3Star = findViewById(R.id.progress3Star);
+        progress2Star = findViewById(R.id.progress2Star);
+        progress1Star = findViewById(R.id.progress1Star);
+        ratingBarOverall = findViewById(R.id.ratingBarOverall);
+
+        progress5Star.setMax(10000);
+        progress4Star.setMax(10000);
+        progress3Star.setMax(10000);
+        progress2Star.setMax(10000);
+        progress1Star.setMax(10000);
 
         arrayImage = new ArrayList<>();
-        arrayImage.add(new Image(R.drawable.sapa));
-        arrayImage.add(new Image(R.drawable.sapa));
-        arrayImage.add(new Image(R.drawable.sapa));
-        arrayImage.add(new Image(R.drawable.sapa));
-        arrayImage.add(new Image(R.drawable.sapa));
+//        arrayImage.add(new Image(R.drawable.sapa));
+//        arrayImage.add(new Image(R.drawable.sapa));
+//        arrayImage.add(new Image(R.drawable.sapa));
+//        arrayImage.add(new Image(R.drawable.sapa));
+//        arrayImage.add(new Image(R.drawable.sapa));
 
         arrayComment = new ArrayList<>();
         arrayComment.add(new Comment(R.drawable.border_gradient, "Yen Vi", "2 days ago", "Awesome place for tourist trying to have a sip of coffee. Authentic taste, quiet with beautiful vintage decorations. Recommended.", 1));
@@ -169,6 +206,29 @@ public class DetailLocationActivity extends AppCompatActivity {
                     contentDescription.setText(locations.getContent());
                     address.setText(locations.getAddress());
                     price.setText(locations.getPrice());
+
+                    ratingOverall.setText(String.format("%.1f", locations.getWebsiteRatingOverall()));
+                    ratingBarOverall.setRating(locations.getWebsiteRatingOverall());
+                    progress5Star.setProgress((int) (locations.getWebsiteRating().getStar5() * 100));
+                    progress4Star.setProgress((int) (locations.getWebsiteRating().getStar4() * 100));
+                    progress3Star.setProgress((int) (locations.getWebsiteRating().getStar3() * 100));
+                    progress2Star.setProgress((int) (locations.getWebsiteRating().getStar2() * 100));
+                    progress1Star.setProgress((int) (locations.getWebsiteRating().getStar1() * 100));
+
+                    arrayImage.clear();
+                    if (locations.getImages() != null) {
+                        for (String images : locations.getImages()) {
+                            if (images != null && !images.isEmpty()) {
+                                arrayImage.add(new ImageLocation(images));
+                            } else {
+                                arrayImage.add(new ImageLocation("")); // Placeholder for default image handling
+                            }
+                        }
+                    }
+                    else {
+                        arrayImage.add(new ImageLocation(""));
+                    }
+                    imageAdapter.notifyDataSetChanged();
 
                     callback.onOneLocationsFetched(locations);
                 }
