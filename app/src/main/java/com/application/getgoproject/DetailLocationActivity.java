@@ -40,6 +40,7 @@ public class DetailLocationActivity extends AppCompatActivity {
     private UserAuthentication userAuthentication;
     private String userToken;
     private String locationCity;
+    private int locationId;
 
     private ListView lvComment;
     private ArrayList<Comment> arrayComment;
@@ -66,7 +67,7 @@ public class DetailLocationActivity extends AppCompatActivity {
         anhXa();
 
         Intent intent = getIntent();
-        int locationId = intent.getIntExtra("detail location", 0);
+        locationId = intent.getIntExtra("detail location", 0);
 
         imageAdapter = new ImageLoctionAdapter(this, R.layout.layout_avatar, arrayImage);
         recyclerImage.setAdapter(imageAdapter);
@@ -75,7 +76,7 @@ public class DetailLocationActivity extends AppCompatActivity {
         adapter = new CommentAdapter(this, R.layout.layout_cmt, arrayComment);
         lvComment.setAdapter(adapter);
 
-        contentDescription.setOnClickListener(new View.OnClickListener() {
+        address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mapForm();
@@ -190,8 +191,8 @@ public class DetailLocationActivity extends AppCompatActivity {
     }
     private void mapForm(){
         Intent intent = new Intent(this, MapsActivity.class);
+        intent.putExtra("location address", locationId);
         startActivity(intent);
-        finish();
     }
 
     private void getLocationById(int id, String token, LocationCallback callback) {

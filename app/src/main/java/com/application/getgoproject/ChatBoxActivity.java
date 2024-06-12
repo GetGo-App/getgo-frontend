@@ -145,11 +145,11 @@ public class ChatBoxActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     ChatAgentMessage chatAgentMessage = response.body();
 
-                    if (chatAgentMessage.getMessage() != null) {
+                    if (chatAgentMessage.getText() != null) {
                         recyclerView.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                chatBoxList.add(new ChatBox(chatAgentMessage.getMessage(), false));
+                                chatBoxList.add(new ChatBox(chatAgentMessage.getText(), false));
                                 chatBoxAdapter.notifyItemInserted(chatBoxList.size() - 1);
                                 recyclerView.scrollToPosition(chatBoxList.size() - 1);
                             }
@@ -160,7 +160,7 @@ public class ChatBoxActivity extends AppCompatActivity {
                         fetchLocationsByIds(chatAgentMessage.getIds_location(), userToken);
                     }
 
-                    if (chatAgentMessage.getMessage() == null && (chatAgentMessage.getIds_location() == null || chatAgentMessage.getIds_location().isEmpty())) {
+                    if (chatAgentMessage.getText() == null && (chatAgentMessage.getIds_location() == null || chatAgentMessage.getIds_location().isEmpty())) {
                         recyclerView.postDelayed(new Runnable() {
                             @Override
                             public void run() {

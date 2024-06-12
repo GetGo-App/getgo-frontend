@@ -5,11 +5,11 @@ import java.util.List;
 public class ChatAgentMessage {
     private List<Integer> ids_location;
 
-    private String message;
+    private String text;
 
-    public ChatAgentMessage(List<Integer> ids_location, String message) {
+    public ChatAgentMessage(List<Integer> ids_location, String text) {
         this.ids_location = ids_location;
-        this.message = message;
+        this.text = text;
     }
 
     public List<Integer> getIds_location() {
@@ -20,11 +20,11 @@ public class ChatAgentMessage {
         this.ids_location = ids_location;
     }
 
-    public String getMessage() {
-        return message;
+    public String getText() {
+        return text;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setText(String text) {
+        this.text = text;
     }
 }
