@@ -308,7 +308,7 @@
                 app:srcCompat="@drawable/sapa" />
 
             <TextView
-                android:id="@+id/textSaPa"
+                android:id="@+id/textPlace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sa Pa"
