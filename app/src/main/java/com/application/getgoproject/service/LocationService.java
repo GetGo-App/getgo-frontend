@@ -1,5 +1,6 @@
 package com.application.getgoproject.service;
 
+import com.application.getgoproject.models.LocationComment;
 import com.application.getgoproject.models.Locations;
 
 import java.util.List;
@@ -19,4 +20,7 @@ public interface LocationService {
 
     @GET("{city}/locations")
     Call<List<Locations>> getLocationsByCity(@Path("city") String city, @Header("Authorization") String token);
+
+    @GET("locations/{id}/comments")
+    Call<List<LocationComment>> getListLocationCommentById(@Path("id") int id, @Header("Authorization") String token);
 }

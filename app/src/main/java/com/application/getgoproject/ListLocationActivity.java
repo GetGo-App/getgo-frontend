@@ -75,6 +75,7 @@ public class ListLocationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 updateTextViewStyles(tvAll, tvTrending, tvTopyear);
+                adapter.setData(arrayLocation);
             }
         });
 
@@ -82,6 +83,7 @@ public class ListLocationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 updateTextViewStyles(tvTrending, tvTopyear, tvAll);
+                adapter.setData(arrayTrending);
             }
         });
 
@@ -89,6 +91,7 @@ public class ListLocationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 updateTextViewStyles(tvTopyear, tvAll, tvTrending);
+                adapter.setData(arrayTopyear);
             }
         });
 
@@ -175,6 +178,7 @@ public class ListLocationActivity extends AppCompatActivity {
                         arrayLocation.add(new Locations(locations.getId(),
                                 locations.getName(), locations.getAddress(),
                                 locations.getContent(), locations.getCity(),
+                                locations.getShortDescription(),
                                 locations.getLatitude(), locations.getLongitude(),
                                 locations.getImages(), locations.isAvailable(),
                                 locations.getOpenTime(), locations.getDetailUrl(),

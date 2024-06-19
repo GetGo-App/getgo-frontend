@@ -64,19 +64,19 @@
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/tvContent"
-        app:layout_constraintTop_toBottomOf="@+id/tvShowMore" />
-
-    <TextView
-        android:id="@+id/tvShowMore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/kufam_bold"
-        android:textColor="#000000"
-        android:clickable="true"
-        android:text="Show more"
-        android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@+id/tvContent"
         app:layout_constraintTop_toBottomOf="@+id/tvContent" />
+
+<!--    <TextView-->
+<!--        android:id="@+id/tvShowMore"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:fontFamily="@font/kufam_bold"-->
+<!--        android:textColor="#000000"-->
+<!--        android:clickable="true"-->
+<!--        android:text="Show more"-->
+<!--        android:textSize="10sp"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/tvContent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/tvContent" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

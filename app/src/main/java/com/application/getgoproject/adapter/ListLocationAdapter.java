@@ -26,6 +26,11 @@ public class ListLocationAdapter extends BaseAdapter {
         this.locationsList = locationsList;
     }
 
+    public void setData(List<Locations> locationsList) {
+        this.locationsList = locationsList;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return locationsList.size();
@@ -64,7 +69,7 @@ public class ListLocationAdapter extends BaseAdapter {
         Locations locations = locationsList.get(position);
         name.setText(locations.getName());
         price.setText(locations.getPrice());
-        content.setText(locations.getContent());
+        content.setText(locations.getShortDescription());
         locationRating.setRating(locations.getWebsiteRatingOverall());
         if (locations.getImages() != null && !locations.getImages().isEmpty()) {
             Glide.with(context)

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -18,13 +19,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.application.getgoproject.adapter.CommentAdapter;
 import com.application.getgoproject.adapter.ImageLoctionAdapter;
 import com.application.getgoproject.callback.LocationCallback;
+import com.application.getgoproject.callback.UserCallback;
+import com.application.getgoproject.dto.CommentDTO;
 import com.application.getgoproject.models.Comment;
 import com.application.getgoproject.models.ImageLocation;
+import com.application.getgoproject.models.LocationComment;
 import com.application.getgoproject.models.Locations;
+import com.application.getgoproject.models.User;
 import com.application.getgoproject.models.UserAuthentication;
+import com.application.getgoproject.service.CommentService;
 import com.application.getgoproject.service.LocationService;
+import com.application.getgoproject.service.UserService;
 import com.application.getgoproject.utils.RetrofitClient;
 import com.application.getgoproject.utils.SharedPrefManager;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,10 +45,13 @@ import retrofit2.Retrofit;
 public class DetailLocationActivity extends AppCompatActivity {
 
     private LocationService locationService;
+    private CommentService commentService;
+    private UserService userService;
     private UserAuthentication userAuthentication;
     private String userToken;
     private String locationCity;
     private int locationId;
+    private String userId;
 
     private ListView lvComment;
     private ArrayList<Comment> arrayComment;
@@ -48,10 +59,12 @@ public class DetailLocationActivity extends AppCompatActivity {
     private ImageButton imgbtnGoback;
     private TextView etNameLocation, contentDescription, address, price, tvShowMore, ratingOverall;
     private ProgressBar progress5Star, progress4Star, progress3Star, progress2Star, progress1Star;
-    private RatingBar ratingBarOverall;
+    private RatingBar ratingBarOverall, feedBackRating;
     private ArrayList<ImageLocation> arrayImage;
     private ImageLoctionAdapter imageAdapter;
     private RecyclerView recyclerImage;
+    private Button btnComment;
+    private TextInputEditText inputComment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +76,8 @@ public class DetailLocationActivity extends AppCompatActivity {
 
         Retrofit retrofit = RetrofitClient.getRetrofitInstance(this);
         locationService = retrofit.create(LocationService.class);
+        commentService = retrofit.create(CommentService.class);
+        userService = retrofit.create(UserService.class);
 
         anhXa();
 
@@ -131,6 +146,13 @@ public class DetailLocationActivity extends AppCompatActivity {
             }
         });
 
+        getUserByUsername(userAuthentication.getUsername(), userToken, new UserCallback() {
+            @Override
+            public void onUserFetched(User user) {
+                userId = user.getId();
+            }
+        });
+
         tvShowMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,6 +166,17 @@ public class DetailLocationActivity extends AppCompatActivity {
                 }
             }
         });
+
+        btnComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String commentText = inputComment.getText().toString().trim();
+                float ratingNumber = feedBackRating.getRating();
+
+                CommentDTO commentDTO = new CommentDTO(commentText, null, ratingNumber, userId, locationId);
+                sendComment(commentDTO, userToken);
+            }
+        });
     }
     private void anhXa(){
         etNameLocation = findViewById(R.id.etNameLocation);
@@ -154,6 +187,8 @@ public class DetailLocationActivity extends AppCompatActivity {
         address = findViewById(R.id.address);
         price = findViewById(R.id.price);
         tvShowMore = findViewById(R.id.tvShowMore);
+        btnComment = findViewById(R.id.btnComment);
+        inputComment = findViewById(R.id.inputComment);
         ratingOverall = findViewById(R.id.ratingOverall);
         progress5Star = findViewById(R.id.progress5Star);
         progress4Star = findViewById(R.id.progress4Star);
@@ -161,6 +196,7 @@ public class DetailLocationActivity extends AppCompatActivity {
         progress2Star = findViewById(R.id.progress2Star);
         progress1Star = findViewById(R.id.progress1Star);
         ratingBarOverall = findViewById(R.id.ratingBarOverall);
+        feedBackRating = findViewById(R.id.feedbackRating);
 
         progress5Star.setMax(10000);
         progress4Star.setMax(10000);
@@ -243,5 +279,72 @@ public class DetailLocationActivity extends AppCompatActivity {
                 Log.d("Error", throwable.getMessage());
             }
         });
+    }
+
+    public void getUserByUsername(String username, String token, UserCallback callback) {
+        try {
+            Call<User> call = userService.getUserByUsername(username, token);
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        User user = response.body();
+                        callback.onUserFetched(user);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable throwable) {
+                    // Handle failure
+                }
+            });
+        }
+        catch (Exception e) {
+            Log.d("Error", e.getMessage());
+        }
+    }
+
+    private void sendComment(CommentDTO commentDTO, String token) {
+        try {
+            Call<Comment> call = commentService.createComments(commentDTO, token);
+            call.enqueue(new Callback<Comment>() {
+                @Override
+                public void onResponse(Call<Comment> call, Response<Comment> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Comment> call, Throwable throwable) {
+                    Log.d("Failed", throwable.getMessage());
+                }
+            });
+        }
+        catch (Exception e) {
+            Log.d("Error", e.getMessage());
+        }
+    }
+
+    private void getLocationCommentById(int id, String token) {
+        try {
+            Call<List<LocationComment>> call = locationService.getListLocationCommentById(id, token);
+            call.enqueue(new Callback<List<LocationComment>>() {
+                @Override
+                public void onResponse(Call<List<LocationComment>> call, Response<List<LocationComment>> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        List<LocationComment> locationComments = response.body();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<LocationComment>> call, Throwable throwable) {
+                    Log.d("Failed", throwable.getMessage());
+                }
+            });
+        }
+        catch (Exception e) {
+            Log.d("Error", e.getMessage());
+        }
     }
 }
