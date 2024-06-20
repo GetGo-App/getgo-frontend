@@ -9,6 +9,7 @@ public class Locations implements Serializable {
     private String address;
     private String content;
     private String city;
+    private String shortDescription;
     private float latitude;
     private float longitude;
     private List<String> images;
@@ -102,12 +103,36 @@ public class Locations implements Serializable {
 //    }
 
 
-    public Locations(int id, String name, String address, String content, String city, float latitude, float longitude, List<String> images, boolean isAvailable, String openTime, String detailUrl, String hotline, String price, String categoryId, RatingStar rating, RatingStar websiteRating, float websiteRatingOverall, boolean isTrend, boolean isTopYear) {
+//    public Locations(int id, String name, String address, String content, String city, float latitude, float longitude, List<String> images, boolean isAvailable, String openTime, String detailUrl, String hotline, String price, String categoryId, RatingStar rating, RatingStar websiteRating, float websiteRatingOverall, boolean isTrend, boolean isTopYear) {
+//        this.id = id;
+//        this.name = name;
+//        this.address = address;
+//        this.content = content;
+//        this.city = city;
+//        this.latitude = latitude;
+//        this.longitude = longitude;
+//        this.images = images;
+//        this.isAvailable = isAvailable;
+//        this.openTime = openTime;
+//        this.detailUrl = detailUrl;
+//        this.hotline = hotline;
+//        this.price = price;
+//        this.categoryId = categoryId;
+//        this.rating = rating;
+//        this.websiteRating = websiteRating;
+//        this.websiteRatingOverall = websiteRatingOverall;
+//        this.isTrend = isTrend;
+//        this.isTopYear = isTopYear;
+//    }
+
+
+    public Locations(int id, String name, String address, String content, String city, String shortDescription, float latitude, float longitude, List<String> images, boolean isAvailable, String openTime, String detailUrl, String hotline, String price, String categoryId, RatingStar rating, RatingStar websiteRating, float websiteRatingOverall, boolean isTrend, boolean isTopYear) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.content = content;
         this.city = city;
+        this.shortDescription = shortDescription;
         this.latitude = latitude;
         this.longitude = longitude;
         this.images = images;
@@ -274,5 +299,13 @@ public class Locations implements Serializable {
 
     public void setTopYear(boolean topYear) {
         isTopYear = topYear;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
     }
 }

@@ -63,7 +63,9 @@ public class MainActivity extends AppCompatActivity {
             tvUsername.setText(username);
         } else {
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
-            // Optionally redirect to login screen
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         btnAssistant.setOnClickListener(new View.OnClickListener() {
@@ -251,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
                 uniqueCities.add(city);
                 // Add only the city name and minimal information to arrayLocation
                 arrayLocation.add(new Locations(location.getId(), location.getName(), location.getAddress(),
-                        location.getContent(), city, location.getLatitude(), location.getLongitude(),
+                        location.getContent(), city, location.getShortDescription(), location.getLatitude(), location.getLongitude(),
                         location.getImages(), location.isAvailable(), location.getOpenTime(),
                         location.getDetailUrl(), location.getHotline(), location.getPrice(),
                         location.getCategoryId(), location.getRating(), location.getWebsiteRating(),

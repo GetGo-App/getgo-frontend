@@ -250,7 +250,7 @@ public class LocationActivity extends AppCompatActivity {
                 uniqueCities.add(city);
                 // Add only the city name and minimal information to arrayLocation
                 arrayLocation.add(new Locations(location.getId(), location.getName(), location.getAddress(),
-                        location.getContent(), city, location.getLatitude(), location.getLongitude(),
+                        location.getContent(), city, location.getShortDescription(), location.getLatitude(), location.getLongitude(),
                         location.getImages(), location.isAvailable(), location.getOpenTime(),
                         location.getDetailUrl(), location.getHotline(), location.getPrice(),
                         location.getCategoryId(), location.getRating(), location.getWebsiteRating(),

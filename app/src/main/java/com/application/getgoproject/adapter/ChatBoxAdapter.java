@@ -13,6 +13,12 @@ import com.application.getgoproject.R;
 import com.application.getgoproject.models.ChatBox;
 import com.application.getgoproject.models.Locations;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
 
@@ -65,13 +71,37 @@ public class ChatBoxAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         } else if (holder.getItemViewType() == VIEW_TYPE_MESSAGE_RECEIVED) {
             ((ReceivedMessageViewHolder) holder).bind(chatBox);
         } else {
-            ((LocationViewHolder) holder).bind(chatBox.getLocation());
+            ((LocationViewHolder) holder).bind(chatBox.getLocation(), locationClickListener);
         }
     }
 
     @Override
     public int getItemCount() {
         return messageList.size();
+    }
+
+    @Override
+    public void onViewRecycled(@NonNull RecyclerView.ViewHolder holder) {
+        super.onViewRecycled(holder);
+        if (holder instanceof LocationViewHolder) {
+            ((LocationViewHolder) holder).onViewRecycled();
+        }
+    }
+
+    @Override
+    public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        if (holder instanceof LocationViewHolder) {
+            ((LocationViewHolder) holder).onViewAttachedToWindow();
+        }
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(@NonNull RecyclerView.ViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+        if (holder instanceof LocationViewHolder) {
+            ((LocationViewHolder) holder).onViewDetachedFromWindow();
+        }
     }
 
     static class SentMessageViewHolder extends RecyclerView.ViewHolder {
@@ -100,17 +130,24 @@ public class ChatBoxAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    class LocationViewHolder extends RecyclerView.ViewHolder {
+    class LocationViewHolder extends RecyclerView.ViewHolder implements OnMapReadyCallback {
         ImageView imgLocation;
         TextView tvNameLocation;
+        MapView mapView;
+        GoogleMap googleMap;
 
         LocationViewHolder(@NonNull View itemView) {
             super(itemView);
             imgLocation = itemView.findViewById(R.id.imgLocation);
             tvNameLocation = itemView.findViewById(R.id.tvNameLocation);
+            mapView = itemView.findViewById(R.id.map_view);
+            // Initialize the MapView
+            mapView.onCreate(null);
+            mapView.onResume(); // Needed to get the map to display immediately
+            mapView.getMapAsync(this);
         }
 
-        void bind(Locations location) {
+        void bind(Locations location, LocationChatBoxAdapter.OnItemClickListener locationClickListener) {
             tvNameLocation.setText(location.getName());
             if (location.getImages() != null && !location.getImages().isEmpty()) {
                 Glide.with(itemView.getContext())
@@ -119,7 +156,47 @@ public class ChatBoxAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             } else {
                 imgLocation.setImageResource(R.drawable.sapa);
             }
+
             itemView.setOnClickListener(v -> locationClickListener.onItemClick(location));
+
+            if (googleMap != null) {
+                updateMap(location);
+            } else {
+                mapView.getMapAsync(googleMap -> {
+                    this.googleMap = googleMap;
+                    updateMap(location);
+                });
+            }
+        }
+
+        void updateMap(Locations location) {
+            LatLng locationLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+            googleMap.addMarker(new MarkerOptions().position(locationLatLng).title(location.getName()));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationLatLng, 15));
+        }
+
+        void onViewRecycled() {
+            if (mapView != null) {
+                mapView.onPause();
+                mapView.onDestroy();
+            }
+        }
+
+        void onViewAttachedToWindow() {
+            if (mapView != null) {
+                mapView.onResume();
+            }
+        }
+
+        void onViewDetachedFromWindow() {
+            if (mapView != null) {
+                mapView.onPause();
+            }
+        }
+
+        @Override
+        public void onMapReady(GoogleMap googleMap) {
+            this.googleMap = googleMap;
         }
     }
 }

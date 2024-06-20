@@ -349,6 +349,19 @@
                     android:textColor="#000000" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <Button
+                android:id="@+id/btnComment"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="#93BC66"
+                android:fontFamily="@font/kufam_bold"
+                android:text="Send"
+                android:textColor="#fff"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
             <RatingBar
                 android:id="@+id/feedbackRating"
                 android:layout_width="wrap_content"
@@ -365,7 +378,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/btnComment" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
