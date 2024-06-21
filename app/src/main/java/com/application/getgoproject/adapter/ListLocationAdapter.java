@@ -57,7 +57,6 @@ public class ListLocationAdapter extends BaseAdapter {
         TextView content = convertView.findViewById(R.id.tvContent);
         ImageView imgLocation = convertView.findViewById(R.id.imageLocation);
         RatingBar locationRating = convertView.findViewById(R.id.locationRating);
-        TextView tvShowMore = convertView.findViewById(R.id.tvShowMore);
 
         //gan gia tri
 //        Hotel hotel = hotelList.get(position);
@@ -78,20 +77,6 @@ public class ListLocationAdapter extends BaseAdapter {
         } else {
             imgLocation.setImageResource(R.drawable.sapa);
         }
-
-        tvShowMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (tvShowMore.getText().toString().equalsIgnoreCase("Show more")) {
-                    content.setMaxLines(Integer.MAX_VALUE);
-                    tvShowMore.setText("Show less");
-                }
-                else {
-                    content.setMaxLines(5);
-                    tvShowMore.setText("Show more");
-                }
-            }
-        });
 
         return convertView;
     }
