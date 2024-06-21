@@ -37,6 +37,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "cameraView" }
+okhttp3-integration = { module = "com.github.bumptech.glide:okhttp3-integration", version.ref = "compiler" }
 picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
 play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
