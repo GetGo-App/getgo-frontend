@@ -15,13 +15,16 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.application.getgoproject.dto.SignInDto;
 import com.application.getgoproject.dto.UpdateUserDTO;
 import com.application.getgoproject.models.User;
 import com.application.getgoproject.models.UserAuthentication;
+import com.application.getgoproject.service.SignInService;
 import com.application.getgoproject.service.UserService;
 import com.application.getgoproject.utils.RetrofitClient;
 import com.application.getgoproject.utils.SharedPrefManager;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -29,6 +32,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Calendar;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,6 +43,7 @@ public class ChangeProfileActivity extends AppCompatActivity {
     private UserAuthentication userAuthentication;
     private User user;
     private UserService userService;
+    private SignInService signInService;
 
     private EditText edtUsername, edtPhone, edtPassword, edtConfirmPassword, edtBirthday;
     private RadioButton btnMale, btnFemale, btnOther;
@@ -89,10 +94,13 @@ public class ChangeProfileActivity extends AppCompatActivity {
                     return;
                 }
 
+                if (updatedPassword.isEmpty()) {
+                    updatedPassword = user.getPassword();
+                }
+
                 UpdateUserDTO updateUserDTO = new UpdateUserDTO(updatedUsername, updatedPassword, updatedPhone, updatedGender, user.getEmail(), user.getAvatar() ,updatedBirthday);
                 updateUserByName(user.getUserName(), updateUserDTO, userToken);
 
-                userForm();
 //                Toast.makeText(ChangeProfileActivity.this, "Change infomation successful!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -200,27 +208,61 @@ public class ChangeProfileActivity extends AppCompatActivity {
     }
 
     private void updateUserByName(String username, UpdateUserDTO updateUserDTO, String token) {
-        Call<User> call = userService.updateUserByUsername(username, updateUserDTO, token);
-        call.enqueue(new Callback<User>() {
+        Call<ResponseBody> call = userService.updateUserByUsername(username, updateUserDTO, token);
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    user = response.body();
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
 
-                    userAuthentication.setUsername(user.getUserName());
-                    userAuthentication.setEmail(user.getEmail());
+                    userAuthentication.setUsername(updateUserDTO.getUserName());
+                    userAuthentication.setEmail(updateUserDTO.getEmail());
                     SharedPrefManager.getInstance(ChangeProfileActivity.this).saveUser(userAuthentication);
                     Toast.makeText(ChangeProfileActivity.this, "Change information successful!", Toast.LENGTH_SHORT).show();
-                    finish();
+
+                    autoSignIn(updateUserDTO.getEmail(), updateUserDTO.getPassword());
                 } else {
-                    Log.d("Error", "Failed to change information");
+                    try {
+                        String errorBody = response.errorBody().string();
+                        Log.d("Error", "Failed to change information: " + errorBody);
+                        // Handle error message as needed
+                        Toast.makeText(ChangeProfileActivity.this, "Failed to change information: " + errorBody, Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        Log.d("Error", "IOException: " + e.getMessage());
+                    }
                 }
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable throwable) {
+            public void onFailure(Call<ResponseBody> call, Throwable throwable) {
                 Log.d("Error", throwable.getMessage());
             }
         });
     }
+
+    private void autoSignIn(String email, String password) {
+        SignInDto signInDto = new SignInDto(email, password);
+
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance(ChangeProfileActivity.this);
+        SignInService signInService = retrofit.create(SignInService.class);
+
+        Call<UserAuthentication> call = signInService.signInUser(signInDto);
+        call.enqueue(new Callback<UserAuthentication>() {
+            @Override
+            public void onResponse(Call<UserAuthentication> call, Response<UserAuthentication> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    UserAuthentication updatedUserAuth = response.body();
+                    // Save the updated access token and user details to shared preferences
+                    SharedPrefManager.getInstance(ChangeProfileActivity.this).saveUser(updatedUserAuth);
+                } else {
+                    Log.d("Error", "Failed to sign in after profile update");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserAuthentication> call, Throwable t) {
+                Log.d("Error", "Network request failed: " + t.getMessage());
+            }
+        });
+    }
+
 }

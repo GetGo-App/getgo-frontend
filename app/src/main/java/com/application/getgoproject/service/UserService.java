@@ -5,6 +5,7 @@ import com.application.getgoproject.models.User;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -21,5 +22,5 @@ public interface UserService {
     Call<User> getUserByUsername(@Path("username") String username, @Header("Authorization") String authorization);
 
     @PATCH("users/{username}")
-    Call<User> updateUserByUsername(@Path("username") String username, @Body UpdateUserDTO updateUserDTO, @Header("Authorization") String token);
+    Call<ResponseBody> updateUserByUsername(@Path("username") String username, @Body UpdateUserDTO updateUserDTO, @Header("Authorization") String token);
 }
