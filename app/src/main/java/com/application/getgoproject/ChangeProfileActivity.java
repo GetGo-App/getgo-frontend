@@ -59,6 +59,7 @@ public class ChangeProfileActivity extends AppCompatActivity {
 
         Retrofit retrofit = RetrofitClient.getRetrofitInstance(this);
         userService = retrofit.create(UserService.class);
+        signInService = retrofit.create(SignInService.class);
 
         mapping();
 
@@ -241,9 +242,6 @@ public class ChangeProfileActivity extends AppCompatActivity {
 
     private void autoSignIn(String email, String password) {
         SignInDto signInDto = new SignInDto(email, password);
-
-        Retrofit retrofit = RetrofitClient.getRetrofitInstance(ChangeProfileActivity.this);
-        SignInService signInService = retrofit.create(SignInService.class);
 
         Call<UserAuthentication> call = signInService.signInUser(signInDto);
         call.enqueue(new Callback<UserAuthentication>() {
