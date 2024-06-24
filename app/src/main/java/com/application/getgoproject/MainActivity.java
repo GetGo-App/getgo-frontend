@@ -230,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
         String cityName = randomLocation.getCity();
 
         if (imageUrl != null && !imageUrl.isEmpty()) {
-            Glide.with(this)
+            Glide.with(getApplicationContext())
                     .load(imageUrl)
                     .placeholder(R.drawable.sapa)
                     .into(imgPlace);

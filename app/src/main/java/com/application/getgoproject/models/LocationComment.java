@@ -12,6 +12,15 @@ public class LocationComment {
     private LocalDateTime createdDate;
     private int location;
 
+    public LocationComment(String content, List<String> images, float rating, String userId, LocalDateTime createdDate, int location) {
+        this.content = content;
+        this.images = images;
+        this.rating = rating;
+        this.userId = userId;
+        this.createdDate = createdDate;
+        this.location = location;
+    }
+
     public LocationComment(String id, String content, List<String> images, float rating, String userId, LocalDateTime createdDate, int location) {
         this.id = id;
         this.content = content;

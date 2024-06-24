@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.application.getgoproject.adapter.CommentAdapter;
 import com.application.getgoproject.adapter.ImageLoctionAdapter;
 import com.application.getgoproject.callback.LocationCallback;
+import com.application.getgoproject.callback.LocationCommentCallback;
 import com.application.getgoproject.callback.UserCallback;
 import com.application.getgoproject.dto.CommentDTO;
 import com.application.getgoproject.models.Comment;
@@ -34,9 +35,12 @@ import com.application.getgoproject.utils.RetrofitClient;
 import com.application.getgoproject.utils.SharedPrefManager;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,10 +58,10 @@ public class DetailLocationActivity extends AppCompatActivity {
     private String userId;
 
     private ListView lvComment;
-    private ArrayList<Comment> arrayComment;
+    private ArrayList<LocationComment> arrayComment;
     private CommentAdapter adapter;
     private ImageButton imgbtnGoback;
-    private TextView etNameLocation, contentDescription, address, price, tvShowMore, ratingOverall;
+    private TextView etNameLocation, contentDescription, address, price, tvShowMore, ratingOverall, reviewCount;
     private ProgressBar progress5Star, progress4Star, progress3Star, progress2Star, progress1Star;
     private RatingBar ratingBarOverall, feedBackRating;
     private ArrayList<ImageLocation> arrayImage;
@@ -65,6 +69,7 @@ public class DetailLocationActivity extends AppCompatActivity {
     private RecyclerView recyclerImage;
     private Button btnComment;
     private TextInputEditText inputComment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -173,11 +178,40 @@ public class DetailLocationActivity extends AppCompatActivity {
                 String commentText = inputComment.getText().toString().trim();
                 float ratingNumber = feedBackRating.getRating();
 
-                CommentDTO commentDTO = new CommentDTO(commentText, null, ratingNumber, userId, locationId);
+                List<String> images = new ArrayList<>();
+                CommentDTO commentDTO = new CommentDTO(commentText, images, ratingNumber, userId, locationId);
                 sendComment(commentDTO, userToken);
             }
         });
+
+        getLocationCommentById(locationId, userToken, new LocationCommentCallback() {
+            @Override
+            public void onLocationCommentsFetched(List<LocationComment> locationComments) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        arrayComment.clear();
+
+                        for (LocationComment locationComment : locationComments) {
+                            arrayComment.add(new LocationComment(locationComment.getContent(), locationComment.getImages(),
+                                    locationComment.getRating(), locationComment.getUserId(),
+                                    locationComment.getCreatedDate(), locationComment.getLocation()));
+                        }
+
+                        reviewCount.setText(arrayComment.size() + " reviews");
+                        Log.d("Comment Data", arrayComment.size() + "");
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+
+            }
+        });
     }
+
     private void anhXa(){
         etNameLocation = findViewById(R.id.etNameLocation);
         contentDescription = findViewById(R.id.contentDescription);
@@ -197,12 +231,27 @@ public class DetailLocationActivity extends AppCompatActivity {
         progress1Star = findViewById(R.id.progress1Star);
         ratingBarOverall = findViewById(R.id.ratingBarOverall);
         feedBackRating = findViewById(R.id.feedbackRating);
+        reviewCount = findViewById(R.id.reviewCount);
 
         progress5Star.setMax(10000);
         progress4Star.setMax(10000);
         progress3Star.setMax(10000);
         progress2Star.setMax(10000);
         progress1Star.setMax(10000);
+
+        feedBackRating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                if (v > 0) {
+                    btnComment.setEnabled(true);
+                    inputComment.setEnabled(true);
+                }
+                else {
+                    btnComment.setEnabled(false);
+                    inputComment.setEnabled(false);
+                }
+            }
+        });
 
         arrayImage = new ArrayList<>();
 //        arrayImage.add(new Image(R.drawable.sapa));
@@ -212,12 +261,12 @@ public class DetailLocationActivity extends AppCompatActivity {
 //        arrayImage.add(new Image(R.drawable.sapa));
 
         arrayComment = new ArrayList<>();
-        arrayComment.add(new Comment(R.drawable.border_gradient, "Yen Vi", "2 days ago", "Awesome place for tourist trying to have a sip of coffee. Authentic taste, quiet with beautiful vintage decorations. Recommended.", 1));
-        arrayComment.add(new Comment(R.drawable.border_gradient, "Duc Anh", "a week ago", "Beautiful view, very nice atmostphere, the food so good and cheap. Love it!", 2));
-        arrayComment.add(new Comment(R.drawable.border_gradient, "Mimi", "a week ago", "Nice people, nice view, nice price", 3));
-        arrayComment.add(new Comment(R.drawable.border_gradient, "Yen Vi", "2 days ago", "Awesome place for tourist trying to have a sip of coffee. Authentic taste, quiet with beautiful vintage decorations. Recommended.", 4));
-        arrayComment.add(new Comment(R.drawable.border_gradient, "Duc Anh", "a week ago", "Beautiful view, very nice atmostphere, the food so good and cheap. Love it!", 5));
-        arrayComment.add(new Comment(R.drawable.border_gradient, "Mimi", "a week ago", "Nice people, nice view, nice price", 1));
+//        arrayComment.add(new Comment(R.drawable.border_gradient, "Yen Vi", "2 days ago", "Awesome place for tourist trying to have a sip of coffee. Authentic taste, quiet with beautiful vintage decorations. Recommended.", 1));
+//        arrayComment.add(new Comment(R.drawable.border_gradient, "Duc Anh", "a week ago", "Beautiful view, very nice atmostphere, the food so good and cheap. Love it!", 2));
+//        arrayComment.add(new Comment(R.drawable.border_gradient, "Mimi", "a week ago", "Nice people, nice view, nice price", 3));
+//        arrayComment.add(new Comment(R.drawable.border_gradient, "Yen Vi", "2 days ago", "Awesome place for tourist trying to have a sip of coffee. Authentic taste, quiet with beautiful vintage decorations. Recommended.", 4));
+//        arrayComment.add(new Comment(R.drawable.border_gradient, "Duc Anh", "a week ago", "Beautiful view, very nice atmostphere, the food so good and cheap. Love it!", 5));
+//        arrayComment.add(new Comment(R.drawable.border_gradient, "Mimi", "a week ago", "Nice people, nice view, nice price", 1));
     }
 
     private void listLocalForm(){
@@ -306,27 +355,66 @@ public class DetailLocationActivity extends AppCompatActivity {
 
     private void sendComment(CommentDTO commentDTO, String token) {
         try {
-            Call<Comment> call = commentService.createComments(commentDTO, token);
-            call.enqueue(new Callback<Comment>() {
-                @Override
-                public void onResponse(Call<Comment> call, Response<Comment> response) {
-                    if (response.isSuccessful() && response.body() != null) {
+            Log.d("Sending Comment", "CommentDTO: " + commentDTO.toString());
 
+            Call<ResponseBody> call = commentService.createComments(commentDTO, token);
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response.isSuccessful()) {
+                        try {
+                            String responseString = response.body().string();
+                            Log.d("Comment Created", "Response: " + responseString);
+
+                            // Assuming success message is "Action success", you can handle this as needed
+                            if (responseString.equals("Action success")) {
+                                // Handle success, e.g., update UI, fetch comments again, etc.
+                                getLocationCommentById(locationId, userToken, new LocationCommentCallback() {
+                                    @Override
+                                    public void onLocationCommentsFetched(List<LocationComment> locationComments) {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                arrayComment.clear();
+                                                arrayComment.addAll(locationComments);
+                                                reviewCount.setText(arrayComment.size() + " reviews");
+                                                adapter.notifyDataSetChanged();
+                                            }
+                                        });
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable throwable) {
+                                        Log.e("Error", "Error fetching location comments: " + throwable.getMessage());
+                                    }
+                                });
+
+                                inputComment.setText("");
+                                feedBackRating.setRating(0);
+                            } else {
+                                // Handle error, e.g., show toast or log error
+                                Log.e("Error", "Unexpected response: " + responseString);
+                            }
+                        } catch (IOException e) {
+                            Log.e("Error", "Failed to read response body: " + e.getMessage(), e);
+                        }
+                    } else {
+                        Log.e("Error", "Failed to create comment. Response code: " + response.code());
                     }
                 }
 
                 @Override
-                public void onFailure(Call<Comment> call, Throwable throwable) {
-                    Log.d("Failed", throwable.getMessage());
+                public void onFailure(Call<ResponseBody> call, Throwable throwable) {
+                    Log.e("Error", "Failed to create comment. Error message: " + throwable.getMessage(), throwable);
                 }
             });
-        }
-        catch (Exception e) {
-            Log.d("Error", e.getMessage());
+        } catch (Exception e) {
+            Log.e("Error", "Exception while creating comment: " + e.getMessage(), e);
         }
     }
 
-    private void getLocationCommentById(int id, String token) {
+
+    private void getLocationCommentById(int id, String token, LocationCommentCallback callback) {
         try {
             Call<List<LocationComment>> call = locationService.getListLocationCommentById(id, token);
             call.enqueue(new Callback<List<LocationComment>>() {
@@ -334,6 +422,8 @@ public class DetailLocationActivity extends AppCompatActivity {
                 public void onResponse(Call<List<LocationComment>> call, Response<List<LocationComment>> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         List<LocationComment> locationComments = response.body();
+
+                        callback.onLocationCommentsFetched(locationComments);
                     }
                 }
 

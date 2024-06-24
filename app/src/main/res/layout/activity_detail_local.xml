@@ -345,6 +345,7 @@
                     android:id="@+id/inputComment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:enabled="false"
                     android:hint="Write your experience"
                     android:textColor="#000000" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -359,6 +360,7 @@
                 android:fontFamily="@font/kufam_bold"
                 android:text="Send"
                 android:textColor="#fff"
+                android:enabled="false"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 

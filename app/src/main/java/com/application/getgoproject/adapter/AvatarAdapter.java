@@ -44,7 +44,12 @@ public class AvatarAdapter extends RecyclerView.Adapter<AvatarAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull AvatarAdapter.ViewHolder holder, int position) {
         Avatar item = avatarList.get(position);
-        holder.imgAvatar.setImageResource(item.getImgAvatar());
+        if (item.getImgAvatarUri() != null) {
+            holder.imgAvatar.setImageURI(item.getImgAvatarUri());
+        }
+        else {
+            holder.imgAvatar.setImageResource(item.getImgAvatar());
+        }
 //        Toast.makeText(AvatarActivity.this, "dang xu li", Toast.LENGTH_SHORT).show();
 //        if (position == selectedPosition) {
 //            holder.avatar.setImageResource(item.getImgAvatar());
