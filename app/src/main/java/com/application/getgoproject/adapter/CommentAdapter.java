@@ -16,6 +16,8 @@ import com.application.getgoproject.models.LocationComment;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -69,8 +71,9 @@ public class CommentAdapter extends BaseAdapter {
     }
 
     public String getTimeAgo(LocalDateTime createdDate) {
+        LocalDateTime adjustDate = createdDate.plusHours(7);
         LocalDateTime now = LocalDateTime.now();
-        Duration duration = Duration.between(createdDate, now);
+        Duration duration = Duration.between(adjustDate, now);
 
         long seconds = duration.getSeconds();
 
