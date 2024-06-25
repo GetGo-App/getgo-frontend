@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +35,7 @@ public class AvatarActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE = 1;
     private static final int REQUEST_PERMISSIONS = 100;
+    private static final int PAGE_SIZE = 6;
 
     private Button btnUpload, btnSave;
     private TextView tvName;
@@ -44,6 +46,8 @@ public class AvatarActivity extends AppCompatActivity {
     private AvatarAdapter avatarAdapter;
     private RecyclerView recyclerAvatar;
     private int index;
+    private boolean isLoading = false;
+    private int currentPage = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,6 +80,19 @@ public class AvatarActivity extends AppCompatActivity {
             }
         });
 
+        recyclerAvatar.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                GridLayoutManager layoutManager = (GridLayoutManager) recyclerView.getLayoutManager();
+                if (layoutManager != null && !isLoading && layoutManager.findLastCompletelyVisibleItemPosition() == arrayAvatar.size() - 1) {
+                    loadMoreImages();
+                    isLoading = true;
+                }
+            }
+        });
+
         imgbtnGoback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,6 +115,33 @@ public class AvatarActivity extends AppCompatActivity {
         });
 
         checkPermissionsAndLoadImages();
+    }
+
+    private void loadMoreImages() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                String[] projection = { MediaStore.Images.Media.DATA };
+                Cursor cursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, null, null, null);
+
+                if (cursor != null) {
+                    int startIndex = currentPage * PAGE_SIZE;
+                    int endIndex = Math.min(startIndex + PAGE_SIZE, cursor.getCount());
+                    cursor.moveToPosition(startIndex - 1);
+
+                    while (cursor.getPosition() < endIndex && cursor.moveToNext()) {
+                        String imagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
+                        arrayAvatar.add(new Avatar(Uri.parse(imagePath)));
+                    }
+
+                    cursor.close();
+                }
+
+                avatarAdapter.notifyDataSetChanged();
+                isLoading = false;
+                currentPage++;
+            }
+        }, 1500);
     }
 
     private void checkPermissionsAndLoadImages() {
@@ -125,18 +169,7 @@ public class AvatarActivity extends AppCompatActivity {
     }
 
     private void loadImagesFromGallery() {
-        String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, null, null, null);
-
-        if (cursor != null) {
-            while (cursor.moveToNext()) {
-                String imagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
-                arrayAvatar.add(new Avatar(Uri.parse(imagePath)));
-            }
-            cursor.close();
-        }
-
-        avatarAdapter.notifyDataSetChanged();
+        loadMoreImages();
     }
 
     private void openGallery() {

@@ -2,5 +2,5 @@ package com.application.getgoproject.utils;
 
 public class Utils {
 
-    public static final String IP_ADDRESS = "10.0.2.2";
+    public static final String BASE_URL = "https://getgo-api.azurewebsites.net/api/v1/";
 }
