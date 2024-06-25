@@ -55,7 +55,7 @@ public class DetailLocationActivity extends AppCompatActivity {
     private String userToken;
     private String locationCity;
     private int locationId;
-    private String userId;
+    private String userName;
 
     private ListView lvComment;
     private ArrayList<LocationComment> arrayComment;
@@ -154,7 +154,7 @@ public class DetailLocationActivity extends AppCompatActivity {
         getUserByUsername(userAuthentication.getUsername(), userToken, new UserCallback() {
             @Override
             public void onUserFetched(User user) {
-                userId = user.getId();
+                userName = user.getUserName();
             }
         });
 
@@ -179,7 +179,7 @@ public class DetailLocationActivity extends AppCompatActivity {
                 float ratingNumber = feedBackRating.getRating();
 
                 List<String> images = new ArrayList<>();
-                CommentDTO commentDTO = new CommentDTO(commentText, images, ratingNumber, userId, locationId);
+                CommentDTO commentDTO = new CommentDTO(commentText, images, ratingNumber, userName, locationId);
                 sendComment(commentDTO, userToken);
             }
         });
