@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import retrofit2.Retrofit;
 
 public class UserActivity extends AppCompatActivity {
-    private ImageButton imgBtnHome, imageBtnAdd, imgbtnGoback;
+    private ImageButton imgBtnHome, imageBtnAdd;
     private TextView tvName;
     private RecyclerView recyclerUser, recyclerService;
     private ListItemAdapter adapterUser, adapterService;
@@ -106,12 +106,7 @@ public class UserActivity extends AppCompatActivity {
                 homeForm();
             }
         });
-        imgbtnGoback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                statusForm();
-            }
-        });
+
     }
     private void changeAvatar() {
         Intent intent = new Intent(UserActivity.this, AvatarActivity.class);
@@ -121,7 +116,6 @@ public class UserActivity extends AppCompatActivity {
     private void mapping(){
         imgBtnHome = findViewById(R.id.imageBtnHome);
         imageBtnAdd = findViewById(R.id.imageBtnAdd);
-        imgbtnGoback = findViewById(R.id.imgbtnGoback);
         recyclerUser = findViewById(R.id.recyclerUser);
         recyclerService = findViewById(R.id.recyclerService);
         tvName = findViewById(R.id.tvName);

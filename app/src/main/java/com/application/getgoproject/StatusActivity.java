@@ -49,7 +49,7 @@ public class StatusActivity extends AppCompatActivity {
     private TextView userStatusNumber, userFriendNumber, username;
     private ImageButton imgbtnGoback;
     private FrameLayout statusLayout;
-    private Button tabStatus, tabImage, tabMessage, btnAddStatus, btnSettingAccount;
+    private Button tabStatus, tabImage, tabMessage, btnAddStatus;
     private List<Image> imageList;
     private List<Message> messageList;
     private List<Status> statusList;
@@ -92,12 +92,6 @@ public class StatusActivity extends AppCompatActivity {
             }
         });
 
-        btnSettingAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                settingAccount();
-            }
-        });
         tabStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,7 +123,6 @@ public class StatusActivity extends AppCompatActivity {
         userFriendNumber= findViewById(R.id.userFriendNumber);
         imgbtnGoback= findViewById(R.id.imgbtnGoback);
         btnAddStatus = findViewById(R.id.btnAddStatus);
-        btnSettingAccount = findViewById(R.id.btnSettingAccount);
         username = findViewById(R.id.username);
     }
     private void settingAccount(){

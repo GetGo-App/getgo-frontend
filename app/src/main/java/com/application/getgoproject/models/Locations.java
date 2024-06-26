@@ -13,7 +13,6 @@ public class Locations implements Serializable {
     private float latitude;
     private float longitude;
     private List<String> images;
-    //    private int image;
     private boolean isAvailable;
     private String openTime;
     private String detailUrl;

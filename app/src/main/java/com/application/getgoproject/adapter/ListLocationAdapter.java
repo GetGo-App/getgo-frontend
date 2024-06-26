@@ -58,13 +58,6 @@ public class ListLocationAdapter extends BaseAdapter {
         ImageView imgLocation = convertView.findViewById(R.id.imageLocation);
         RatingBar locationRating = convertView.findViewById(R.id.locationRating);
 
-        //gan gia tri
-//        Hotel hotel = hotelList.get(position);
-//        name.setText(hotel.getNameHotel());
-//        price.setText(hotel.getMoney());
-//        content.setText(hotel.getCommentHotel());
-//        imgLocation.setImageResource(hotel.getImgHotel());
-
         Locations locations = locationsList.get(position);
         name.setText(locations.getName());
         price.setText(locations.getPrice());

@@ -52,7 +52,7 @@ public class NewStatusActivity extends AppCompatActivity {
     }
     private void mapping(){
         imgbtnGoback = findViewById(R.id.imgbtnGoback);
-        btnUpload = findViewById(R.id.btnComment);
+        btnUpload = findViewById(R.id.btnUpload);
         contentStatus = findViewById(R.id.contentStatus);
         username = findViewById(R.id.username);
 

@@ -21,18 +21,6 @@
         app:layout_constraintGuide_end="24dp" />
 
     <ImageButton
-        android:id="@+id/imgbtnGoback"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="40dp"
-        app:tint="#000000"
-        android:background="@android:color/transparent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/arrow_back" />
-
-    <ImageButton
         android:id="@+id/imageBtnHome"
         android:layout_width="40dp"
         android:layout_height="40dp"

@@ -21,6 +21,7 @@
         android:id="@+id/avatar"
         android:layout_width="75dp"
         android:layout_height="75dp"
+        android:layout_marginTop="10dp"
         android:background="#CEE9BE"
         app:circularflow_radiusInDP="20dp"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
@@ -101,7 +102,7 @@
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@+id/btnSettingAccount" />
+        app:layout_constraintTop_toBottomOf="@+id/btnAddStatus" />
 
     <Button
         android:id="@+id/tabImage"
@@ -159,21 +160,21 @@
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="#93BC66"
         android:text="New status"
-        app:layout_constraintStart_toEndOf="@+id/btnSettingAccount"
-        app:layout_constraintTop_toTopOf="@+id/btnSettingAccount" />
-
-    <Button
-        style="@style/Widget.MaterialComponents.Button"
-        android:id="@+id/btnSettingAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Setting Account"
-        android:gravity="center"
         app:layout_constraintStart_toStartOf="@+id/username"
         app:layout_constraintTop_toBottomOf="@+id/username" />
+
+<!--    <Button-->
+<!--        style="@style/Widget.MaterialComponents.Button"-->
+<!--        android:id="@+id/btnSettingAccount"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:text="Setting Account"-->
+<!--        android:gravity="center"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/username"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/username" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -108,12 +108,12 @@ public class MainActivity extends AppCompatActivity {
                 locationListForm();
             }
         });
-        imgAddStory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cameraForm();
-            }
-        });
+//        imgAddStory.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                cameraForm();
+//            }
+//        });
 
         getAllLocations(userToken, new LocationCallback() {
             @Override
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         btnAssistant = findViewById(R.id.btnAssistant);
         btnStatus = findViewById(R.id.btnStatus);
         btnQr = findViewById(R.id.btnQr);
-        imgAddStory =findViewById(R.id.imgAddStory);
+//        imgAddStory =findViewById(R.id.imgAddStory);
         tvUsername = findViewById(R.id.username);
         textPlace = findViewById(R.id.textPlace);
     }
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
     private void statusForm(){
-        Intent intent = new Intent(this, StatusActivity.class);
+        Intent intent = new Intent(this, UserActivity.class);
         startActivity(intent);
         finish();
     }

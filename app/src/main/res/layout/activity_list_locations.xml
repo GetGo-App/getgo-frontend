@@ -7,29 +7,29 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:background="#000000">
 
-<ImageButton
-    android:id="@+id/imgbtnGoback"
-    android:layout_width="40dp"
-    android:layout_height="40dp"
-    android:layout_marginStart="12dp"
-    android:layout_marginTop="30dp"
-    android:background="@android:color/transparent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:srcCompat="@drawable/arrow_back" />
+    <ImageButton
+        android:id="@+id/imgbtnGoback"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="30dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/arrow_back" />
 
-<TextView
-    android:id="@+id/tvNamePlace"
-    android:layout_width="0dp"
-    android:layout_height="40dp"
-    android:fontFamily="@font/kufam_bold"
-    android:text="Name Place"
-    android:textColor="#fff"
-    android:textSize="24sp"
-    app:layout_constraintBottom_toBottomOf="@+id/imgbtnGoback"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toEndOf="@+id/imgbtnGoback"
-    app:layout_constraintTop_toTopOf="@+id/imgbtnGoback" />
+    <TextView
+        android:id="@+id/tvNamePlace"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:fontFamily="@font/kufam_bold"
+        android:text="Name Place"
+        android:textColor="#fff"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgbtnGoback"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgbtnGoback"
+        app:layout_constraintTop_toTopOf="@+id/imgbtnGoback" />
 
     <SearchView
         android:id="@+id/etSearchLocation"
@@ -41,11 +41,13 @@ android:background="#000000">
         android:backgroundTint="#D9D9D9"
         android:contextClickable="true"
         android:inputType="text"
+        android:queryHint="Search location"
+        android:iconifiedByDefault="false"
         android:paddingVertical="5dp"
         android:textAlignment="textStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imgbtnGoback"
-        app:layout_constraintTop_toBottomOf="@+id/tvNamePlace" />
+        app:layout_constraintTop_toBottomOf="@+id/tvNamePlace"/>
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="0dp"
