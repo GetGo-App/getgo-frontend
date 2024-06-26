@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "259930062787",
+    "project_id": "getgomap",
+    "storage_bucket": "getgomap.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:259930062787:android:1c109100e7f85acf9d8776",
+        "android_client_info": {
+          "package_name": "com.application.getgoproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKPt2Anj9ELOlbw-MJR9M73FtjpK1CXCs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

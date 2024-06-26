@@ -36,6 +36,7 @@
         android:layout_height="179dp"
         android:layout_marginTop="89dp"
         android:background="#CEE9BE"
+        android:scaleType="centerCrop"
         app:circularflow_radiusInDP="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

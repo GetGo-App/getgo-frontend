@@ -1,19 +1,17 @@
 package com.application.getgoproject.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.application.getgoproject.AvatarActivity;
 import com.application.getgoproject.R;
 import com.application.getgoproject.models.Avatar;
-import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.List;
 
@@ -44,8 +42,9 @@ public class AvatarAdapter extends RecyclerView.Adapter<AvatarAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull AvatarAdapter.ViewHolder holder, int position) {
         Avatar item = avatarList.get(position);
-        if (item.getImgAvatarUri() != null) {
-            holder.imgAvatar.setImageURI(item.getImgAvatarUri());
+        if (item.getBitmap() != null) {
+            Bitmap avatarBitmap = item.getBitmap();
+            holder.imgAvatar.setImageBitmap(avatarBitmap);
         }
         else {
             holder.imgAvatar.setImageResource(item.getImgAvatar());

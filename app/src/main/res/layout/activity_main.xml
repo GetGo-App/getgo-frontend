@@ -68,6 +68,7 @@
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:background="#DADADA"
+            android:scaleType="centerCrop"
             app:circularflow_radiusInDP="20dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintTop_toTopOf="@+id/username"

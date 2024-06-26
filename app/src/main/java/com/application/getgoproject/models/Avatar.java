@@ -1,10 +1,12 @@
 package com.application.getgoproject.models;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 public class Avatar {
     private int imgAvatar;
     private Uri imgAvatarUri;
+    private Bitmap bitmap;
 
     public Avatar(int imgAvatar) {
         this.imgAvatar = imgAvatar;
@@ -12,6 +14,10 @@ public class Avatar {
 
     public Avatar(Uri imgAvatarUri) {
         this.imgAvatarUri = imgAvatarUri;
+    }
+
+    public Avatar(Bitmap bitmap) {
+        this.bitmap = bitmap;
     }
 
     public int getImgAvatar() {
@@ -28,5 +34,13 @@ public class Avatar {
 
     public void setImgAvatarUri(Uri imgAvatarUri) {
         this.imgAvatarUri = imgAvatarUri;
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
     }
 }

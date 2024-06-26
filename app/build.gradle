@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -52,6 +53,9 @@ dependencies {
     implementation libs.java.jwt
     implementation libs.glide
     implementation libs.okhttp3.integration
+    implementation libs.firebase.storage
+    implementation libs.firebase.appcheck.playintegrity
+    implementation libs.firebase.auth
     implementation libs.circleimageview
     annotationProcessor libs.glide.compiler
     testImplementation libs.junit

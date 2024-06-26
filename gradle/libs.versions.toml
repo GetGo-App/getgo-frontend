@@ -2,6 +2,8 @@
 agp = "8.3.1"
 circleimageview = "3.1.0"
 compiler = "4.16.0"
+firebaseAppcheckPlayintegrity = "18.0.0"
+firebaseAuth = "23.0.0"
 glide = "4.16.0"
 gson = "2.11.0"
 javaJwt = "3.18.2"
@@ -21,6 +23,8 @@ playServicesMaps = "18.2.0"
 retrofit = "2.11.0"
 zxing = "1.0"
 zxingAndroidEmbedded = "4.1.0"
+googleGmsGoogleServices = "4.4.2"
+firebaseStorage = "21.0.0"
 
 [libraries]
 camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraView" }
@@ -28,6 +32,8 @@ camera-core = { module = "androidx.camera:camera-core", version.ref = "cameraVie
 camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "cameraView" }
 circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+firebase-appcheck-playintegrity = { module = "com.google.firebase:firebase-appcheck-playintegrity", version.ref = "firebaseAppcheckPlayintegrity" }
+firebase-auth = { module = "com.google.firebase:firebase-auth", version.ref = "firebaseAuth" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "compiler" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
@@ -48,8 +54,10 @@ play-services-maps = { group = "com.google.android.gms", name = "play-services-m
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 zxing = { module = "me.dm7.barcodescanner:zxing", version.ref = "zxing" }
 zxing-android-embedded = { module = "com.journeyapps:zxing-android-embedded", version.ref = "zxingAndroidEmbedded" }
+firebase-storage = { group = "com.google.firebase", name = "firebase-storage", version.ref = "firebaseStorage" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 google-android-libraries-mapsplatform-secrets-gradle-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "googleAndroidLibrariesMapsplatformSecretsGradlePlugin" }
+google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
 
