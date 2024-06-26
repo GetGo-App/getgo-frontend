@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
@@ -39,7 +40,6 @@ public class LocationActivity extends AppCompatActivity {
     private LocationService locationService;
     private UserAuthentication userAuthentication;
     private String userToken;
-
     private TextView tvAll, tvTrending, tvTopyear, tvFavorite;
     private SearchView etSearchLocation;
     private RecyclerView recycler;
@@ -60,7 +60,7 @@ public class LocationActivity extends AppCompatActivity {
 
         anhXa();
 
-        recycler.setLayoutManager(new GridLayoutManager(this, 2));
+        recycler.setLayoutManager(new GridLayoutManager(this, 1));
 
         int spacingInPixels = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3, getResources().getDisplayMetrics());
         recycler.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
@@ -86,12 +86,12 @@ public class LocationActivity extends AppCompatActivity {
             }
         });
 
-        updateTextViewStyles(tvAll, tvTrending, tvTopyear, tvFavorite);
+        updateTextViewStyles(tvAll, tvTrending, tvTopyear);
 
         tvAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateTextViewStyles(tvAll, tvTrending, tvTopyear, tvFavorite);
+                updateTextViewStyles(tvAll, tvTrending, tvTopyear);
                 locationAdapter.setData(arrayLocation);
             }
         });
@@ -99,7 +99,7 @@ public class LocationActivity extends AppCompatActivity {
         tvTrending.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateTextViewStyles(tvTrending, tvTopyear, tvAll, tvFavorite);
+                updateTextViewStyles(tvTrending, tvTopyear, tvAll);
                 locationAdapter.setData(arrayTrending);
             }
         });
@@ -107,24 +107,39 @@ public class LocationActivity extends AppCompatActivity {
         tvTopyear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateTextViewStyles(tvTopyear, tvAll, tvTrending, tvFavorite);
+                updateTextViewStyles(tvTopyear, tvAll, tvTrending);
                 locationAdapter.setData(arrayTopyear);
             }
         });
 
-        tvFavorite.setOnClickListener(new View.OnClickListener() {
+//        tvFavorite.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                updateTextViewStyles(tvFavorite, tvAll, tvTrending, tvTopyear);
+//                locationAdapter.setData(arrayFavor);
+//            }
+//        });
+        etSearchLocation.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onClick(View v) {
-                updateTextViewStyles(tvFavorite, tvAll, tvTrending, tvTopyear);
-                locationAdapter.setData(arrayFavor);
+            public boolean onQueryTextSubmit(String query) {
+//                searchAction(etSearchLocation.getQuery().toString().trim());
+                return false;
             }
-        });
-        etSearchLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ArrayList<Locations> filterLocal = new ArrayList<>();
+                for (Locations location : arrayLocation) {
+                    if (location.getName().contains(newText.trim())) {
+                        filterLocal.add(location);
+                    }
+                }
+                LocationAdapter adapter = new LocationAdapter(LocationActivity.this, R.layout.layout_locations, filterLocal);
+                recycler.setAdapter(adapter);
+                return false;
             }
         });
+
 
         getAllLocations(userToken, new LocationCallback() {
             @Override
@@ -148,32 +163,26 @@ public class LocationActivity extends AppCompatActivity {
             }
         });
     }
+
     private void anhXa(){
         imgbtnGoback = findViewById(R.id.imgbtnGoback);
         etSearchLocation = findViewById(R.id.etSearchLocation);
         tvAll = findViewById(R.id.tvAll);
         tvTrending = findViewById(R.id.tvTrending);
         tvTopyear = findViewById(R.id.tvTopyear);
-        tvFavorite = findViewById(R.id.tvFavorite);
+//        tvFavorite = findViewById(R.id.tvFavorite);
         recycler = findViewById(R.id.recyclerView);
 
-
         arrayLocation = new ArrayList<>();
-//        arrayLocation.add(new Locations("Quận 1", "", "", "HCM", 0,5, R.drawable.sapa, true,"","","","","",5,true, true));
-//        arrayLocation.add(new Locations("Quận 2", "", "", "HCM", 0,5, R.drawable.sapa, true,"","","","","",5,false, false));
-//        arrayLocation.add(new Locations("Quận 3", "", "", "HCM", 0,5, R.drawable.sapa, true,"","","","","",5,false, false));
-//        arrayLocation.add(new Locations("Hoàng Mai", "", "Hà Nội", "", 0,5, R.drawable.sapa, true,"","","","","",5,true, false));
-//        arrayLocation.add(new Locations("Đống Đa", "", "", "Hà Nội", 0,5, R.drawable.sapa, true,"","","","","",5,true, false));
-//        arrayLocation.add(new Locations("Thanh Yên", "", "", "Hà Nội", 0,5, R.drawable.sapa, true,"","","","","",5,false, false));
-//        arrayLocation.add(new Locations("Đăk Lăk", "", "", "Đà Nẵng", 0,5, R.drawable.sapa, true,"","","","","",5,false, false));
-//        arrayLocation.add(new Locations("Gia Lai", "", "", "Đà Nẵng", 0,5, R.drawable.sapa, true,"","","","","",5,true, false));
-//        arrayLocation.add(new Locations("Tp Hồ Chí Minh", "", "Đà Nẵng", "", 0,5, R.drawable.sapa, true,"","","","","",5,true, false));
-//        arrayLocation.add(new Locations("Hà Nội", "", "", "Đà Nẵng", 0,5, R.drawable.sapa, true,"","","","","",5,true, true));
 
         arrayTopyear = new ArrayList<>();
         arrayTrending = new ArrayList<>();
-        arrayFavor = new ArrayList<>();
     }
+
+//    private void searchAction(String query) {
+//        Toast.makeText(this, "Tìm kiếm: " + query, Toast.LENGTH_SHORT).show();
+//        //gọi API
+//    }
 
     private void homeForm(){
         Intent intent = new Intent(this, MainActivity.class);
@@ -199,19 +208,6 @@ public class LocationActivity extends AppCompatActivity {
                     List<Locations> locationsList = response.body();
 
                     arrayLocation.clear();
-
-//                    for (Locations locations : locationsList) {
-//                        arrayLocation.add(new Locations(locations.getId(),
-//                                locations.getName(), locations.getAddress(),
-//                                locations.getContent(), locations.getCity(),
-//                                locations.getLatitude(), locations.getLongitude(),
-//                                locations.getImages(), locations.isAvailable(),
-//                                locations.getOpenTime(), locations.getDetailUrl(),
-//                                locations.getHotline(), locations.getPrice(),
-//                                locations.getCategoryId(), locations.getRating(),
-//                                locations.getWebsiteRating(), locations.getWebsiteRatingOverall(),
-//                                locations.isTrend(), locations.isTopYear()));
-//                    }
                     mergeLocationsByCity(locationsList);
 
                     Log.d("Array Size", arrayLocation.size() + "");

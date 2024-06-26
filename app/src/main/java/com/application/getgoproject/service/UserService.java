@@ -1,5 +1,6 @@
 package com.application.getgoproject.service;
 
+import com.application.getgoproject.dto.AvatarDTO;
 import com.application.getgoproject.dto.UpdateUserDTO;
 import com.application.getgoproject.models.User;
 
@@ -23,4 +24,7 @@ public interface UserService {
 
     @PATCH("users/{username}")
     Call<ResponseBody> updateUserByUsername(@Path("username") String username, @Body UpdateUserDTO updateUserDTO, @Header("Authorization") String token);
+
+    @PATCH("users/{username}")
+    Call<ResponseBody> updateAvatarByUsername(@Path("username") String username, @Body AvatarDTO avatarDTO, @Header("Authorization") String token);
 }

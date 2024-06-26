@@ -2,6 +2,7 @@ package com.application.getgoproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -14,17 +15,29 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.getgoproject.adapter.ListItemAdapter;
+import com.application.getgoproject.callback.UserCallback;
 import com.application.getgoproject.models.ListItem;
+import com.application.getgoproject.models.User;
 import com.application.getgoproject.models.UserAuthentication;
+import com.application.getgoproject.service.UserService;
 import com.application.getgoproject.utils.RetrofitClient;
 import com.application.getgoproject.utils.SharedPrefManager;
+import com.bumptech.glide.Glide;
+import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class UserActivity extends AppCompatActivity {
-    private ImageButton imgBtnHome, imageBtnAdd, imgbtnGoback;
+
+    private UserService userService;
+
+    private ShapeableImageView avatar;
+    private ImageButton imgBtnHome, imageBtnAdd;
     private TextView tvName;
     private RecyclerView recyclerUser, recyclerService;
     private ListItemAdapter adapterUser, adapterService;
@@ -38,10 +51,12 @@ public class UserActivity extends AppCompatActivity {
         mapping();
 
         UserAuthentication userAuthentication = SharedPrefManager.getInstance(this).getUser();
-        if (userAuthentication != null) {
-            String name = userAuthentication.getUsername();
-            tvName.setText(name);
-        }
+            String userName = userAuthentication.getUsername();
+            String userToken = userAuthentication.getAccessToken();
+            tvName.setText(userName);
+
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance(this);
+        userService = retrofit.create(UserService.class);
 
         adapterUser = new ListItemAdapter(this, R.layout.layout_item_profile, arrayPersonal);
         recyclerUser.setAdapter(adapterUser);
@@ -106,13 +121,48 @@ public class UserActivity extends AppCompatActivity {
                 homeForm();
             }
         });
-        imgbtnGoback.setOnClickListener(new View.OnClickListener() {
+
+        getUserByUsername(userName, userToken, new UserCallback() {
             @Override
-            public void onClick(View v) {
-                statusForm();
+            public void onUserFetched(User user) {
+                String userAvatarUrl = user.getAvatar();
+                if (userAvatarUrl != null) {
+                    Glide.with(getApplicationContext())
+                            .load(userAvatarUrl)
+                            .placeholder(R.drawable.avatar)
+                            .error(R.drawable.avatar)
+                            .into(avatar);
+                }
+                else {
+                    avatar.setImageResource(R.drawable.avatar);
+                }
             }
         });
     }
+
+    public void getUserByUsername(String username, String token, UserCallback callback) {
+        try {
+            Call<User> call = userService.getUserByUsername(username, token);
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        User user = response.body();
+                        callback.onUserFetched(user);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable throwable) {
+                    // Handle failure
+                }
+            });
+        }
+        catch (Exception e) {
+            Log.d("Error", e.getMessage());
+        }
+    }
+
     private void changeAvatar() {
         Intent intent = new Intent(UserActivity.this, AvatarActivity.class);
         startActivity(intent);
@@ -121,10 +171,10 @@ public class UserActivity extends AppCompatActivity {
     private void mapping(){
         imgBtnHome = findViewById(R.id.imageBtnHome);
         imageBtnAdd = findViewById(R.id.imageBtnAdd);
-        imgbtnGoback = findViewById(R.id.imgbtnGoback);
         recyclerUser = findViewById(R.id.recyclerUser);
         recyclerService = findViewById(R.id.recyclerService);
         tvName = findViewById(R.id.tvName);
+        avatar = findViewById(R.id.avatar);
 
         arrayPersonal = new ArrayList<>();
         arrayPersonal.add(new ListItem(R.drawable.profile, "Change Profile",""));

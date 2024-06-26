@@ -1,6 +1,5 @@
 package com.application.getgoproject.models;
 
-import java.util.ArrayList;
 
 public class Image {
 

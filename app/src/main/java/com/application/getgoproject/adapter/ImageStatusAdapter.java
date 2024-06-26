@@ -26,7 +26,6 @@ public class ImageStatusAdapter extends RecyclerView.Adapter<ImageStatusAdapter.
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_image_status, parent, false);
-
         return new ViewHolder(view);
     }
 

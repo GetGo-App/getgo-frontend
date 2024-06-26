@@ -68,132 +68,134 @@
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:background="#DADADA"
+            android:scaleType="centerCrop"
             app:circularflow_radiusInDP="20dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintTop_toTopOf="@+id/username"
             app:shapeAppearanceOverlay="@style/roundedImage"
             app:srcCompat="@drawable/avatar" />
 
-        <ImageButton
-            android:id="@+id/imgAddStory"
-            android:layout_width="74dp"
-            android:layout_height="74dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/round_button"
-            android:elevation="16dp"
-            app:layout_constraintStart_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:srcCompat="@drawable/add_icon" />
+<!--        <ImageButton-->
+<!--            android:id="@+id/imgAddStory"-->
+<!--            android:layout_width="74dp"-->
+<!--            android:layout_height="74dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:background="@drawable/round_button"-->
+<!--            android:elevation="16dp"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/guideline3"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/textView2"-->
+<!--            app:srcCompat="@drawable/add_icon" />-->
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="You"
-            android:textColor="#93BC66"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:fontFamily="@font/kufam"
-            app:layout_constraintEnd_toEndOf="@+id/imgAddStory"
-            app:layout_constraintStart_toStartOf="@+id/imgAddStory"
-            app:layout_constraintTop_toBottomOf="@+id/imgAddStory" />
+<!--        <TextView-->
+<!--            android:id="@+id/textView4"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="You"-->
+<!--            android:textColor="#93BC66"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textSize="15sp"-->
+<!--            android:fontFamily="@font/kufam"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/imgAddStory"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/imgAddStory"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/imgAddStory" />-->
 
-        <ImageButton
-            android:id="@+id/imgAvatar"
-            android:layout_width="74dp"
-            android:layout_height="74dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/border_gradient"
-            android:elevation="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imgAddStory"
-            app:layout_constraintStart_toEndOf="@+id/imgAddStory"
-            app:layout_constraintTop_toTopOf="@+id/imgAddStory" />
+<!--        <ImageButton-->
+<!--            android:id="@+id/imgAvatar"-->
+<!--            android:layout_width="74dp"-->
+<!--            android:layout_height="74dp"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:background="@drawable/border_gradient"-->
+<!--            android:elevation="8dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/imgAddStory"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/imgAddStory"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/imgAddStory" />-->
 
-        <TextView
-            android:id="@+id/userStoryName1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mai"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:fontFamily="@font/kufam"
-            app:layout_constraintEnd_toEndOf="@+id/imgAvatar"
-            app:layout_constraintStart_toStartOf="@+id/imgAvatar"
-            app:layout_constraintTop_toBottomOf="@+id/imgAvatar" />
+<!--        <TextView-->
+<!--            android:id="@+id/userStoryName1"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Mai"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textSize="15sp"-->
+<!--            android:fontFamily="@font/kufam"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/imgAvatar"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/imgAvatar"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/imgAvatar" />-->
 
-        <ImageButton
-            android:id="@+id/userStory2"
-            android:layout_width="74dp"
-            android:layout_height="74dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/border_gradient"
+<!--        <ImageButton-->
+<!--            android:id="@+id/userStory2"-->
+<!--            android:layout_width="74dp"-->
+<!--            android:layout_height="74dp"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:background="@drawable/border_gradient"-->
 
-            android:elevation="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imgAvatar"
-            app:layout_constraintStart_toEndOf="@+id/imgAvatar"
-            app:layout_constraintTop_toTopOf="@+id/imgAvatar" />
+<!--            android:elevation="8dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/imgAvatar"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/imgAvatar"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/imgAvatar" />-->
 
-        <TextView
-            android:id="@+id/userStoryName2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Phuc"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:fontFamily="@font/kufam"
-            app:layout_constraintEnd_toEndOf="@+id/userStory2"
-            app:layout_constraintStart_toStartOf="@+id/userStory2"
-            app:layout_constraintTop_toBottomOf="@+id/userStory2" />
+<!--        <TextView-->
+<!--            android:id="@+id/userStoryName2"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Phuc"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textSize="15sp"-->
+<!--            android:fontFamily="@font/kufam"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/userStory2"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/userStory2"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/userStory2" />-->
 
-        <ImageButton
-            android:id="@+id/userStory3"
-            android:layout_width="74dp"
-            android:layout_height="74dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/border_gradient"
-            android:elevation="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/userStory2"
-            app:layout_constraintStart_toEndOf="@+id/userStory2"
-            app:layout_constraintTop_toTopOf="@+id/userStory2" />
+<!--        <ImageButton-->
+<!--            android:id="@+id/userStory3"-->
+<!--            android:layout_width="74dp"-->
+<!--            android:layout_height="74dp"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:background="@drawable/border_gradient"-->
+<!--            android:elevation="8dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/userStory2"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/userStory2"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/userStory2" />-->
 
-        <TextView
-            android:id="@+id/userStoryName3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nghia"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:fontFamily="@font/kufam"
-            app:layout_constraintEnd_toEndOf="@+id/userStory3"
-            app:layout_constraintStart_toStartOf="@+id/userStory3"
-            app:layout_constraintTop_toBottomOf="@+id/userStory3" />
+<!--        <TextView-->
+<!--            android:id="@+id/userStoryName3"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Nghia"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textSize="15sp"-->
+<!--            android:fontFamily="@font/kufam"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/userStory3"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/userStory3"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/userStory3" />-->
+
 
         <EditText
             android:id="@+id/findFriends"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:layout_marginTop="10dp"
-            android:inputType="text"
+            android:layout_marginTop="20dp"
             android:background="@drawable/round_button"
             android:backgroundTint="@color/black"
-            android:hint="Find all your friends"
-            android:textColorHint="@color/white"
-            android:textSize="15sp"
-            android:padding="10dp"
-            android:elevation="8dp"
             android:drawableEnd="@drawable/search_icon"
             android:drawableTint="@color/white"
+            android:elevation="8dp"
+            android:ems="10"
+            android:hint="Find all your friends"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textColorHint="@color/white"
+            android:textSize="15sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
         <ImageButton
             android:id="@+id/btnAssistant"
             android:layout_width="85dp"
             android:layout_height="85dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/semiround_button"
             android:backgroundTint="#000000"
             android:elevation="16dp"
@@ -293,7 +295,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="250dp"
             android:layout_marginTop="10dp"
             app:cardCornerRadius="40dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
@@ -302,23 +304,23 @@
 
             <ImageView
                 android:id="@+id/imgPlace"
-                android:scaleType="fitXY"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:srcCompat="@drawable/sapa" />
+                android:scaleType="fitXY"/>
 
             <TextView
                 android:id="@+id/textPlace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sa Pa"
-                android:fontFamily="@font/kufam"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginStart="20dp"/>
-
+                android:fontFamily="@font/kufam"
+                android:background="@drawable/semiround_button"
+                android:backgroundTint="#80000000"
+                android:textColor="@color/white"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="4dp"
+                android:textSize="18sp" />
 
         </androidx.cardview.widget.CardView>
 

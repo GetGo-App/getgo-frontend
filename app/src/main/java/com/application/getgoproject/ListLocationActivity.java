@@ -8,12 +8,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.application.getgoproject.adapter.ListLocationAdapter;
+import com.application.getgoproject.adapter.LocationAdapter;
 import com.application.getgoproject.callback.LocationCallback;
 import com.application.getgoproject.models.Locations;
 import com.application.getgoproject.models.UserAuthentication;
@@ -34,11 +37,10 @@ public class ListLocationActivity extends AppCompatActivity {
     private LocationService locationService;
     private UserAuthentication userAuthentication;
     private String userToken;
-    
     private ListView lvListLocation;
-//    private ArrayList<Hotel> arrayHotel;
     private ListLocationAdapter adapter;
     private ImageButton imgbtnGoback;
+    private SearchView etSearchLocation;
     private TextView tvNamePlace;
     private TextView tvAll, tvTrending, tvTopyear;
     private ArrayList<Locations> arrayLocation, arrayTopyear, arrayTrending, arrayFavor;
@@ -102,6 +104,27 @@ public class ListLocationActivity extends AppCompatActivity {
             }
         });
 
+        etSearchLocation.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            public boolean onQueryTextSubmit(String query) {
+//                searchAction(etSearchLocation.getQuery().toString().trim());
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ArrayList<Locations> filterLocal = new ArrayList<>();
+                for (Locations location : arrayLocation) {
+                    if (location.getName().contains(newText.trim())) {
+                        filterLocal.add(location);
+                    }
+                }
+                ListLocationAdapter loctionAdapter = new ListLocationAdapter(ListLocationActivity.this, R.layout.layout_item_locations, filterLocal);
+                lvListLocation.setAdapter(loctionAdapter);
+                return false;
+            }
+        });
+
+
         getLocationsByCity(namePlace, userToken, new LocationCallback() {
             @Override
             public void onLocationsFetched(List<Locations> locations) {
@@ -127,6 +150,7 @@ public class ListLocationActivity extends AppCompatActivity {
     }
     private void mapping(){
         imgbtnGoback = findViewById(R.id.imgbtnGoback);
+        etSearchLocation = findViewById(R.id.etSearchLocation);
         lvListLocation = (ListView) findViewById(R.id.lvLocation);
         tvAll = findViewById(R.id.tvAll);
         tvTrending = findViewById(R.id.tvTrending);
@@ -137,15 +161,13 @@ public class ListLocationActivity extends AppCompatActivity {
         arrayTopyear = new ArrayList<>();
         arrayTrending = new ArrayList<>();
         arrayFavor = new ArrayList<>();
-        
-//        arrayHotel = new ArrayList<>();
-//        arrayHotel.add(new Hotel(R.drawable.border_gradient, "Pao's Sapa Leisure Hote", "Located in Sa Pa, 6.1 km from Fansipan Legend Cable Car Station, Pao's Sapa Leisure Hotel provides accommodation with a fitness centre, free private parking, a garden and a shared lounge. Among the facilities of this property are a restaurant, a kids' club and room service, along with free WiFi. The accommodation offers a 24-hour front desk, a concierge service and currency exchange for guests.", "VND 1,872,000"));
-//        arrayHotel.add(new Hotel(R.drawable.border_gradient, "Sapa Eco Villas & Spa", "With city views, Sapa Eco Villas & Spa is situated in Sa Pa and has a restaurant, room service, bar, garden, year-round outdoor pool and terrace. Complimentary WiFi is available throughout the property.", "VND 1,330,000"));
-//        arrayHotel.add(new Hotel(R.drawable.border_gradient, "HOTEL DE SAPA", "HOTEL DE SAPA in Sa Pa features 4-star accommodation with a terrace and a bar. Offering a restaurant, the property also has a garden, as well as an indoor pool and a sauna. The accommodation offers room service, a 24-hour front desk and currency exchange for guests.", "VND 936,000"));
-//        arrayHotel.add(new Hotel(R.drawable.border_gradient, "Pao's Sapa Leisure Hote", "Located in Sa Pa, 6.1 km from Fansipan Legend Cable Car Station, Pao's Sapa Leisure Hotel provides accommodation with a fitness centre, free private parking, a garden and a shared lounge. Among the facilities of this property are a restaurant, a kids' club and room service, along with free WiFi. The accommodation offers a 24-hour front desk, a concierge service and currency exchange for guests.", "VND 1,872,000"));
-//        arrayHotel.add(new Hotel(R.drawable.border_gradient, "Sapa Eco Villas & Spa", "With city views, Sapa Eco Villas & Spa is situated in Sa Pa and has a restaurant, room service, bar, garden, year-round outdoor pool and terrace. Complimentary WiFi is available throughout the property.", "VND 1,330,000"));
-//        arrayHotel.add(new Hotel(R.drawable.border_gradient, "HOTEL DE SAPA", "HOTEL DE SAPA in Sa Pa features 4-star accommodation with a terrace and a bar. Offering a restaurant, the property also has a garden, as well as an indoor pool and a sauna. The accommodation offers room service, a 24-hour front desk and currency exchange for guests.", "VND 936,000"));
+
     }
+
+//    private void searchAction(String query) {
+//        Toast.makeText(this, "Tìm kiếm: " + query, Toast.LENGTH_SHORT).show();
+//        //gọi API
+//    }
 
     private void locationForm(){
         Intent intent = new Intent(this, LocationActivity.class);

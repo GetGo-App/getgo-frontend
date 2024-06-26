@@ -11,14 +11,14 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.application.getgoproject.callback.LocationCallback;
+import com.application.getgoproject.callback.UserCallback;
 import com.application.getgoproject.models.Locations;
+import com.application.getgoproject.models.User;
 import com.application.getgoproject.models.UserAuthentication;
 import com.application.getgoproject.service.LocationService;
+import com.application.getgoproject.service.UserService;
 import com.application.getgoproject.utils.RetrofitClient;
 import com.application.getgoproject.utils.SharedPrefManager;
 import com.bumptech.glide.Glide;
@@ -42,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvUsername, textPlace;
     private LocationService locationService;
     private ArrayList<Locations> arrayLocation;
-    private String userToken;
+    private String userToken, username;
+    private UserService userService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +53,14 @@ public class MainActivity extends AppCompatActivity {
 
         Retrofit retrofit = RetrofitClient.getRetrofitInstance(this);
         locationService = retrofit.create(LocationService.class);
+        userService = retrofit.create(UserService.class);
         arrayLocation = new ArrayList<>();
 
         mapping();
 
         UserAuthentication userAuthentication = SharedPrefManager.getInstance(this).getUser();
         if (userAuthentication != null) {
-            String username = userAuthentication.getUsername();
+            username = userAuthentication.getUsername();
             userToken = "Bearer " + userAuthentication.getAccessToken();
             tvUsername.setText(username);
         } else {
@@ -108,12 +110,12 @@ public class MainActivity extends AppCompatActivity {
                 locationListForm();
             }
         });
-        imgAddStory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cameraForm();
-            }
-        });
+//        imgAddStory.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                cameraForm();
+//            }
+//        });
 
         getAllLocations(userToken, new LocationCallback() {
             @Override
@@ -131,6 +133,23 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        getUserByUsername(username, userToken, new UserCallback() {
+            @Override
+            public void onUserFetched(User user) {
+                String userAvatarUrl = user.getAvatar();
+                if (userAvatarUrl != null) {
+                    Glide.with(getApplicationContext())
+                            .load(userAvatarUrl)
+                            .placeholder(R.drawable.avatar)
+                            .error(R.drawable.avatar)
+                            .into(avatar);
+                }
+                else {
+                    avatar.setImageResource(R.drawable.avatar);
+                }
+            }
+        });
     }
     private void mapping(){
         avatar = findViewById(R.id.avatar);
@@ -139,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
         btnAssistant = findViewById(R.id.btnAssistant);
         btnStatus = findViewById(R.id.btnStatus);
         btnQr = findViewById(R.id.btnQr);
-        imgAddStory =findViewById(R.id.imgAddStory);
+//        imgAddStory =findViewById(R.id.imgAddStory);
         tvUsername = findViewById(R.id.username);
         textPlace = findViewById(R.id.textPlace);
     }
@@ -164,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
     private void statusForm(){
-        Intent intent = new Intent(this, StatusActivity.class);
+        Intent intent = new Intent(this, UserActivity.class);
         startActivity(intent);
         finish();
     }
@@ -259,6 +278,29 @@ public class MainActivity extends AppCompatActivity {
                         location.getCategoryId(), location.getRating(), location.getWebsiteRating(),
                         location.getWebsiteRatingOverall(), location.isTrend(), location.isTopYear()));
             }
+        }
+    }
+
+    public void getUserByUsername(String username, String token, UserCallback callback) {
+        try {
+            Call<User> call = userService.getUserByUsername(username, token);
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        User user = response.body();
+                        callback.onUserFetched(user);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable throwable) {
+                    // Handle failure
+                }
+            });
+        }
+        catch (Exception e) {
+            Log.d("Error", e.getMessage());
         }
     }
 }
