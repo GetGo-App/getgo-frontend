@@ -91,13 +91,11 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         // Khai báo các view trong item layout
         TextView name;
         ImageView imgLocation;
-        ImageButton tym;
         public ViewHolder(@NonNull View itemView, final LocationAdapter.OnItemClickListener onItemClickListener) {
             super(itemView);
             // Ánh xạ view
             name = itemView.findViewById(R.id.tvNameLocation);
             imgLocation = itemView.findViewById(R.id.imgLocation);
-            tym = itemView.findViewById(R.id.btnTym);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

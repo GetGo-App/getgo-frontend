@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.getgoproject.adapter.CommentAdapter;
-import com.application.getgoproject.adapter.ImageLoctionAdapter;
+import com.application.getgoproject.adapter.ImageLocationAdapter;
 import com.application.getgoproject.callback.LocationCallback;
 import com.application.getgoproject.callback.LocationCommentCallback;
 import com.application.getgoproject.callback.UserCallback;
@@ -65,7 +65,7 @@ public class DetailLocationActivity extends AppCompatActivity {
     private ProgressBar progress5Star, progress4Star, progress3Star, progress2Star, progress1Star;
     private RatingBar ratingBarOverall, feedBackRating;
     private ArrayList<ImageLocation> arrayImage;
-    private ImageLoctionAdapter imageAdapter;
+    private ImageLocationAdapter imageAdapter;
     private RecyclerView recyclerImage;
     private Button btnComment;
     private TextInputEditText inputComment;
@@ -89,7 +89,7 @@ public class DetailLocationActivity extends AppCompatActivity {
         Intent intent = getIntent();
         locationId = intent.getIntExtra("detail location", 0);
 
-        imageAdapter = new ImageLoctionAdapter(this, R.layout.layout_avatar, arrayImage);
+        imageAdapter = new ImageLocationAdapter(this, R.layout.layout_img_location, arrayImage);
         recyclerImage.setAdapter(imageAdapter);
         recyclerImage.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
 
@@ -254,11 +254,7 @@ public class DetailLocationActivity extends AppCompatActivity {
         });
 
         arrayImage = new ArrayList<>();
-//        arrayImage.add(new Image(R.drawable.sapa));
-//        arrayImage.add(new Image(R.drawable.sapa));
-//        arrayImage.add(new Image(R.drawable.sapa));
-//        arrayImage.add(new Image(R.drawable.sapa));
-//        arrayImage.add(new Image(R.drawable.sapa));
+
 
         arrayComment = new ArrayList<>();
 //        arrayComment.add(new Comment(R.drawable.border_gradient, "Yen Vi", "2 days ago", "Awesome place for tourist trying to have a sip of coffee. Authentic taste, quiet with beautiful vintage decorations. Recommended.", 1));

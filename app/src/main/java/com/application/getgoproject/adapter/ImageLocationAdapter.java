@@ -15,13 +15,13 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-public class ImageLoctionAdapter extends RecyclerView.Adapter<ImageLoctionAdapter.ViewHolder> {
+public class ImageLocationAdapter extends RecyclerView.Adapter<ImageLocationAdapter.ViewHolder> {
     private Context context;
     private int layout;
     private List<ImageLocation> imageList;
 
 
-    public ImageLoctionAdapter(Context context, int layout, List<ImageLocation> imageList) {
+    public ImageLocationAdapter(Context context, int layout, List<ImageLocation> imageList) {
         this.context = context;
         this.layout = layout;
         this.imageList = imageList;
@@ -29,9 +29,9 @@ public class ImageLoctionAdapter extends RecyclerView.Adapter<ImageLoctionAdapte
 
     @NonNull
     @Override
-    public ImageLoctionAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_avatar, parent, false);
-        return new ImageLoctionAdapter.ViewHolder(view);
+    public ImageLocationAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_img_location, parent, false);
+        return new ImageLocationAdapter.ViewHolder(view);
     }
 
     @Override
@@ -44,9 +44,9 @@ public class ImageLoctionAdapter extends RecyclerView.Adapter<ImageLoctionAdapte
                     .load(images)
                     .placeholder(R.drawable.sapa) // Default image while loading
                     .error(R.drawable.sapa) // Default image if error occurs
-                    .into(holder.imgLocal);
+                    .into(holder.imgLocation);
         } else {
-            holder.imgLocal.setImageResource(R.drawable.sapa);
+            holder.imgLocation.setImageResource(R.drawable.sapa);
         }
     }
 
@@ -57,11 +57,11 @@ public class ImageLoctionAdapter extends RecyclerView.Adapter<ImageLoctionAdapte
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // Khai báo các view trong item layout
-        ImageView imgLocal;
+        ImageView imgLocation;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             // Ánh xạ view
-            imgLocal = itemView.findViewById(R.id.imgAvatar);
+            imgLocation = itemView.findViewById(R.id.imgLocation);
         }
     }
 }

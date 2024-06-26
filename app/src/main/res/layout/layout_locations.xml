@@ -7,47 +7,35 @@
     android:layout_gravity="center"
     android:backgroundTint="#80D9D9D9"
     android:padding="3dp">
-
-    <ImageView
-        android:id="@+id/imgLocation"
+    <androidx.cardview.widget.CardView
         android:layout_width="0dp"
-        android:layout_height="@android:dimen/thumbnail_width"
-        android:scaleType="fitXY"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/sapa" />
-
-    <TextView
-        android:id="@+id/tvNameLocation"
-        android:layout_width="0dp"
-        android:layout_height="23dp"
+        android:layout_height="250dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/semiround_button"
-        android:backgroundTint="#77FFFFFF"
-        android:fontFamily="@font/kufam"
-        android:gravity="left"
-        android:paddingHorizontal="5dp"
-        android:layout_marginHorizontal="5dp"
-        android:text="TextView"
-        android:textAllCaps="true"
-        android:textColor="#000000"
-        android:textSize="13sp"
-        app:layout_constraintEnd_toStartOf="@+id/btnTym"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imgLocation" />
-
-    <ImageButton
-        android:id="@+id/btnTym"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="15dp"
-        android:background="@drawable/semiround_button"
-        android:foregroundGravity="center"
-        app:layout_constraintBottom_toBottomOf="@+id/tvNameLocation"
+        app:cardCornerRadius="40dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvNameLocation"
-        app:srcCompat="@drawable/favorite" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imgLocation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:id="@+id/tvNameLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/kufam"
+            android:background="@drawable/semiround_button"
+            android:backgroundTint="#80000000"
+            android:textColor="@color/white"
+            android:paddingHorizontal="10dp"
+            android:paddingTop="4dp"
+            android:textSize="18sp" />
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

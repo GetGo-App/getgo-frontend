@@ -36,10 +36,8 @@ public class AvatarActivity extends AppCompatActivity {
     private static final int PICK_IMAGE = 1;
     private static final int REQUEST_PERMISSIONS = 100;
     private static final int PAGE_SIZE = 6;
-
     private Button btnUpload, btnSave;
     private TextView tvName;
-
     private ShapeableImageView avatar;
     private ImageView imgbtnGoback;
     private ArrayList<Avatar> arrayAvatar;

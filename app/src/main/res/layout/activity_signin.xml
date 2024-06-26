@@ -52,6 +52,7 @@
             android:layout_marginTop="30dp"
             android:backgroundTint="#93BC66"
             android:text="with Google"
+            android:textColor="#fff"
             android:textSize="15sp"
             app:icon="@drawable/google"
             app:iconTint="#F44336"

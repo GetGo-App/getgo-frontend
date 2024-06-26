@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.fragment.app.FragmentActivity;
@@ -35,7 +36,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ActivityMapsBinding binding;
     private LocationService locationService;
     private UserAuthentication userAuthentication;
-    private ImageButton imgBtnGoBack;
+    private Button btnGoBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        imgBtnGoBack = findViewById(R.id.imgBtnGoBack);
+        btnGoBack = findViewById(R.id.btnGoBack);
 
         userAuthentication = SharedPrefManager.getInstance(this).getUser();
         String userToken = "Bearer " + userAuthentication.getAccessToken();
@@ -60,7 +61,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Retrofit retrofit = RetrofitClient.getRetrofitInstance(this);
         locationService = retrofit.create(LocationService.class);
 
-        imgBtnGoBack.setOnClickListener(new View.OnClickListener() {
+        btnGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intentGoBack = new Intent(MapsActivity.this, DetailLocationActivity.class);

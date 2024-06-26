@@ -47,7 +47,6 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.ViewHold
         //đổi màu background
         if (position == selectedPosition) {
             holder.itemView.setBackground(context.getDrawable(R.drawable.background_status_item));
-
         } else {
             holder.itemView.setBackground(context.getDrawable(R.drawable.border_button));
         }
