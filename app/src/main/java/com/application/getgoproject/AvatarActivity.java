@@ -399,7 +399,7 @@ public class AvatarActivity extends AppCompatActivity {
     private void mapping() {
         imgbtnGoback = findViewById(R.id.imgbtnGoback);
         btnUpload = findViewById(R.id.btnUpload);
-        btnSave = findViewById(R.id.btnSave);
+        btnSave = findViewById(R.id.btnAdd);
         avatar = findViewById(R.id.avatar);
         recyclerAvatar = findViewById(R.id.recyclerAvatar);
         tvName = findViewById(R.id.tvName);

@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
@@ -25,6 +26,7 @@ public class ListStatusActivity extends AppCompatActivity {
     private ShapeableImageView avatar;
     private FrameLayout statusLayout;
     private List<Status> statusList;
+    private Button btnAddStatus;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,12 @@ public class ListStatusActivity extends AppCompatActivity {
                 goBack();
             }
         });
+        btnAddStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                newStatusForm();
+            }
+        });
         avatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,11 +56,17 @@ public class ListStatusActivity extends AppCompatActivity {
     }
     private void mapping() {
         avatar = findViewById(R.id.avatar);
+        btnAddStatus = findViewById(R.id.btnAddStatus);
         imgbtnGoback = findViewById(R.id.imgbtnGoback);
         statusLayout = findViewById(R.id.statusLayout);
     }
     private void goBack() {
         Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+    private void newStatusForm() {
+        Intent intent = new Intent(this, NewStatusActivity.class);
         startActivity(intent);
         finish();
     }

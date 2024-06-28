@@ -56,7 +56,6 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
         holder.avatar.setImageResource(status.getUserAvatar());
         holder.username.setText(status.getUploader());
         holder.lastTime.setText(status.getUploader());
-        holder.title.setText(status.getTitle());
         holder.content.setText(status.getContent());
         holder.listImage.setAdapter(adapter);
         holder.reactedUsers.setText((status.getReactedUsers() != null ? status.getReactedUsers().size() : 0) + " reactions");
@@ -84,7 +83,6 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
             avatar = itemView.findViewById(R.id.avatar);
             username = itemView.findViewById(R.id.username);
             lastTime = itemView.findViewById(R.id.userLastUploadTime);
-            title = itemView.findViewById(R.id.statusTitle);
             content = itemView.findViewById(R.id.statusContent);
             listImage = itemView.findViewById(R.id.recyclerViewImage);
             heartButton = itemView.findViewById(R.id.heartButton);
