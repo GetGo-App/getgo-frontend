@@ -82,7 +82,7 @@ public class StatusActivity extends AppCompatActivity {
         imgbtnGoback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                homeForm();
+                listStatusForm();
             }
         });
         btnAddStatus.setOnClickListener(new View.OnClickListener() {
@@ -130,8 +130,8 @@ public class StatusActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-    private void homeForm(){
-        Intent intent = new Intent(this, MainActivity.class);
+    private void listStatusForm(){
+        Intent intent = new Intent(this, ListStatusActivity.class);
         startActivity(intent);
         finish();
     }
