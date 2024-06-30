@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.application.getgoproject.R;
 import com.application.getgoproject.models.Image;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -44,7 +45,12 @@ public class ImageAdapter extends BaseAdapter {
 
         Image image = imageList.get(i);
         ImageView imageView = view.findViewById(R.id.imageList);
-        imageView.setImageResource(image.getListImage());
+
+        if (!image.getListImage().isEmpty()) {
+            Glide.with(myContext)
+                    .load(image.getListImage())
+                    .into(imageView);
+        }
 
         return view;
     }

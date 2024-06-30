@@ -14,6 +14,7 @@
         android:layout_height="75dp"
         android:layout_marginTop="10dp"
         android:background="#CEE9BE"
+        android:scaleType="centerCrop"
         app:circularflow_radiusInDP="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -44,30 +45,18 @@
         app:layout_constraintTop_toBottomOf="@+id/username"/>
 
     <TextView
-        android:id="@+id/statusTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/kufam_bold"
-        android:text="The Stone Church"
-        android:textColor="#000000"
-        android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="@+id/avatar"
-        app:layout_constraintTop_toBottomOf="@+id/avatar" />
-
-    <TextView
         android:id="@+id/statusContent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingRight="25dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/kufam"
-        android:textColor="#000000"
+        android:paddingRight="25dp"
         android:text="Centrally located in Sapa town, this architecture has been existence for over 100 years. Although, it is small but the design is nice and harmonized with the surroundings. Love it as i always like capturing photos of old architecture."
+        android:textColor="#000000"
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/statusTitle"
-        app:layout_constraintTop_toBottomOf="@+id/statusTitle" />
+        app:layout_constraintStart_toStartOf="@+id/avatar"
+        app:layout_constraintTop_toBottomOf="@+id/avatar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewImage"

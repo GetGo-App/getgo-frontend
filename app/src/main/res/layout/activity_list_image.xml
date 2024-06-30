@@ -28,6 +28,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="30dp"
         app:tint="#000000"
+        android:backgroundTint="#fff"
         android:background="@android:color/transparent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -38,7 +39,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/shape_rectangle"
-        android:backgroundTint="#93BC66"
+        android:backgroundTint="#D9D9D9"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,13 +89,13 @@
                 android:textColor="#93BC66" />
 
             <Button
-                android:id="@+id/btnSave"
+                android:id="@+id/btnAdd"
                 style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#fff"
                 android:layout_marginLeft="20dp"
-                android:text="Save"
+                android:text="Add"
                 android:textColor="#93BC66" />
 
 

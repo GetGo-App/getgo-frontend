@@ -3,17 +3,17 @@ package com.application.getgoproject.models;
 
 public class Image {
 
-    private int listImage;
+    private String listImage;
 
-    public Image(int listImage) {
+    public Image(String listImage) {
         this.listImage = listImage;
     }
 
-    public int getListImage() {
+    public String getListImage() {
         return listImage;
     }
 
-    public void setListImage(int listImage) {
+    public void setListImage(String listImage) {
         this.listImage = listImage;
     }
 }

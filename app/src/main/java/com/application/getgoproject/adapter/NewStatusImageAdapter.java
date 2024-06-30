@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.application.getgoproject.R;
 import com.application.getgoproject.models.ImageNewStatus;
@@ -35,15 +36,14 @@ public class NewStatusImageAdapter extends RecyclerView.Adapter<NewStatusImageAd
     @NonNull
     @Override
     public NewStatusImageAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_image_status, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_image_newstatus, parent, false);
         return new NewStatusImageAdapter.ViewHolder(view, onItemClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull NewStatusImageAdapter.ViewHolder holder, int position) {
         ImageNewStatus item = imageList.get(position);
-        holder.imageStatus.setImageResource(item.getImage());
-        holder.checkBox.setEnabled(true);
+        holder.imageStatus.setImageURI(item.getImage());
     }
 
     public interface OnItemClickListener {
@@ -62,7 +62,7 @@ public class NewStatusImageAdapter extends RecyclerView.Adapter<NewStatusImageAd
             super(itemView);
             // Ánh xạ view
             imageStatus = itemView.findViewById(R.id.imageStatus);
-            checkBox = itemView.findViewById(R.id.checkBox);
+//            checkBox = itemView.findViewById(R.id.checkBox);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -1,24 +1,21 @@
 package com.application.getgoproject.models;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Status {
     private String uploader;
-    private String title;
     private String content;
-    private String uploadedTime;
+    private LocalDateTime uploadedTime;
     private String privacyMode;
-    private int userAvatar;
-    private ArrayList<Integer> images;
+    private ArrayList<String> images;
     private ArrayList<String> reactedUsers;
 
-    public Status(String uploader, String title, String content, String uploadedTime, String privacyMode, int userAvatar, ArrayList<Integer> images, ArrayList<String> reactedUsers) {
+    public Status(String uploader, String content, LocalDateTime uploadedTime, String privacyMode, ArrayList<String> images, ArrayList<String> reactedUsers) {
         this.uploader = uploader;
-        this.title = title;
         this.content = content;
         this.uploadedTime = uploadedTime;
         this.privacyMode = privacyMode;
-        this.userAvatar = userAvatar;
         this.images = images;
         this.reactedUsers = reactedUsers;
     }
@@ -31,14 +28,6 @@ public class Status {
         this.uploader = uploader;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getContent() {
         return content;
     }
@@ -47,11 +36,11 @@ public class Status {
         this.content = content;
     }
 
-    public String getUploadedTime() {
+    public LocalDateTime getUploadedTime() {
         return uploadedTime;
     }
 
-    public void setUploadedTime(String uploadedTime) {
+    public void setUploadedTime(LocalDateTime uploadedTime) {
         this.uploadedTime = uploadedTime;
     }
 
@@ -63,19 +52,11 @@ public class Status {
         this.privacyMode = privacyMode;
     }
 
-    public int getUserAvatar() {
-        return userAvatar;
-    }
-
-    public void setUserAvatar(int userAvatar) {
-        this.userAvatar = userAvatar;
-    }
-
-    public ArrayList<Integer> getImages() {
+    public ArrayList<String> getImages() {
         return images;
     }
 
-    public void setImages(ArrayList<Integer> images) {
+    public void setImages(ArrayList<String> images) {
         this.images = images;
     }
 

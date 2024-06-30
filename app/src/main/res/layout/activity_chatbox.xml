@@ -90,22 +90,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <ImageButton
-            android:id="@+id/buttonVoice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:layout_marginEnd="4dp"
-            android:src="@drawable/microphone_icon" />
-
-        <ImageButton
-            android:id="@+id/buttonAddImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/image_add_icon" />
-
         <EditText
             android:id="@+id/editTextMessage"
             android:layout_width="0dp"

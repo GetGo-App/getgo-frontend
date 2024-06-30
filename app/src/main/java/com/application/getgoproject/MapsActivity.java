@@ -7,8 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import androidx.activity.EdgeToEdge;
 import androidx.fragment.app.FragmentActivity;
 
+import com.application.getgoproject.adapter.CustomInfoWindowAdapter;
 import com.application.getgoproject.callback.LocationCallback;
 import com.application.getgoproject.databinding.ActivityMapsBinding;
 import com.application.getgoproject.models.Locations;
@@ -21,6 +23,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
@@ -41,7 +44,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        EdgeToEdge.enable(this);
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -93,7 +96,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 if (mMap != null) {
                     LatLng locationLatLng = new LatLng(latitude, longitude);
-                    mMap.addMarker(new MarkerOptions().position(locationLatLng).title(locations.getName()));
+                    Marker marker = mMap.addMarker(new MarkerOptions()
+                            .position(locationLatLng)
+                            .title(locations.getName()));
+                    if (marker != null) {
+                        String imageUrl = locations.getImages().isEmpty() ? null : locations.getImages().get(0);
+                        marker.setTag(imageUrl);
+                    }
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationLatLng, zoom));
                 }
             }
@@ -103,6 +112,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(this));
     }
 
     private void getLocationById(int id, String token, LocationCallback callback) {
