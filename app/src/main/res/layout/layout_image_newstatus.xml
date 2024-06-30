@@ -18,7 +18,7 @@
             android:id="@+id/imageStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/sapa" />

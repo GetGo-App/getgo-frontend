@@ -61,7 +61,7 @@ public class ListLocationActivity extends AppCompatActivity {
         String namePlace = intent.getStringExtra("location");
         tvNamePlace.setText(namePlace);
 
-        adapter = new ListLocationAdapter(this, R.layout.layout_item_locations, arrayLocation);
+        adapter = new ListLocationAdapter(this, R.layout.layout_item_locations, arrayLocation, userToken);
         lvListLocation.setAdapter(adapter);
 
         lvListLocation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
