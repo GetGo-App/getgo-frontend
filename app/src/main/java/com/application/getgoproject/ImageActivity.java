@@ -66,15 +66,15 @@ public class ImageActivity extends AppCompatActivity {
 
         imageArray = new ArrayList<>();
 
-        imageArray.add(new ImageNewStatus(R.drawable.sapa));
-        imageArray.add(new ImageNewStatus(R.drawable.sapa));
-        imageArray.add(new ImageNewStatus(R.drawable.sapa));
-        imageArray.add(new ImageNewStatus(R.drawable.sapa));
-        imageArray.add(new ImageNewStatus(R.drawable.sapa));
-        imageArray.add(new ImageNewStatus(R.drawable.sapa));
-        imageArray.add(new ImageNewStatus(R.drawable.sapa));
-        imageArray.add(new ImageNewStatus(R.drawable.sapa));
-        imageArray.add(new ImageNewStatus(R.drawable.sapa));
+//        imageArray.add(new ImageNewStatus(R.drawable.sapa));
+//        imageArray.add(new ImageNewStatus(R.drawable.sapa));
+//        imageArray.add(new ImageNewStatus(R.drawable.sapa));
+//        imageArray.add(new ImageNewStatus(R.drawable.sapa));
+//        imageArray.add(new ImageNewStatus(R.drawable.sapa));
+//        imageArray.add(new ImageNewStatus(R.drawable.sapa));
+//        imageArray.add(new ImageNewStatus(R.drawable.sapa));
+//        imageArray.add(new ImageNewStatus(R.drawable.sapa));
+//        imageArray.add(new ImageNewStatus(R.drawable.sapa));
     }
 
     private void goBack() {

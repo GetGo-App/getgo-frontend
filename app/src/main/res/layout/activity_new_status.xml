@@ -55,6 +55,7 @@
         android:layout_height="75dp"
         android:layout_marginTop="30dp"
         android:background="#CEE9BE"
+        android:scaleType="centerCrop"
         app:circularflow_radiusInDP="20dp"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/imgbtnGoback"

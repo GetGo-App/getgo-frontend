@@ -10,14 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.getgoproject.R;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.Target;
 
 import java.util.ArrayList;
 
 public class ImageStatusAdapter extends RecyclerView.Adapter<ImageStatusAdapter.ViewHolder> {
     private Context context;
-    private ArrayList<Integer> imageResources;
+    private ArrayList<String> imageResources;
 
-    public ImageStatusAdapter(Context context, ArrayList<Integer> imageResources) {
+    public ImageStatusAdapter(Context context, ArrayList<String> imageResources) {
         this.context = context;
         this.imageResources = imageResources;
     }
@@ -31,8 +33,13 @@ public class ImageStatusAdapter extends RecyclerView.Adapter<ImageStatusAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        int imgRes = imageResources.get(position);
-        holder.imageViewStatus.setImageResource(imgRes);
+        String imgRes = imageResources.get(position);
+        if (!imgRes.isEmpty()) {
+            Glide.with(context)
+                    .load(imgRes)
+                    .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                    .into(holder.imageViewStatus);
+        }
     }
 
     @Override

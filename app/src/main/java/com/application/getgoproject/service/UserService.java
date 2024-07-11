@@ -19,6 +19,9 @@ public interface UserService {
     @GET("users")
     Call<List<User>> getAllUsers();
 
+    @GET("users/{id}/info")
+    Call<User> getUserByUserId(@Path("id") String id, @Header("Authorization") String token);
+
     @GET("users/{username}")
     Call<User> getUserByUsername(@Path("username") String username, @Header("Authorization") String authorization);
 

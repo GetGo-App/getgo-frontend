@@ -1,17 +1,19 @@
 package com.application.getgoproject.models;
 
-public class ImageNewStatus {
-    private int image;
+import android.net.Uri;
 
-    public ImageNewStatus(int image) {
+public class ImageNewStatus {
+    private Uri image;
+
+    public ImageNewStatus(Uri image) {
         this.image = image;
     }
 
-    public int getImage() {
+    public Uri getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(Uri image) {
         this.image = image;
     }
 }

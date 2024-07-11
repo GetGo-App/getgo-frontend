@@ -1,6 +1,7 @@
 package com.application.getgoproject.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,20 +11,36 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.application.getgoproject.R;
+import com.application.getgoproject.callback.LocationCommentCallback;
+import com.application.getgoproject.models.LocationComment;
 import com.application.getgoproject.models.Locations;
+import com.application.getgoproject.service.LocationService;
+import com.application.getgoproject.utils.RetrofitClient;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ListLocationAdapter extends BaseAdapter {
     private Context context;
     private int layout;
     private List<Locations> locationsList;
+    private String token;
 
     public ListLocationAdapter(Context context, int layout, List<Locations> locationsList) {
         this.context = context;
         this.layout = layout;
         this.locationsList = locationsList;
+    }
+
+    public ListLocationAdapter(Context context, int layout, List<Locations> locationsList, String token) {
+        this.context = context;
+        this.layout = layout;
+        this.locationsList = locationsList;
+        this.token = token;
     }
 
     public void setData(List<Locations> locationsList) {
@@ -62,7 +79,20 @@ public class ListLocationAdapter extends BaseAdapter {
         name.setText(locations.getName());
         price.setText(locations.getPrice());
         content.setText(locations.getShortDescription());
-        locationRating.setRating(locations.getWebsiteRatingOverall());
+
+        getLocationCommentById(locations.getId(), token, new LocationCommentCallback() {
+            @Override
+            public void onLocationCommentsFetched(List<LocationComment> locationComments) {
+                float averageRating = LocationComment.calculateAverageRating(locationComments);
+                locationRating.setRating(averageRating);
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                Log.e("Failed to get rating", throwable.getMessage());
+            }
+        });
+
         if (locations.getImages() != null && !locations.getImages().isEmpty()) {
             Glide.with(context)
                     .load(locations.getImages().get(0))
@@ -72,5 +102,31 @@ public class ListLocationAdapter extends BaseAdapter {
         }
 
         return convertView;
+    }
+
+    private void getLocationCommentById(int id, String token, LocationCommentCallback callback) {
+        try {
+            LocationService locationService = RetrofitClient.getRetrofitInstance(context).create(LocationService.class);
+
+            Call<List<LocationComment>> call = locationService.getListLocationCommentById(id, token);
+            call.enqueue(new Callback<List<LocationComment>>() {
+                @Override
+                public void onResponse(Call<List<LocationComment>> call, Response<List<LocationComment>> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        List<LocationComment> locationComments = response.body();
+
+                        callback.onLocationCommentsFetched(locationComments);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<LocationComment>> call, Throwable throwable) {
+                    Log.e("Failed to get comment", throwable.getMessage());
+                }
+            });
+        }
+        catch (Exception e) {
+            Log.e("Error", e.getMessage());
+        }
     }
 }
