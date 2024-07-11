@@ -191,93 +191,105 @@
             app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-        <ImageButton
-            android:id="@+id/btnAssistant"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/semiround_button"
-            android:backgroundTint="#000000"
-            android:elevation="16dp"
-            app:layout_constraintStart_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toBottomOf="@+id/findFriends"
-            app:srcCompat="@drawable/forum" />
-
-        <TextView
-            android:id="@+id/textAssistant"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linearLayout7"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/kufam_bold"
-            android:text="Assistant"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/btnAssistant"
-            app:layout_constraintStart_toStartOf="@+id/btnAssistant"
-            app:layout_constraintTop_toBottomOf="@+id/btnAssistant" />
-
-        <ImageButton
-            android:id="@+id/btnStatus"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:background="@drawable/semiround_button"
-            android:elevation="16dp"
-            android:backgroundTint="#000000"
-            app:layout_constraintBottom_toBottomOf="@+id/btnAssistant"
-            app:layout_constraintEnd_toStartOf="@+id/btnQr"
-            app:layout_constraintHorizontal_bias="0.558"
-            app:layout_constraintStart_toEndOf="@+id/btnAssistant"
-            app:layout_constraintTop_toTopOf="@+id/btnAssistant"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/clinical_notes" />
-
-        <TextView
-            android:id="@+id/textThirdParty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Status"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:fontFamily="@font/kufam_bold"
-            app:layout_constraintEnd_toEndOf="@+id/btnStatus"
-            app:layout_constraintStart_toStartOf="@+id/btnStatus"
-            app:layout_constraintTop_toBottomOf="@+id/btnStatus" />
-
-        <ImageButton
-            android:id="@+id/btnQr"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:background="@drawable/semiround_button"
-            android:elevation="16dp"
-            android:backgroundTint="#000000"
-            app:layout_constraintBottom_toBottomOf="@+id/btnStatus"
+            android:layout_marginVertical="15dp"
+            android:gravity="center"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintTop_toTopOf="@+id/btnStatus"
-            app:srcCompat="@drawable/qr_code" />
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/findFriends">
 
-        <TextView
-            android:id="@+id/textSetting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="QR Code"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:fontFamily="@font/kufam_bold"
-            app:layout_constraintEnd_toEndOf="@+id/btnQr"
-            app:layout_constraintStart_toStartOf="@+id/btnQr"
-            app:layout_constraintTop_toBottomOf="@+id/btnQr" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/btnAssistant"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:background="@drawable/semiround_button"
+                    android:backgroundTint="#000000"
+                    android:elevation="16dp"
+                    app:srcCompat="@drawable/forum" />
+
+                <TextView
+                    android:id="@+id/textAssistant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/kufam_bold"
+                    android:text="Assistant"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/btnStatus"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:background="@drawable/semiround_button"
+                    android:backgroundTint="#000000"
+                    android:elevation="16dp"
+                    app:srcCompat="@drawable/clinical_notes" />
+
+                <TextView
+                    android:id="@+id/textThirdParty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/kufam_bold"
+                    android:text="Status"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/btnQr"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:background="@drawable/semiround_button"
+                    android:backgroundTint="#000000"
+                    android:elevation="16dp"
+                    app:srcCompat="@drawable/qr_code" />
+
+                <TextView
+                    android:id="@+id/textSetting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/kufam_bold"
+                    android:text="QR Code"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/imgBanner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textAssistant"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
             app:srcCompat="@drawable/banner" />
 
         <TextView
