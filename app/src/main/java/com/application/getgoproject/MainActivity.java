@@ -22,6 +22,10 @@ import com.application.getgoproject.service.UserService;
 import com.application.getgoproject.utils.RetrofitClient;
 import com.application.getgoproject.utils.SharedPrefManager;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.ArrayList;
@@ -45,11 +49,21 @@ public class MainActivity extends AppCompatActivity {
     private String userToken, username;
     private UserService userService;
 
+    //region GG AUTHENTICATION
+    GoogleSignInOptions gso;
+    GoogleSignInClient gsc;
+    //endregion
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+        //region SetUp GG Authentication
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gsc = GoogleSignIn.getClient(MainActivity.this, gso);
+        //endregion
 
         Retrofit retrofit = RetrofitClient.getRetrofitInstance(this);
         locationService = retrofit.create(LocationService.class);
