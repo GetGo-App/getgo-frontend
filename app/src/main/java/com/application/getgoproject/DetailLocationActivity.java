@@ -22,7 +22,6 @@ import com.application.getgoproject.callback.LocationCallback;
 import com.application.getgoproject.callback.LocationCommentCallback;
 import com.application.getgoproject.callback.UserCallback;
 import com.application.getgoproject.dto.CommentDTO;
-import com.application.getgoproject.models.Comment;
 import com.application.getgoproject.models.ImageLocation;
 import com.application.getgoproject.models.LocationComment;
 import com.application.getgoproject.models.Locations;
@@ -36,7 +35,6 @@ import com.application.getgoproject.utils.SharedPrefManager;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -198,6 +196,12 @@ public class DetailLocationActivity extends AppCompatActivity {
                                     locationComment.getCreatedDate(), locationComment.getLocation()));
                         }
 
+                        // Update average rating and progress bars
+                        float averageRating = LocationComment.calculateAverageRating(locationComments);
+                        ratingOverall.setText(String.format("%.1f", averageRating));
+                        ratingBarOverall.setRating(averageRating);
+                        updateRatingProgressBars(locationComments);
+
                         reviewCount.setText(arrayComment.size() + " reviews");
                         Log.d("Comment Data", arrayComment.size() + "");
                         adapter.notifyDataSetChanged();
@@ -232,12 +236,6 @@ public class DetailLocationActivity extends AppCompatActivity {
         ratingBarOverall = findViewById(R.id.ratingBarOverall);
         feedBackRating = findViewById(R.id.feedbackRating);
         reviewCount = findViewById(R.id.reviewCount);
-
-        progress5Star.setMax(10000);
-        progress4Star.setMax(10000);
-        progress3Star.setMax(10000);
-        progress2Star.setMax(10000);
-        progress1Star.setMax(10000);
 
         feedBackRating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -288,14 +286,6 @@ public class DetailLocationActivity extends AppCompatActivity {
                     contentDescription.setText(locations.getShortDescription());
                     address.setText(locations.getAddress());
                     price.setText(locations.getPrice());
-
-                    ratingOverall.setText(String.format("%.1f", locations.getWebsiteRatingOverall()));
-                    ratingBarOverall.setRating(locations.getWebsiteRatingOverall());
-                    progress5Star.setProgress((int) (locations.getWebsiteRating().getStar5() * 100));
-                    progress4Star.setProgress((int) (locations.getWebsiteRating().getStar4() * 100));
-                    progress3Star.setProgress((int) (locations.getWebsiteRating().getStar3() * 100));
-                    progress2Star.setProgress((int) (locations.getWebsiteRating().getStar2() * 100));
-                    progress1Star.setProgress((int) (locations.getWebsiteRating().getStar1() * 100));
 
                     arrayImage.clear();
                     if (locations.getImages() != null) {
@@ -373,8 +363,16 @@ public class DetailLocationActivity extends AppCompatActivity {
                                             public void run() {
                                                 arrayComment.clear();
                                                 arrayComment.addAll(locationComments);
+
+                                                // Update the average rating and progress bars
+                                                float averageRating = LocationComment.calculateAverageRating(locationComments);
+                                                ratingOverall.setText(String.format("%.1f", averageRating));
+                                                ratingBarOverall.setRating(averageRating);
+                                                updateRatingProgressBars(locationComments);
+
                                                 reviewCount.setText(arrayComment.size() + " reviews");
                                                 adapter.notifyDataSetChanged();
+
                                             }
                                         });
                                     }
@@ -419,6 +417,15 @@ public class DetailLocationActivity extends AppCompatActivity {
                     if (response.isSuccessful() && response.body() != null) {
                         List<LocationComment> locationComments = response.body();
 
+                        // Update average rating and progress bars
+                        float averageRating = LocationComment.calculateAverageRating(locationComments);
+                        ratingOverall.setText(String.format("%.1f", averageRating));
+                        ratingBarOverall.setRating(averageRating);
+                        updateRatingProgressBars(locationComments);
+
+                        ratingOverall.setText(String.format("%.1f", averageRating));
+                        ratingBarOverall.setRating(averageRating);
+
                         callback.onLocationCommentsFetched(locationComments);
                     }
                 }
@@ -432,5 +439,22 @@ public class DetailLocationActivity extends AppCompatActivity {
         catch (Exception e) {
             Log.d("Error", e.getMessage());
         }
+    }
+
+    private void updateRatingProgressBars(List<LocationComment> locationComments) {
+        int[] distribution = LocationComment.calculateRatingDistribution(locationComments);
+        int totalComments = locationComments.size();
+
+        progress5Star.setMax(totalComments);
+        progress4Star.setMax(totalComments);
+        progress3Star.setMax(totalComments);
+        progress2Star.setMax(totalComments);
+        progress1Star.setMax(totalComments);
+
+        progress5Star.setProgress(distribution[4]);
+        progress4Star.setProgress(distribution[3]);
+        progress3Star.setProgress(distribution[2]);
+        progress2Star.setProgress(distribution[1]);
+        progress1Star.setProgress(distribution[0]);
     }
 }

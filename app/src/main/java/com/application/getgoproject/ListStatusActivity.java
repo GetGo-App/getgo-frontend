@@ -3,6 +3,7 @@ package com.application.getgoproject;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -15,13 +16,31 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.getgoproject.adapter.StatusAdapter;
+import com.application.getgoproject.callback.StatusCallback;
+import com.application.getgoproject.callback.UserCallback;
 import com.application.getgoproject.models.Status;
+import com.application.getgoproject.models.User;
+import com.application.getgoproject.models.UserAuthentication;
+import com.application.getgoproject.service.StatusService;
+import com.application.getgoproject.service.UserService;
+import com.application.getgoproject.utils.RetrofitClient;
+import com.application.getgoproject.utils.SharedPrefManager;
+import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 public class ListStatusActivity extends AppCompatActivity {
+    private StatusService statusService;
+    private UserService userService;
+    private String userToken;
+
     private ImageButton imgbtnGoback;
     private ShapeableImageView avatar;
     private FrameLayout statusLayout;
@@ -32,7 +51,29 @@ public class ListStatusActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_status);
 
+        UserAuthentication userAuthentication = SharedPrefManager.getInstance(this).getUser();
+        String username = userAuthentication.getUsername();
+        userToken = "Bearer " + userAuthentication.getAccessToken();
+
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance(this);
+        statusService = retrofit.create(StatusService.class);
+        userService = retrofit.create(UserService.class);
+
         mapping();
+
+        getUserByUsername(username, userToken, new UserCallback() {
+            @Override
+            public void onUserFetched(User user) {
+                if (!user.getAvatar().isEmpty()) {
+                    Glide.with(ListStatusActivity.this)
+                            .load(user.getAvatar())
+                            .into(avatar);
+                }
+                else {
+                    avatar.setImageResource(R.drawable.avatar);
+                }
+            }
+        });
 
         addLayoutStatus();
         imgbtnGoback.setOnClickListener(new View.OnClickListener() {
@@ -83,30 +124,77 @@ public class ListStatusActivity extends AppCompatActivity {
 
         statusList = new ArrayList<>();
 
-        ArrayList<Integer> arrayList = new ArrayList<>();
-        arrayList.add(R.drawable.sapa);
-        arrayList.add(R.drawable.sapabackground);
-        arrayList.add(R.drawable.sapabackground);
-        arrayList.add(R.drawable.sapa);
-        arrayList.add(R.drawable.sapabackground);
-        arrayList.add(R.drawable.sapa);
+        StatusAdapter statusAdapter = new StatusAdapter(this, statusList, userToken);
 
-        ArrayList<Integer> arrayList2 = new ArrayList<>();
-        arrayList2.add(R.drawable.sapa);
+        getAllStatus(userToken, new StatusCallback() {
+            @Override
+            public void onListStatusFetched(List<Status> statuses) {
+                statusList.clear();
+                for (Status status : statuses) {
+                    statusList.add(new Status(status.getUploader(), status.getContent(),
+                            status.getUploadedTime(), status.getPrivacyMode(),
+                            status.getImages(), status.getReactedUsers()));
+                }
+                statusAdapter.notifyDataSetChanged();
+            }
 
-        ArrayList<String> reactedUsers = new ArrayList<>();
-        reactedUsers.add("hieu nghia");
-        reactedUsers.add("ngo ngo");
-        reactedUsers.add("phan phuc");
+            @Override
+            public void onError(Throwable throwable) {
+                Log.e("Failed to get status", throwable.getMessage());
+            }
+        });
 
-        statusList.add(new Status("Phan Hieu Nghia", "The Good Place", "This is the beautiful place", "4 days ago", "public", R.drawable.avatar, arrayList, reactedUsers));
-        statusList.add(new Status("Hoang Le Huong", "The New Place", "This is the good place", "4 days ago", "public", R.drawable.avatar, arrayList2, reactedUsers));
-
-        StatusAdapter statusAdapter = new StatusAdapter(this, statusList);
         RecyclerView recyclerView = layoutStatus.findViewById(R.id.image_status_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(statusAdapter);
 
         statusLayout.addView(layoutStatus);
+    }
+
+    private void getAllStatus(String token, StatusCallback callback) {
+        try {
+            Call<List<Status>> call = statusService.getAllStatus(token);
+            call.enqueue(new Callback<List<Status>>() {
+                @Override
+                public void onResponse(Call<List<Status>> call, Response<List<Status>> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        List<Status> statuses = response.body();
+
+                        callback.onListStatusFetched(statuses);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Status>> call, Throwable throwable) {
+                    Log.e("Failed to get status", throwable.getMessage());
+                }
+            });
+        }
+        catch (Exception e) {
+            Log.e("Error get status", e.getMessage());
+        }
+    }
+
+    public void getUserByUsername(String username, String token, UserCallback callback) {
+        try {
+            Call<User> call = userService.getUserByUsername(username, token);
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        User user = response.body();
+                        callback.onUserFetched(user);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable throwable) {
+                    // Handle failure
+                }
+            });
+        }
+        catch (Exception e) {
+            Log.d("Error", e.getMessage());
+        }
     }
 }

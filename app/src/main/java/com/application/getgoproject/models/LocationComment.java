@@ -31,6 +31,30 @@ public class LocationComment {
         this.location = location;
     }
 
+    public static float calculateAverageRating(List<LocationComment> locationComments) {
+        if (locationComments == null || locationComments.isEmpty()) {
+            return 0;
+        }
+        float sum = 0;
+        for (LocationComment comment : locationComments) {
+            sum += comment.getRating();
+        }
+        return sum / locationComments.size();
+    }
+
+    public static int[] calculateRatingDistribution(List<LocationComment> locationComments) {
+        int[] distribution = new int[5]; // Index 0 for 1-star, 1 for 2-star, ..., 4 for 5-star
+        if (locationComments != null) {
+            for (LocationComment comment : locationComments) {
+                int rating = Math.round(comment.getRating());
+                if (rating >= 1 && rating <= 5) {
+                    distribution[rating - 1]++;
+                }
+            }
+        }
+        return distribution;
+    }
+
     public String getId() {
         return id;
     }

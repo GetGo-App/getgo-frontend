@@ -43,7 +43,7 @@ public class NewStatusImageAdapter extends RecyclerView.Adapter<NewStatusImageAd
     @Override
     public void onBindViewHolder(@NonNull NewStatusImageAdapter.ViewHolder holder, int position) {
         ImageNewStatus item = imageList.get(position);
-        holder.imageStatus.setImageResource(item.getImage());
+        holder.imageStatus.setImageURI(item.getImage());
     }
 
     public interface OnItemClickListener {

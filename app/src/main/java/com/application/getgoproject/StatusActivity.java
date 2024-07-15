@@ -22,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.application.getgoproject.adapter.ImageAdapter;
 import com.application.getgoproject.adapter.MessageAdapter;
 import com.application.getgoproject.adapter.StatusAdapter;
+import com.application.getgoproject.callback.StatusCallback;
+import com.application.getgoproject.callback.UserCallback;
 import com.application.getgoproject.models.Image;
 import com.application.getgoproject.models.Message;
 import com.application.getgoproject.models.Status;
@@ -31,6 +33,8 @@ import com.application.getgoproject.service.StatusService;
 import com.application.getgoproject.service.UserService;
 import com.application.getgoproject.utils.RetrofitClient;
 import com.application.getgoproject.utils.SharedPrefManager;
+import com.bumptech.glide.Glide;
+import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +50,7 @@ public class StatusActivity extends AppCompatActivity {
     private StatusService statusService;
     private UserAuthentication userAuthentication;
 
+    private ShapeableImageView avatar;
     private TextView userStatusNumber, userFriendNumber, username;
     private ImageButton imgbtnGoback;
     private FrameLayout statusLayout;
@@ -53,7 +58,7 @@ public class StatusActivity extends AppCompatActivity {
     private List<Image> imageList;
     private List<Message> messageList;
     private List<Status> statusList;
-    private String sizeStatus, sizeFriend;
+    private String sizeStatus, sizeFriend, userToken, userId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,24 +66,35 @@ public class StatusActivity extends AppCompatActivity {
         setContentView(R.layout.activity_status);
 
         userAuthentication = SharedPrefManager.getInstance(this).getUser();
-        String userToken = "Bearer " + userAuthentication.getAccessToken();
+        userToken = "Bearer " + userAuthentication.getAccessToken();
 
         Retrofit retrofit = RetrofitClient.getRetrofitInstance(this);
+        statusService = retrofit.create(StatusService.class);
         userService = retrofit.create(UserService.class);
 
         mapping();
 
-        addLayoutStatus();
-
         username.setText(userAuthentication.getUsername());
 
-        sizeStatus = statusList.size()+ "";
-        userStatusNumber.setText(sizeStatus);
+        getUserByName(userAuthentication.getUsername(), userToken, new UserCallback() {
+            @Override
+            public void onUserFetched(User user) {
+                userId = user.getId();
+                userFriendNumber.setText(user.getFriends() != null ? user.getFriends().size() + "" : "0");
 
-        sizeFriend = statusList.size()+ "";
-        userFriendNumber.setText(sizeFriend);
+                if (user.getAvatar() != null) {
+                    Glide.with(StatusActivity.this)
+                            .load(user.getAvatar())
+                            .into(avatar);
+                }
+                else {
+                    avatar.setImageResource(R.drawable.avatar);
+                }
 
-        getUserByName(userAuthentication.getUsername(), userToken);
+                addLayoutStatus();
+            }
+        });
+
         imgbtnGoback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,7 +125,8 @@ public class StatusActivity extends AppCompatActivity {
         tabMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addLayoutMessage();
+                Toast.makeText(StatusActivity.this, "Developing...", Toast.LENGTH_LONG).show();
+//                addLayoutMessage();
             }
         });
     }
@@ -124,6 +141,7 @@ public class StatusActivity extends AppCompatActivity {
         imgbtnGoback= findViewById(R.id.imgbtnGoback);
         btnAddStatus = findViewById(R.id.btnAddStatus);
         username = findViewById(R.id.username);
+        avatar = findViewById(R.id.avatar);
     }
     private void settingAccount(){
         Intent intent = new Intent(this, UserActivity.class);
@@ -157,27 +175,29 @@ public class StatusActivity extends AppCompatActivity {
 
         statusList = new ArrayList<>();
 
-        ArrayList<Integer> arrayList = new ArrayList<>();
-        arrayList.add(R.drawable.sapa);
-        arrayList.add(R.drawable.sapabackground);
-        arrayList.add(R.drawable.sapabackground);
-        arrayList.add(R.drawable.sapa);
-        arrayList.add(R.drawable.sapabackground);
-        arrayList.add(R.drawable.sapa);
+        StatusAdapter statusAdapter = new StatusAdapter(this, statusList, userToken);
 
-        ArrayList<Integer> arrayList2 = new ArrayList<>();
-        arrayList2.add(R.drawable.sapa);
+        getStatusByUserId(userId, userToken, new StatusCallback() {
+            @Override
+            public void onListStatusFetched(List<Status> statuses) {
+                statusList.clear();
+                for (Status status : statuses) {
+                    statusList.add(new Status(status.getUploader(), status.getContent(),
+                            status.getUploadedTime(), status.getPrivacyMode(),
+                            status.getImages(), status.getReactedUsers()));
+                }
 
-        ArrayList<String> reactedUsers = new ArrayList<>();
-        reactedUsers.add("hieu nghia");
-        reactedUsers.add("ngo ngo");
-        reactedUsers.add("phan phuc");
+                sizeStatus = statusList.size()+ "";
+                userStatusNumber.setText(sizeStatus);
+                statusAdapter.notifyDataSetChanged();
+            }
 
-        statusList.add(new Status("Phan Hieu Nghia", "The Good Place", "This is the beautiful place", "4 days ago", "public", R.drawable.avatar, arrayList, reactedUsers));
-        statusList.add(new Status("Hoang Le Huong", "The New Place", "This is the good place", "4 days ago", "public", R.drawable.avatar, arrayList2, reactedUsers));
+            @Override
+            public void onError(Throwable throwable) {
+                Log.e("Failed to get status", throwable.getMessage());
+            }
+        });
 
-
-        StatusAdapter statusAdapter = new StatusAdapter(this, statusList);
         RecyclerView recyclerView = layoutStatus.findViewById(R.id.image_status_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(statusAdapter);
@@ -200,17 +220,17 @@ public class StatusActivity extends AppCompatActivity {
 
         imageList = new ArrayList<>();
 
-        imageList.add(new Image(R.drawable.sapabackground));
-        imageList.add(new Image(R.drawable.sapa));
-        imageList.add(new Image(R.drawable.startbackground));
-        imageList.add(new Image(R.drawable.startbackground));
-        imageList.add(new Image(R.drawable.startbackground));
-        imageList.add(new Image(R.drawable.startbackground));
-        imageList.add(new Image(R.drawable.startbackground));
-        imageList.add(new Image(R.drawable.startbackground));
-        imageList.add(new Image(R.drawable.startbackground));
+//        imageList.add(new Image(R.drawable.sapabackground));
+//        imageList.add(new Image(R.drawable.sapa));
+//        imageList.add(new Image(R.drawable.startbackground));
+//        imageList.add(new Image(R.drawable.startbackground));
+//        imageList.add(new Image(R.drawable.startbackground));
+//        imageList.add(new Image(R.drawable.startbackground));
+//        imageList.add(new Image(R.drawable.startbackground));
+//        imageList.add(new Image(R.drawable.startbackground));
+//        imageList.add(new Image(R.drawable.startbackground));
 
-        LayoutInflater inflater = LayoutInflater.from(this);
+        LayoutInflater inflater = LayoutInflater.from(StatusActivity.this);
         View layoutImage = inflater.inflate(R.layout.layout_image, statusLayout, false);
 
         GridView gridView = layoutImage.findViewById(R.id.listImage);
@@ -218,6 +238,33 @@ public class StatusActivity extends AppCompatActivity {
         gridView.setAdapter(imageAdapter);
 
         statusLayout.addView(layoutImage);
+
+        getStatusByUserId(userId, userToken, new StatusCallback() {
+            @Override
+            public void onListStatusFetched(List<Status> statuses) {
+                for (Status status : statuses) {
+                    List<String> images = status.getImages();
+                    if (images != null) {
+                        for (String imageUrl : images) {
+                            imageList.add(new Image(imageUrl));
+                        }
+                    }
+                }
+
+                // Notify the adapter of the data change on the main thread
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        imageAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                // Handle error
+            }
+        });
     }
 
     private void addLayoutMessage() {
@@ -257,7 +304,7 @@ public class StatusActivity extends AppCompatActivity {
         statusLayout.addView(layoutMessage);
     }
 
-    private void getUserByName(String username, String token) {
+    private void getUserByName(String username, String token, UserCallback callback) {
         Call<User> call = userService.getUserByUsername(username, token);
         call.enqueue(new Callback<User>() {
             @Override
@@ -265,8 +312,7 @@ public class StatusActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     User user = response.body();
 
-                    userFriendNumber.setText(user.getFriends() != null ? user.getFriends().size() + "" : "0");
-
+                    callback.onUserFetched(user);
                 }
                 else {
                     Log.d("Error", "Failed to fetch");
@@ -278,6 +324,30 @@ public class StatusActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void getStatusByUserId(String userId, String token, StatusCallback callback) {
+        try {
+            Call<List<Status>> call = statusService.getStatusByUserId(userId, token);
+            call.enqueue(new Callback<List<Status>>() {
+                @Override
+                public void onResponse(Call<List<Status>> call, Response<List<Status>> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        List<Status> statuses = response.body();
+
+                        callback.onListStatusFetched(statuses);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Status>> call, Throwable throwable) {
+                    Log.e("Failed to get status", throwable.getMessage());
+                }
+            });
+        }
+        catch (Exception e) {
+            Log.e("Error get status", e.getMessage());
+        }
     }
 
     @Override
