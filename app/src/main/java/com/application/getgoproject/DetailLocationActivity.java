@@ -285,7 +285,7 @@ public class DetailLocationActivity extends AppCompatActivity {
                     Locations locations = response.body();
 
                     etNameLocation.setText(locations.getName());
-                    contentDescription.setText(locations.getContent());
+                    contentDescription.setText(locations.getShortDescription());
                     address.setText(locations.getAddress());
                     price.setText(locations.getPrice());
 
