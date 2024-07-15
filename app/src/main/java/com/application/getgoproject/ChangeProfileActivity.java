@@ -2,6 +2,7 @@ package com.application.getgoproject;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -45,9 +46,9 @@ public class ChangeProfileActivity extends AppCompatActivity {
     private UserService userService;
     private SignInService signInService;
 
-    private EditText edtUsername, edtPhone, edtPassword, edtConfirmPassword, edtBirthday;
+    private EditText edtUsername, edtPhone, edtPassword, edtConfirmPassword ;
     private RadioButton btnMale, btnFemale, btnOther;
-    private Button btnChange, btnCancel;
+    private Button btnChange, btnCancel, edtBirthday;
     private ImageButton imgbtnGoback;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

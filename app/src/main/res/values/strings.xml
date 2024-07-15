@@ -1,5 +1,21 @@
 <resources>
     <string name="app_name">GetGoProject</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="account_registration">
+        Account Registration: You must create an account to use the full features of GetGo. You are responsible for the security of your account.
+    </string>
+    <string name="age_requirement">
+        Age Requirement: You must be at least 18 years old to use this application or have the consent of a parent or legal guardian.
+    </string>
+    <string name="provide_accurate_information">
+        Provide Accurate Information: You agree to provide accurate and complete information when registering and using our services.
+    </string>
+
+    <string name="respect_intellectua_property_rights">
+        Respect Intellectual Property Rights: You may not copy, modify, distribute, sell, or lease any part of our service or software.
+    </string>
+    <string name="user_content">
+        User Content: You are responsible for any content you upload or create on the application. You agree not to post content that violates the law or the rights of others.
+    </string>
     <string name="image_desc">image</string>
 </resources>
