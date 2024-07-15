@@ -100,7 +100,7 @@ public class ListLocationActivity extends AppCompatActivity {
         imgbtnGoback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                locationForm();
+                finish();
             }
         });
 
@@ -164,15 +164,6 @@ public class ListLocationActivity extends AppCompatActivity {
 
     }
 
-//    private void searchAction(String query) {
-//        Toast.makeText(this, "Tìm kiếm: " + query, Toast.LENGTH_SHORT).show();
-//        //gọi API
-//    }
-
-    private void locationForm(){
-        Intent intent = new Intent(this, LocationActivity.class);
-        startActivity(intent);
-    }
 
     private void updateTextViewStyles(TextView selectedTextView, TextView... otherTextViews) {
         selectedTextView.setBackgroundResource(R.drawable.underline_button);
