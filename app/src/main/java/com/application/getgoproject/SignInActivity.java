@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,6 +30,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import retrofit2.Call;
@@ -64,6 +66,13 @@ public class SignInActivity extends AppCompatActivity {
 //                .requestIdToken("852575728862-mq0j0jg1ig0dief06cmenqhl65b09tsh.apps.googleusercontent.com")
                 .requestEmail().build();
         gsc = GoogleSignIn.getClient(SignInActivity.this, gso);
+
+//        gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//            }
+//        });
+
         //endregion
 
 
@@ -230,7 +239,7 @@ public class SignInActivity extends AppCompatActivity {
 
             try {
                 task.getResult(ApiException.class);
-
+                googleAuthentication();
                 homeForm();
             } catch (ApiException e) {
                 throw new RuntimeException(e);
@@ -247,7 +256,7 @@ public class SignInActivity extends AppCompatActivity {
                 public void onResponse(Call<UserAuthentication> call, Response<UserAuthentication> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         UserAuthentication userAuthentication = response.body();
-
+                        SharedPrefManager.getInstance(SignInActivity.this).saveUser(userAuthentication);
                         Log.d("User token", userAuthentication.getAccessToken());
                     }
                     else if (response.code() == 400) {
