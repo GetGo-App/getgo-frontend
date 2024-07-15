@@ -88,14 +88,16 @@ public class MainActivity extends AppCompatActivity {
         btnQr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                qrForm();
+                Toast.makeText(MainActivity.this, "Not opened yet!", Toast.LENGTH_LONG).show();
+//                qrForm();
             }
         });
 
         imgBanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                packageForm();
+                Toast.makeText(MainActivity.this, "Not opened yet!", Toast.LENGTH_LONG).show();
+//                packageForm();
             }
         });
         avatar.setOnClickListener(new View.OnClickListener() {

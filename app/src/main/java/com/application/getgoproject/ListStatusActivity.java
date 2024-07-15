@@ -64,13 +64,15 @@ public class ListStatusActivity extends AppCompatActivity {
         getUserByUsername(username, userToken, new UserCallback() {
             @Override
             public void onUserFetched(User user) {
-                if (!user.getAvatar().isEmpty()) {
-                    Glide.with(ListStatusActivity.this)
-                            .load(user.getAvatar())
-                            .into(avatar);
-                }
-                else {
-                    avatar.setImageResource(R.drawable.avatar);
+                if (user != null && user.getAvatar() != null) {
+                    if (!user.getAvatar().isEmpty()) {
+                        Glide.with(ListStatusActivity.this)
+                                .load(user.getAvatar())
+                                .into(avatar);
+                    }
+                    else {
+                        avatar.setImageResource(R.drawable.avatar);
+                    }
                 }
             }
         });
