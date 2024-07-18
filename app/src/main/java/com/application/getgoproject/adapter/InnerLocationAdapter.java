@@ -79,7 +79,7 @@ public class InnerLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         public void bind(Locations location) {
             // Bind data for item_start_location
-            textViewStartLocation.setText("You i'll start at");
+            textViewStartLocation.setText("You'll start at");
         }
     }
 
