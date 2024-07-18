@@ -103,7 +103,7 @@ public class DetailLocationActivity extends AppCompatActivity {
         imgbtnGoback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listLocalForm();
+                finish();
             }
         });
 
@@ -255,19 +255,8 @@ public class DetailLocationActivity extends AppCompatActivity {
 
 
         arrayComment = new ArrayList<>();
-//        arrayComment.add(new Comment(R.drawable.border_gradient, "Yen Vi", "2 days ago", "Awesome place for tourist trying to have a sip of coffee. Authentic taste, quiet with beautiful vintage decorations. Recommended.", 1));
-//        arrayComment.add(new Comment(R.drawable.border_gradient, "Duc Anh", "a week ago", "Beautiful view, very nice atmostphere, the food so good and cheap. Love it!", 2));
-//        arrayComment.add(new Comment(R.drawable.border_gradient, "Mimi", "a week ago", "Nice people, nice view, nice price", 3));
-//        arrayComment.add(new Comment(R.drawable.border_gradient, "Yen Vi", "2 days ago", "Awesome place for tourist trying to have a sip of coffee. Authentic taste, quiet with beautiful vintage decorations. Recommended.", 4));
-//        arrayComment.add(new Comment(R.drawable.border_gradient, "Duc Anh", "a week ago", "Beautiful view, very nice atmostphere, the food so good and cheap. Love it!", 5));
-//        arrayComment.add(new Comment(R.drawable.border_gradient, "Mimi", "a week ago", "Nice people, nice view, nice price", 1));
     }
 
-    private void listLocalForm(){
-        Intent intent = new Intent(this, ListLocationActivity.class);
-        intent.putExtra("location", locationCity);
-        startActivity(intent);
-    }
     private void mapForm(){
         Intent intent = new Intent(this, MapsActivity.class);
         intent.putExtra("location address", locationId);

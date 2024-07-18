@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import com.application.getgoproject.callback.UserCallback;
 import com.application.getgoproject.models.ChatAgentMessage;
 import com.application.getgoproject.models.ChatBox;
 import com.application.getgoproject.models.Locations;
+import com.application.getgoproject.models.LocationsMessage;
 import com.application.getgoproject.models.User;
 import com.application.getgoproject.models.UserAuthentication;
 import com.application.getgoproject.service.ChatAgentService;
@@ -138,91 +140,87 @@ public class ChatBoxActivity extends AppCompatActivity {
     }
 
     public void sendMessageToAgent(String question, String userId, String token) {
-        Call<ChatAgentMessage> call = chatAgentService.sendMessageToAgent(question, userId, token);
-        call.enqueue(new Callback<ChatAgentMessage>() {
-            @Override
-            public void onResponse(Call<ChatAgentMessage> call, Response<ChatAgentMessage> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    ChatAgentMessage chatAgentMessage = response.body();
-
-                    if (chatAgentMessage.getText() != null) {
-                        recyclerView.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                chatBoxList.add(new ChatBox(chatAgentMessage.getText(), false));
-                                chatBoxAdapter.notifyItemInserted(chatBoxList.size() - 1);
-                                recyclerView.scrollToPosition(chatBoxList.size() - 1);
-                            }
-                        }, 1000);
-                    }
-
-                    if (chatAgentMessage.getIds_location() != null && !chatAgentMessage.getIds_location().isEmpty()) {
-                        fetchLocationsByIds(chatAgentMessage.getIds_location(), userToken);
-                    }
-
-                    if (chatAgentMessage.getText() == null && (chatAgentMessage.getIds_location() == null || chatAgentMessage.getIds_location().isEmpty())) {
-                        recyclerView.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                chatBoxList.add(new ChatBox("Sorry, I have no information!", false));
-                                chatBoxAdapter.notifyItemInserted(chatBoxList.size() - 1);
-                                recyclerView.scrollToPosition(chatBoxList.size() - 1);
-                            }
-                        }, 1000);
-                    }
-                } else {
-                    recyclerView.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            chatBoxList.add(new ChatBox("Sorry, I have no idea!", false));
-                            chatBoxAdapter.notifyItemInserted(chatBoxList.size() - 1);
-                            recyclerView.scrollToPosition(chatBoxList.size() - 1);
-                        }
-                    }, 1000);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ChatAgentMessage> call, Throwable throwable) {
-                recyclerView.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.d("Error", throwable.getMessage());
-                        chatBoxList.add(new ChatBox("Sorry, an error has been occurred", false));
-                        chatBoxAdapter.notifyItemInserted(chatBoxList.size() - 1);
-                        recyclerView.scrollToPosition(chatBoxList.size() - 1);
-                    }
-                }, 1000);
-            }
-        });
-    }
-
-    private void fetchLocationsByIds(List<Integer> ids, String token) {
-        for (Integer id : ids) {
-            Call<Locations> call = locationService.getLocationsById(id, token);
-            call.enqueue(new Callback<Locations>() {
+        try {
+            Call<ChatAgentMessage> call = chatAgentService.sendMessageToAgent(question, userId, token);
+            call.enqueue(new Callback<ChatAgentMessage>() {
                 @Override
-                public void onResponse(Call<Locations> call, Response<Locations> response) {
+                public void onResponse(Call<ChatAgentMessage> call, Response<ChatAgentMessage> response) {
                     if (response.isSuccessful() && response.body() != null) {
-                        Locations location = response.body();
-                        recyclerView.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                chatBoxList.add(new ChatBox(location));
-                                chatBoxAdapter.notifyItemInserted(chatBoxList.size() - 1);
-                                recyclerView.scrollToPosition(chatBoxList.size() - 1);
+                        ChatAgentMessage chatAgentMessage = response.body();
+
+                        String textMessage = chatAgentMessage.getTexts_message();
+                        LocationsMessage locationsMessage = chatAgentMessage.getLocations_message();
+
+                        if (textMessage != null || (locationsMessage != null && !locationsMessage.getLocations().isEmpty())) {
+                            if (locationsMessage != null && !locationsMessage.getLocations().isEmpty()) {
+                                fetchLocationsByIds(locationsMessage.getLocations(), userToken, textMessage, locationsMessage.getMessage());
+                            } else {
+                                addChatBox(new ChatBox(textMessage, false));
                             }
-                        }, 1000);
+                        } else {
+                            addChatBox(new ChatBox("Sorry, I have no information!", false));
+                        }
+                    } else {
+                        addChatBox(new ChatBox("Sorry, I have no idea!", false));
                     }
                 }
 
                 @Override
-                public void onFailure(Call<Locations> call, Throwable throwable) {
-                    // Handle failure
+                public void onFailure(Call<ChatAgentMessage> call, Throwable throwable) {
+                    addChatBox(new ChatBox("Sorry, an error has occurred", false));
                 }
             });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+
+
+    private void fetchLocationsByIds(List<Integer> ids, String token, String textMessage, String locationMessage) {
+        try {
+            List<Locations> locations = new ArrayList<>();
+
+            for (Integer id : ids) {
+                Call<Locations> call = locationService.getLocationsById(id, token);
+                call.enqueue(new Callback<Locations>() {
+                    @Override
+                    public void onResponse(Call<Locations> call, Response<Locations> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            Locations location = response.body();
+                            locations.add(location);
+
+                            if (locations.size() == ids.size()) {
+                                ChatBox chatBox = new ChatBox(textMessage, locationMessage, locations);
+                                addChatBox(chatBox);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Locations> call, Throwable throwable) {
+                        // Handle failure
+                    }
+                });
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    private void addChatBox(ChatBox chatBox) {
+        recyclerView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                chatBoxList.add(chatBox);
+                chatBoxAdapter.notifyItemInserted(chatBoxList.size() - 1);
+                recyclerView.scrollToPosition(chatBoxList.size() - 1);
+            }
+        }, 1000);
+    }
+
 
     @Override
     protected void onResume() {
