@@ -69,7 +69,7 @@ public class ChatBoxActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         chatBoxList = new ArrayList<>();
-        chatBoxList.add(new ChatBox("Hi! Where do you wanna go today?", false));
+        chatBoxList.add(new ChatBox("Xin chào! Tôi là Koko, trợ lý ảo của GetGo. Hôm nay tôi có thể giúp gì được cho bạn?", false));
 
         chatBoxAdapter = new ChatBoxAdapter(chatBoxList, new LocationChatBoxAdapter.OnItemClickListener() {
             @Override
