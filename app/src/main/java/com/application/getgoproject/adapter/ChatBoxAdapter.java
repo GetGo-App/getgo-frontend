@@ -3,22 +3,15 @@ package com.application.getgoproject.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.getgoproject.R;
 import com.application.getgoproject.models.ChatBox;
 import com.application.getgoproject.models.Locations;
-import com.bumptech.glide.Glide;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
 
@@ -39,7 +32,7 @@ public class ChatBoxAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public int getItemViewType(int position) {
         ChatBox chatBox = messageList.get(position);
-        if (chatBox.getLocation() != null) {
+        if (chatBox.getLocation() != null && !chatBox.getLocation().isEmpty()) {
             return VIEW_TYPE_LOCATION_RECEIVED;
         } else if (chatBox.isSent()) {
             return VIEW_TYPE_MESSAGE_SENT;
@@ -71,37 +64,13 @@ public class ChatBoxAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         } else if (holder.getItemViewType() == VIEW_TYPE_MESSAGE_RECEIVED) {
             ((ReceivedMessageViewHolder) holder).bind(chatBox);
         } else {
-            ((LocationViewHolder) holder).bind(chatBox.getLocation(), locationClickListener);
+            ((LocationViewHolder) holder).bind(chatBox);
         }
     }
 
     @Override
     public int getItemCount() {
         return messageList.size();
-    }
-
-    @Override
-    public void onViewRecycled(@NonNull RecyclerView.ViewHolder holder) {
-        super.onViewRecycled(holder);
-        if (holder instanceof LocationViewHolder) {
-            ((LocationViewHolder) holder).onViewRecycled();
-        }
-    }
-
-    @Override
-    public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
-        super.onViewAttachedToWindow(holder);
-        if (holder instanceof LocationViewHolder) {
-            ((LocationViewHolder) holder).onViewAttachedToWindow();
-        }
-    }
-
-    @Override
-    public void onViewDetachedFromWindow(@NonNull RecyclerView.ViewHolder holder) {
-        super.onViewDetachedFromWindow(holder);
-        if (holder instanceof LocationViewHolder) {
-            ((LocationViewHolder) holder).onViewDetachedFromWindow();
-        }
     }
 
     static class SentMessageViewHolder extends RecyclerView.ViewHolder {
@@ -130,73 +99,25 @@ public class ChatBoxAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    class LocationViewHolder extends RecyclerView.ViewHolder implements OnMapReadyCallback {
-        ImageView imgLocation;
-        TextView tvNameLocation;
-        MapView mapView;
-        GoogleMap googleMap;
+    class LocationViewHolder extends RecyclerView.ViewHolder {
+        TextView textsMessage;
+        TextView locationMessage;
+        RecyclerView listLocation;
 
         LocationViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgLocation = itemView.findViewById(R.id.imgLocation);
-            tvNameLocation = itemView.findViewById(R.id.tvNameLocation);
-            mapView = itemView.findViewById(R.id.map_view);
-            // Initialize the MapView
-            mapView.onCreate(null);
-            mapView.onResume(); // Needed to get the map to display immediately
-            mapView.getMapAsync(this);
+            textsMessage = itemView.findViewById(R.id.textMessage);
+            locationMessage = itemView.findViewById(R.id.locationMessage);
+            listLocation = itemView.findViewById(R.id.lineLocal);
         }
 
-        void bind(Locations location, LocationChatBoxAdapter.OnItemClickListener locationClickListener) {
-            tvNameLocation.setText(location.getName());
-            if (location.getImages() != null && !location.getImages().isEmpty()) {
-                Glide.with(itemView.getContext())
-                        .load(location.getImages().get(0))
-                        .into(imgLocation);
-            } else {
-                imgLocation.setImageResource(R.drawable.sapa);
-            }
+        void bind(ChatBox chatBox) {
+            textsMessage.setText(chatBox.getText());
+            locationMessage.setText(chatBox.getLocationMessage());
 
-            itemView.setOnClickListener(v -> locationClickListener.onItemClick(location));
-
-            if (googleMap != null) {
-                updateMap(location);
-            } else {
-                mapView.getMapAsync(googleMap -> {
-                    this.googleMap = googleMap;
-                    updateMap(location);
-                });
-            }
-        }
-
-        void updateMap(Locations location) {
-            LatLng locationLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-            googleMap.addMarker(new MarkerOptions().position(locationLatLng).title(location.getName()));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationLatLng, 15));
-        }
-
-        void onViewRecycled() {
-            if (mapView != null) {
-                mapView.onPause();
-                mapView.onDestroy();
-            }
-        }
-
-        void onViewAttachedToWindow() {
-            if (mapView != null) {
-                mapView.onResume();
-            }
-        }
-
-        void onViewDetachedFromWindow() {
-            if (mapView != null) {
-                mapView.onPause();
-            }
-        }
-
-        @Override
-        public void onMapReady(GoogleMap googleMap) {
-            this.googleMap = googleMap;
+            InnerLocationAdapter innerLocationAdapter = new InnerLocationAdapter(chatBox.getLocation(), locationClickListener);
+            listLocation.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
+            listLocation.setAdapter(innerLocationAdapter);
         }
     }
 }
