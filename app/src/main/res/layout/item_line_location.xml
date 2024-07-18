@@ -18,22 +18,23 @@
         android:fontFamily="@font/kufam_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView50"
+        app:layout_constraintStart_toEndOf="@+id/textCount"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView49"
+        android:id="@+id/textDetails"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="See detail &amp; photo"
         android:textColor="#fff"
-        android:textSize="13sp"
+        android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/titleChatLocation"
         app:layout_constraintStart_toStartOf="@+id/titleChatLocation"
         app:layout_constraintTop_toBottomOf="@+id/titleChatLocation" />
 
     <TextView
-        android:id="@+id/textView50"
+        android:id="@+id/textCount"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:background="@drawable/circle_button"

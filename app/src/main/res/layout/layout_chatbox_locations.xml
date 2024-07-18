@@ -12,7 +12,7 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/textView53"
+        android:id="@+id/textMessage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Sure! Here's an itinerary you can consider:"
@@ -24,14 +24,14 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lineLocal"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView54"
-        app:layout_constraintEnd_toEndOf="@+id/textView53"
-        app:layout_constraintStart_toStartOf="@+id/textView53"
-        app:layout_constraintTop_toBottomOf="@+id/textView53" />
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/locationMessage"
+        app:layout_constraintEnd_toEndOf="@+id/textMessage"
+        app:layout_constraintStart_toStartOf="@+id/textMessage"
+        app:layout_constraintTop_toBottomOf="@+id/textMessage" />
 
     <TextView
-        android:id="@+id/textView54"
+        android:id="@+id/locationMessage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textColor="#fff"

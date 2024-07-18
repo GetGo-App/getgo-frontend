@@ -1,8 +1,11 @@
 package com.application.getgoproject.models;
 
+import java.util.List;
+
 public class ChatBox {
     private String text;
-    private Locations location;
+    private List<Locations> location;
+    private String locationMessage;
     private boolean isSent;
 
     public ChatBox(String text) {
@@ -17,9 +20,22 @@ public class ChatBox {
         this.location = null;
     }
 
-    public ChatBox(Locations location) {
+    public ChatBox(List<Locations> location) {
         this.text = null;
         this.isSent = false; // Received message
+        this.location = location;
+    }
+
+    public ChatBox(String text, List<Locations> location) {
+        this.text = text;
+        this.isSent = false; // Received message
+        this.location = location;
+    }
+
+    public ChatBox(String text, String locationMessage, List<Locations> location) {
+        this.text = text;
+        this.isSent = false; // Received message
+        this.locationMessage = locationMessage;
         this.location = location;
     }
 
@@ -27,8 +43,16 @@ public class ChatBox {
         return text;
     }
 
-    public Locations getLocation() {
+    public List<Locations> getLocation() {
         return location;
+    }
+
+    public String getLocationMessage() {
+        return locationMessage;
+    }
+
+    public void setLocationMessage(String locationMessage) {
+        this.locationMessage = locationMessage;
     }
 
     public boolean isSent() {
