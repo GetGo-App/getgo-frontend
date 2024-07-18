@@ -73,21 +73,21 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(SignInActivity.this,"Sign in with Google", Toast.LENGTH_SHORT).show();
-                homeForm();
+//                homeForm();
             }
         });
         btnFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(SignInActivity.this,"Sign in with Facebook", Toast.LENGTH_SHORT).show();
-                homeForm();
+//                homeForm();
             }
         });
         btnTwitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(SignInActivity.this,"Sign in with Twitter", Toast.LENGTH_SHORT).show();
-                homeForm();
+//                homeForm();
             }
         });
     }
