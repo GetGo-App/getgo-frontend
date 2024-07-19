@@ -57,6 +57,7 @@ dependencies {
     implementation libs.firebase.appcheck.playintegrity
     implementation libs.firebase.auth
     implementation libs.circleimageview
+    implementation libs.circleindicator
     annotationProcessor libs.glide.compiler
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
