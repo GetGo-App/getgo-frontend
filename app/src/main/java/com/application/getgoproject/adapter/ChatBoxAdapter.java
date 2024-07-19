@@ -1,5 +1,6 @@
 package com.application.getgoproject.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import com.application.getgoproject.models.ChatBox;
 import com.application.getgoproject.models.Locations;
 
 import java.util.List;
+
+import io.noties.markwon.Markwon;
 
 public class ChatBoxAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -88,14 +91,16 @@ public class ChatBoxAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     static class ReceivedMessageViewHolder extends RecyclerView.ViewHolder {
         TextView textViewMessage;
+        Markwon markwon;
 
         ReceivedMessageViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewMessage = itemView.findViewById(R.id.textViewMessage);
+            markwon = Markwon.create(itemView.getContext());
         }
 
         void bind(ChatBox chatBox) {
-            textViewMessage.setText(chatBox.getText());
+            markwon.setMarkdown(textViewMessage, chatBox.getText());
         }
     }
 
@@ -103,17 +108,22 @@ public class ChatBoxAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         TextView textsMessage;
         TextView locationMessage;
         RecyclerView listLocation;
+        Markwon markwon;
 
         LocationViewHolder(@NonNull View itemView) {
             super(itemView);
             textsMessage = itemView.findViewById(R.id.textMessage);
             locationMessage = itemView.findViewById(R.id.locationMessage);
             listLocation = itemView.findViewById(R.id.lineLocal);
+            markwon = Markwon.create(itemView.getContext());
         }
 
         void bind(ChatBox chatBox) {
-            textsMessage.setText(chatBox.getText());
-            locationMessage.setText(chatBox.getLocationMessage());
+            markwon.setMarkdown(textsMessage, chatBox.getText());
+            markwon.setMarkdown(locationMessage, chatBox.getLocationMessage());
+
+//            textsMessage.setText(chatBox.getText());
+//            locationMessage.setText(chatBox.getLocationMessage());
 
             InnerLocationAdapter innerLocationAdapter = new InnerLocationAdapter(chatBox.getLocation(), locationClickListener);
             listLocation.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
