@@ -158,7 +158,7 @@ public class ChatBoxActivity extends AppCompatActivity {
                                 addChatBox(new ChatBox(textMessage, false));
                             }
                         } else {
-                            addChatBox(new ChatBox("Sorry, I have no information!", false));
+                            addChatBox(new ChatBox("Xin lỗi, tôi không có thông tin gì về địa điểm này", false));
                         }
                     } else {
                         addChatBox(new ChatBox("Sorry, I have no idea!", false));
@@ -167,7 +167,7 @@ public class ChatBoxActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<ChatAgentMessage> call, Throwable throwable) {
-                    addChatBox(new ChatBox("Sorry, an error has occurred", false));
+                    addChatBox(new ChatBox("Xin lỗi, đã có lỗi xảy ra trên hệ thống. Vui lòng thử lại", false));
                 }
             });
         } catch (Exception e) {
