@@ -12,7 +12,19 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.application.getgoproject.service.UserService;
+import com.application.getgoproject.utils.RetrofitClient;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 public class ForgetPasswordActivity extends AppCompatActivity {
+
+    private UserService userService;
+
     private ImageButton btnGoback;
     private Button btnSend;
     private EditText edEmail;
@@ -21,6 +33,9 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_forgetpassword);
+
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance(this);
+        userService = retrofit.create(UserService.class);
 
         anhXa();
 
@@ -58,9 +73,10 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     private void send(){
         //Invalid
         if (!checkInput()) {
+            Toast.makeText(ForgetPasswordActivity.this,"Please enter your email or phone number!", Toast.LENGTH_SHORT).show();
             return ;
         }
-        Toast.makeText(ForgetPasswordActivity.this,"Please attend your mail!", Toast.LENGTH_SHORT).show();
+
         newpassForm();
     }
 
@@ -71,8 +87,31 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     }
 
     private void newpassForm() {
-        Intent intent = new Intent(this, NewPasswordActivity.class);
-        startActivity(intent);
-        finish();
+        try {
+            Call<ResponseBody> call = userService.sendEmailForgetPassword(edEmail.getText().toString());
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response.isSuccessful()) {
+                        Intent intent = new Intent(ForgetPasswordActivity.this, NewPasswordActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else {
+                        edEmail.setError("Cannot find email or phone number");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable throwable) {
+                    Toast.makeText(ForgetPasswordActivity.this, "Failed to send email or phone number", Toast.LENGTH_LONG).show();
+                    throwable.printStackTrace();
+                }
+            });
+        }
+        catch (Exception e) {
+            Toast.makeText(ForgetPasswordActivity.this, "An error has been occurred", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
     }
 }
