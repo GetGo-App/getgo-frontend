@@ -15,8 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.getgoproject.adapter.ChatBoxAdapter;
 import com.application.getgoproject.adapter.LocationChatBoxAdapter;
+import com.application.getgoproject.callback.HistoryMessageCallback;
 import com.application.getgoproject.callback.UserCallback;
+import com.application.getgoproject.listener.OnDataLoadedListener;
 import com.application.getgoproject.models.ChatAgentMessage;
+import com.application.getgoproject.models.ChatAgentMessageHistory;
 import com.application.getgoproject.models.ChatBox;
 import com.application.getgoproject.models.Locations;
 import com.application.getgoproject.models.LocationsMessage;
@@ -29,6 +32,9 @@ import com.application.getgoproject.utils.RetrofitClient;
 import com.application.getgoproject.utils.SharedPrefManager;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -49,6 +55,8 @@ public class ChatBoxActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ChatBoxAdapter chatBoxAdapter;
     private List<ChatBox> chatBoxList;
+
+    private Iterator<ChatAgentMessageHistory> iterator;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,6 +97,7 @@ public class ChatBoxActivity extends AppCompatActivity {
             @Override
             public void onUserFetched(User user) {
                 userId = user.getId();
+                getAgentMessageHistory(userId, userToken);
             }
         });
         sendButton.setOnClickListener(new View.OnClickListener() {
@@ -137,6 +146,112 @@ public class ChatBoxActivity extends AppCompatActivity {
                 // Handle failure
             }
         });
+    }
+
+    private void getAgentMessageHistory(String userId, String token) {
+        try {
+            Call<List<ChatAgentMessageHistory>> call = chatAgentService.getAgentMessageHistory(userId, token);
+            call.enqueue(new Callback<List<ChatAgentMessageHistory>>() {
+                @Override
+                public void onResponse(Call<List<ChatAgentMessageHistory>> call, Response<List<ChatAgentMessageHistory>> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        List<ChatAgentMessageHistory> history = response.body();
+                        Collections.reverse(history);
+                        addHistoryToChatBox(history);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<ChatAgentMessageHistory>> call, Throwable throwable) {
+                    throwable.printStackTrace();
+                }
+            });
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addHistoryToChatBox(List<ChatAgentMessageHistory> history) {
+        try {
+            iterator = history.iterator();
+            loadNextItem();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadNextItem() {
+        try {
+            if (iterator != null && iterator.hasNext()) {
+                ChatAgentMessageHistory item = iterator.next();
+                ChatAgentMessage answer = item.getAnswer();
+                String question = item.getQuestion();
+                String textMessage = answer.getTexts_message();
+                LocationsMessage locationsMessage = answer.getLocations_message();
+
+                addChatBox(new ChatBox(question, true));
+
+                if (textMessage != null || (locationsMessage != null && !locationsMessage.getLocations().isEmpty())) {
+                    if (locationsMessage != null && !locationsMessage.getLocations().isEmpty()) {
+                        fetchHistoryLocationByIds(locationsMessage.getLocations(), userToken, textMessage, locationsMessage.getMessage(),
+                                (locations, text, locationMsg) -> {
+                                    ChatBox chatBox = new ChatBox(text, locationMsg, locations);
+                                    addChatBox(chatBox);
+                                },
+                                this::loadNextItem);
+                    } else {
+                        addChatBox(new ChatBox(textMessage, false));
+                        // Continue to the next item
+                        loadNextItem();
+                    }
+                } else {
+                    // Continue to the next item
+                    loadNextItem();
+                }
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void fetchHistoryLocationByIds(List<Integer> ids, String token, String textMessage, String locationMessage, HistoryMessageCallback callback, OnDataLoadedListener dataLoadedListener) {
+        try {
+            List<Locations> locations = new ArrayList<>();
+            int[] pendingRequests = {ids.size()}; // Using an array to allow modification within the callback
+
+            for (Integer id : ids) {
+                Call<Locations> call = locationService.getLocationsById(id, token);
+                call.enqueue(new Callback<Locations>() {
+                    @Override
+                    public void onResponse(Call<Locations> call, Response<Locations> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            Locations location = response.body();
+                            locations.add(location);
+
+                            pendingRequests[0]--;
+                            if (pendingRequests[0] == 0) {
+                                callback.onLocationsFetched(locations, textMessage, locationMessage);
+
+                                if (dataLoadedListener != null) {
+                                    dataLoadedListener.onDataLoaded();
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Locations> call, Throwable throwable) {
+                        throwable.printStackTrace();
+                    }
+                });
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void sendMessageToAgent(String question, String userId, String token) {
