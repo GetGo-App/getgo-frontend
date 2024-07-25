@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.application.getgoproject.adapter.ImageStoryAdapter;
 import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.ArrayList;
@@ -60,9 +61,9 @@ public class StoryActivity extends AppCompatActivity {
             }
         });
 
-//        arrayImage.addAll(story.getImageUrls());
-//        ImageProductAdapter adapter = new ImageProductAdapter(arrayImage);
-//        vpImageStory.setAdapter(adapter);
+
+        ImageStoryAdapter adapter = new ImageStoryAdapter(arrayImage);
+        vpImageStory.setAdapter(adapter);
         circleIndicator.setViewPager(vpImageStory);
 
         close.setOnClickListener(new View.OnClickListener() {
