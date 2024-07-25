@@ -49,10 +49,6 @@ public class AvatarAdapter extends RecyclerView.Adapter<AvatarAdapter.ViewHolder
         else {
             holder.imgAvatar.setImageResource(item.getImgAvatar());
         }
-//        Toast.makeText(AvatarActivity.this, "dang xu li", Toast.LENGTH_SHORT).show();
-//        if (position == selectedPosition) {
-//            holder.avatar.setImageResource(item.getImgAvatar());
-//        }
     }
 
     public interface OnItemClickListener {
