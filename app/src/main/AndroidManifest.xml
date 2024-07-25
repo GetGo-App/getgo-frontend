@@ -31,7 +31,7 @@
             android:name=".MapsActivity"
             android:exported="false" />
         <activity
-            android:name=".StartActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,7 +39,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+<!--        <activity android:name=".MainActivity" />-->
         <activity android:name=".LoginActivity" />
         <activity android:name=".SignInActivity" />
         <activity android:name=".SignUpActivity" />
@@ -59,13 +59,13 @@
         <activity android:name=".PaymentMethodActivity"/>
         <activity android:name=".TransactionActivity"/>
         <activity android:name=".QRcodeActivity"/>
-        <activity android:name=".CustomCaptureActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".StoryActivity"/>
         <activity android:name=".TermOfServiceActivity"/>
         <activity android:name=".PrivacyPolicyActivity"/>
         <activity android:name=".NewStatusActivity"/>
         <activity android:name=".ListStatusActivity"/>
         <activity android:name=".ImageActivity"/>
+        <activity android:name=".CreateStoryActivity"/>
     </application>
 
 </manifest>

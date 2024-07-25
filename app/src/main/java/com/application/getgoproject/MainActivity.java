@@ -1,20 +1,34 @@
 package com.application.getgoproject;
 
+import static android.provider.MediaStore.ACTION_IMAGE_CAPTURE;
+
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.application.getgoproject.adapter.StoryInHomeAdapter;
 import com.application.getgoproject.callback.LocationCallback;
 import com.application.getgoproject.callback.UserCallback;
 import com.application.getgoproject.models.Locations;
+import com.application.getgoproject.models.Story;
 import com.application.getgoproject.models.User;
 import com.application.getgoproject.models.UserAuthentication;
 import com.application.getgoproject.service.LocationService;
@@ -44,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Locations> arrayLocation;
     private String userToken, username;
     private UserService userService;
+    private StoryInHomeAdapter storyInHomeAdapter;
+    private RecyclerView lvAllStory;
+    private ArrayList<Story> arrayStory;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,12 +130,18 @@ public class MainActivity extends AppCompatActivity {
                 locationListForm();
             }
         });
-//        imgAddStory.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                cameraForm();
-//            }
-//        });
+
+        arrayStory = getDataStory();
+        storyInHomeAdapter = new StoryInHomeAdapter(this, R.layout.layout_item_story, arrayStory);
+        lvAllStory.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        lvAllStory.setAdapter(storyInHomeAdapter);
+
+        imgAddStory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cameraForm();
+            }
+        });
 
         getAllLocations(userToken, new LocationCallback() {
             @Override
@@ -152,6 +176,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+
     }
     private void mapping(){
         avatar = findViewById(R.id.avatar);
@@ -160,9 +186,17 @@ public class MainActivity extends AppCompatActivity {
         btnAssistant = findViewById(R.id.btnAssistant);
         btnStatus = findViewById(R.id.btnStatus);
         btnQr = findViewById(R.id.btnQr);
-//        imgAddStory =findViewById(R.id.imgAddStory);
+        imgAddStory = findViewById(R.id.imgAddStory);
         tvUsername = findViewById(R.id.username);
         textPlace = findViewById(R.id.textPlace);
+        lvAllStory = findViewById(R.id.lvAllStory);
+        arrayStory = new ArrayList<>();
+    }
+
+    private ArrayList<Story> getDataStory() {
+        ArrayList<Story> listStory = new ArrayList<>();
+        listStory.add(new Story("Thu", R.drawable.avatar));
+        return listStory;
     }
     private void packageForm(){
         Intent intent = new Intent(this, PackageActivity.class);

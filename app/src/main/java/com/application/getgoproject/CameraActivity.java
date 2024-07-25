@@ -12,7 +12,6 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.camera.core.AspectRatio;
 import androidx.camera.core.Camera;
@@ -32,7 +31,7 @@ import java.util.concurrent.Executors;
 
 public class CameraActivity extends AppCompatActivity {
 
-    ImageButton capture, toggleFlash, flipCamera, buttonBack;
+    private ImageButton capture, toggleFlash, flipCamera, buttonBack;
     private PreviewView previewView;
     int cameraFacing = CameraSelector.LENS_FACING_BACK;
     private final ActivityResultLauncher<String> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
@@ -43,6 +42,7 @@ public class CameraActivity extends AppCompatActivity {
             }
         }
     });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +76,7 @@ public class CameraActivity extends AppCompatActivity {
             }
         });
     }
+
     private void mapping() {
         previewView = findViewById(R.id.cameraView);
         capture = findViewById(R.id.buttonCapture);
@@ -131,31 +132,23 @@ public class CameraActivity extends AppCompatActivity {
     public void takePicture(ImageCapture imageCapture) {
         final File file = new File(getExternalFilesDir(null), System.currentTimeMillis() + ".jpg");
         ImageCapture.OutputFileOptions outputFileOptions = new ImageCapture.OutputFileOptions.Builder(file).build();
-        imageCapture.takePicture(outputFileOptions, Executors.newCachedThreadPool(), new ImageCapture.OnImageSavedCallback() {
+
+        imageCapture.takePicture(outputFileOptions, Executors.newSingleThreadExecutor(), new ImageCapture.OnImageSavedCallback() {
             @Override
             public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(CameraActivity.this, "Image saved at: " + file.getPath(), Toast.LENGTH_SHORT).show();
-                    }
+                runOnUiThread(() -> {
+                    Intent intent = new Intent(CameraActivity.this, CreateStoryActivity.class);
+                    intent.putExtra("image_path", file.getAbsolutePath());
+                    startActivity(intent);
                 });
-                startCamera(cameraFacing);
             }
 
             @Override
             public void onError(@NonNull ImageCaptureException exception) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(CameraActivity.this, "Failed to save: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-                startCamera(cameraFacing);
+                runOnUiThread(() -> Toast.makeText(CameraActivity.this, "Error capturing image: " + exception.getMessage(), Toast.LENGTH_SHORT).show());
             }
         });
     }
-
     private void setFlashIcon(Camera camera) {
         if (camera.getCameraInfo().hasFlashUnit()) {
             if (camera.getCameraInfo().getTorchState().getValue() == 0) {
@@ -166,12 +159,7 @@ public class CameraActivity extends AppCompatActivity {
                 toggleFlash.setImageResource(R.drawable.flash_icon);
             }
         } else {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(CameraActivity.this, "Flash is not available currently", Toast.LENGTH_SHORT).show();
-                }
-            });
+            runOnUiThread(() -> Toast.makeText(CameraActivity.this, "Flash is not available currently", Toast.LENGTH_SHORT).show());
         }
     }
 
