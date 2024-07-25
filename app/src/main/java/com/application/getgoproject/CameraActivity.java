@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -23,14 +24,31 @@ import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 
+import com.application.getgoproject.callback.UserCallback;
+import com.application.getgoproject.models.User;
+import com.application.getgoproject.models.UserAuthentication;
+import com.application.getgoproject.service.UserService;
+import com.application.getgoproject.utils.RetrofitClient;
+import com.application.getgoproject.utils.SharedPrefManager;
+import com.bumptech.glide.Glide;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.io.File;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 public class CameraActivity extends AppCompatActivity {
 
+    private UserService userService;
+
+    private String username, userToken;
+    private ShapeableImageView avatar;
     private ImageButton capture, toggleFlash, flipCamera, buttonBack;
     private PreviewView previewView;
     int cameraFacing = CameraSelector.LENS_FACING_BACK;
@@ -47,6 +65,13 @@ public class CameraActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
+
+        UserAuthentication userAuthentication = SharedPrefManager.getInstance(this).getUser();
+        username = userAuthentication.getUsername();
+        userToken = userAuthentication.getAccessToken();
+
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance(this);
+        userService = retrofit.create(UserService.class);
 
         mapping();
 
@@ -75,6 +100,23 @@ public class CameraActivity extends AppCompatActivity {
                 startCamera(cameraFacing);
             }
         });
+
+        getUserByUsername(username, userToken, new UserCallback() {
+            @Override
+            public void onUserFetched(User user) {
+                String userAvatarUrl = user.getAvatar();
+                if (userAvatarUrl != null) {
+                    Glide.with(getApplicationContext())
+                            .load(userAvatarUrl)
+                            .placeholder(R.drawable.avatar)
+                            .error(R.drawable.avatar)
+                            .into(avatar);
+                }
+                else {
+                    avatar.setImageResource(R.drawable.avatar);
+                }
+            }
+        });
     }
 
     private void mapping() {
@@ -83,6 +125,7 @@ public class CameraActivity extends AppCompatActivity {
         toggleFlash = findViewById(R.id.flashToggle);
         flipCamera = findViewById(R.id.flipCamera);
         buttonBack = findViewById(R.id.buttonBack);
+        avatar = findViewById(R.id.avatar);
     }
 
     public void startCamera(int cameraFacing) {
@@ -108,9 +151,6 @@ public class CameraActivity extends AppCompatActivity {
                 capture.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (ContextCompat.checkSelfPermission(CameraActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                            activityResultLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                        }
                         takePicture(imageCapture);
                     }
                 });
@@ -169,5 +209,28 @@ public class CameraActivity extends AppCompatActivity {
             return AspectRatio.RATIO_4_3;
         }
         return AspectRatio.RATIO_16_9;
+    }
+
+    public void getUserByUsername(String username, String token, UserCallback callback) {
+        try {
+            Call<User> call = userService.getUserByUsername(username, token);
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        User user = response.body();
+                        callback.onUserFetched(user);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable throwable) {
+                    throwable.printStackTrace();
+                }
+            });
+        }
+        catch (Exception e) {
+            Log.d("Error in Camera", e.getMessage());
+        }
     }
 }

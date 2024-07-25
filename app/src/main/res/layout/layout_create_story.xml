@@ -24,6 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#DADADA"
+        android:scaleType="centerCrop"
         app:circularflow_radiusInDP="20dp"
         app:layout_constraintEnd_toStartOf="@+id/buttonSearch"
         app:layout_constraintStart_toEndOf="@+id/goBack"
