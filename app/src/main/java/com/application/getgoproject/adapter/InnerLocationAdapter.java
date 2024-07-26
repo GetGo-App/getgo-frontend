@@ -45,18 +45,18 @@ public class InnerLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Locations location = locationList.get(position);
-
         if (holder.getItemViewType() == VIEW_TYPE_START_LOCATION) {
-            ((StartLocationViewHolder) holder).bind(location);
+            ((StartLocationViewHolder) holder).bind();
         } else if (holder.getItemViewType() == VIEW_TYPE_LINE_LOCATION) {
+            Locations location = locationList.get(position - 1);
             ((LineLocationViewHolder) holder).bind(location, locationClickListener);
         }
     }
 
     @Override
     public int getItemCount() {
-        return locationList.size();
+        // Add 1 for the header
+        return locationList.size() + 1;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class InnerLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
             textViewStartLocation = itemView.findViewById(R.id.tvStart);
         }
 
-        public void bind(Locations location) {
+        public void bind() {
             // Bind data for item_start_location
             textViewStartLocation.setText("You'll start at");
         }

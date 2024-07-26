@@ -12,7 +12,9 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.PATCH;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface UserService {
 
@@ -30,4 +32,10 @@ public interface UserService {
 
     @PATCH("users/{username}")
     Call<ResponseBody> updateAvatarByUsername(@Path("username") String username, @Body AvatarDTO avatarDTO, @Header("Authorization") String token);
+
+    @POST("users/password-forget")
+    Call<ResponseBody> sendEmailForgetPassword(@Query("emailOrPhoneNumber") String emailOrPhoneNumber);
+
+    @PATCH("users/password-forget")
+    Call<ResponseBody> newPassword(@Query("newPassword") String newPassword, @Query("otpCode") String otpCode);
 }

@@ -12,15 +12,30 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.application.getgoproject.service.UserService;
+import com.application.getgoproject.utils.RetrofitClient;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 public class NewPasswordActivity extends AppCompatActivity {
+
+    private UserService userService;
+
     private ImageButton btnGoback;
-    private Button btnSignin;
+    private Button btnVerify;
     private EditText etVerify, etPassword;
     private final String REQUIRE = "Require";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_newpassword);
+
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance(this);
+        userService = retrofit.create(UserService.class);
 
         anhXa();
 
@@ -31,17 +46,17 @@ public class NewPasswordActivity extends AppCompatActivity {
             }
         });
 
-        btnSignin.setOnClickListener(new View.OnClickListener() {
+        btnVerify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signIn();
+                verify();
 
             }
         });
     }
     private void anhXa() {
         btnGoback = findViewById(R.id.imgbtnGoback);
-        btnSignin = findViewById(R.id.btnSignin);
+        btnVerify = findViewById(R.id.btnVerify);
         etVerify = findViewById(R.id.etVerify);
         etPassword = findViewById(R.id.etPassword);
     }
@@ -61,13 +76,13 @@ public class NewPasswordActivity extends AppCompatActivity {
         return true;
     }
 
-    private void signIn(){
+    private void verify(){
         //Invalid
         if (!checkInput()) {
             return ;
         }
-        Toast.makeText(NewPasswordActivity.this,"Create new password successful!", Toast.LENGTH_SHORT).show();
-        signInForm();
+//        Toast.makeText(NewPasswordActivity.this,"Create new password successful!", Toast.LENGTH_SHORT).show();
+        verifyForm();
     }
 
     private void forgetForm() {
@@ -76,9 +91,32 @@ public class NewPasswordActivity extends AppCompatActivity {
         finish();
     }
 
-    private void signInForm() {
-        Intent intent = new Intent(this, SignInActivity.class);
-        startActivity(intent);
-        finish();
+    private void verifyForm() {
+        try {
+            Call<ResponseBody> call = userService.newPassword(etPassword.getText().toString(), etVerify.getText().toString());
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(NewPasswordActivity.this,"Create new password successful!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(NewPasswordActivity.this, SignInActivity.class);
+                            startActivity(intent);
+                            finish();
+                    }
+                    else {
+                        etVerify.setError("Wrong OTP Code");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable throwable) {
+                    Toast.makeText(NewPasswordActivity.this, "Failed to verify code or update new password", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+        catch (Exception e) {
+            Toast.makeText(NewPasswordActivity.this, "An error has been occurred", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
     }
 }
