@@ -6,122 +6,18 @@
     android:layout_height="match_parent"
     android:background="#fff">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/storyUser"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@+id/textView47"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <me.relex.circleindicator.CircleIndicator3
-                android:id="@+id/circleIndicator"
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="10dp"
-                app:ci_drawable="@drawable/bg_inditor"
-                app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/vpImageStory"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/avatarUser"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="#DADADA"
-                android:scaleType="centerCrop"
-                app:circularflow_radiusInDP="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearanceOverlay="@style/roundedImage"
-                app:srcCompat="@drawable/avatar" />
-
-            <TextView
-                android:id="@+id/nameUser"
-                android:layout_width="0dp"
-                android:layout_height="28dp"
-                android:layout_marginStart="7dp"
-                android:layout_marginEnd="7dp"
-                android:fontFamily="@font/kufam_bold"
-                android:gravity="center_vertical"
-                android:text="TextView"
-                android:textColor="#000000"
-                android:textSize="15sp"
-                app:layout_constraintEnd_toStartOf="@+id/close"
-                app:layout_constraintStart_toEndOf="@+id/avatarUser"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/timeCreate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="7dp"
-                android:fontFamily="@font/kufam"
-                android:gravity="center_vertical"
-                android:text="TextView"
-                android:textColor="#A3A3A3"
-                android:textSize="13sp"
-                app:layout_constraintStart_toStartOf="@+id/nameUser"
-                app:layout_constraintTop_toBottomOf="@+id/nameUser" />
-
-            <ImageButton
-                android:id="@+id/close"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:background="@android:color/transparent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/textView47"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/semiround_button"
-            android:backgroundTint="#33D5CECE"
-            android:gravity="center"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="15dp"
-            android:text="Hello"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/imageButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:paddingVertical="10dp"
-            android:src="@drawable/heart"
-            android:foregroundGravity="right"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
+            android:layout_height="match_parent" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

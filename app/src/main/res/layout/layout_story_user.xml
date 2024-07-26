@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="#fff">
+    <ImageView
+        android:id="@+id/imgStory"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/buttonFavor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/signinbackground" />
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/avatarUser"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:background="#DADADA"
+        android:scaleType="centerCrop"
+        app:circularflow_radiusInDP="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/roundedImage"
+        app:srcCompat="@drawable/avatar" />
+
+    <TextView
+        android:id="@+id/nameUser"
+        android:layout_width="0dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="7dp"
+        android:fontFamily="@font/kufam_bold"
+        android:gravity="center_vertical"
+        android:text="TextView"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/close"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/avatarUser"
+        app:layout_constraintTop_toTopOf="@+id/avatarUser" />
+
+    <TextView
+        android:id="@+id/timeCreate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="7dp"
+        android:fontFamily="@font/kufam"
+        android:gravity="center_vertical"
+        android:text="TextView"
+        android:textColor="#838282"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="@+id/nameUser"
+        app:layout_constraintTop_toBottomOf="@+id/nameUser" />
+
+    <ImageButton
+        android:id="@+id/close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/nameUser"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
+        <TextView
+            android:id="@+id/captionStory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/semiround_button"
+            android:backgroundTint="#80373636"
+            android:text="hello"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="15dp"
+            android:textColor="#fff"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/buttonFavor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/buttonFavor"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerCrop"
+            android:background="@android:color/transparent"
+            android:layout_marginBottom="10dp"
+            android:paddingVertical="10dp"
+            android:src="@drawable/love"
+            android:foregroundGravity="right"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
