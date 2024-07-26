@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -18,8 +19,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.exifinterface.media.ExifInterface;
 
 import com.application.getgoproject.callback.UserCallback;
+import com.application.getgoproject.dto.StoryDTO;
 import com.application.getgoproject.models.User;
 import com.application.getgoproject.models.UserAuthentication;
+import com.application.getgoproject.service.StoryService;
 import com.application.getgoproject.service.UserService;
 import com.application.getgoproject.utils.RetrofitClient;
 import com.application.getgoproject.utils.SharedPrefManager;
@@ -37,6 +40,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,11 +49,13 @@ import retrofit2.Retrofit;
 public class CreateStoryActivity extends AppCompatActivity {
 
     private UserService userService;
+    private StoryService storyService;
 
-    private String username, userToken;
+    private String username, userToken, userId;
     private ShapeableImageView avatar;
     private ImageButton goBack, buttonOke, buttonCancel, buttonBack;
     private ImageView imageCamera;
+    private EditText caption;
     private Bitmap storyImageBitmap;
 
     private FirebaseStorage firebaseStorage;
@@ -63,10 +69,11 @@ public class CreateStoryActivity extends AppCompatActivity {
 
         UserAuthentication userAuthentication = SharedPrefManager.getInstance(this).getUser();
         username = userAuthentication.getUsername();
-        userToken = userAuthentication.getAccessToken();
+        userToken = "Bearer " + userAuthentication.getAccessToken();
 
         Retrofit retrofit = RetrofitClient.getRetrofitInstance(this);
         userService = retrofit.create(UserService.class);
+        storyService = retrofit.create(StoryService.class);
 
         mapping();
 
@@ -116,6 +123,7 @@ public class CreateStoryActivity extends AppCompatActivity {
         getUserByUsername(username, userToken, new UserCallback() {
             @Override
             public void onUserFetched(User user) {
+                userId = user.getId();
                 String userAvatarUrl = user.getAvatar();
                 if (userAvatarUrl != null) {
                     Glide.with(getApplicationContext())
@@ -137,6 +145,7 @@ public class CreateStoryActivity extends AppCompatActivity {
         buttonOke = findViewById(R.id.buttonOke);
         buttonCancel = findViewById(R.id.buttonCancel);
         imageCamera = findViewById(R.id.imageCamera);
+        caption = findViewById(R.id.caption);
         avatar = findViewById(R.id.avatar);
     }
     private Bitmap rotateImageIfRequired(Bitmap img, String imagePath) {
@@ -230,10 +239,7 @@ public class CreateStoryActivity extends AppCompatActivity {
                     Toast.makeText(CreateStoryActivity.this, "Failed to upload image: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
                 }).addOnSuccessListener(taskSnapshot -> storyImagesRef.getDownloadUrl().addOnSuccessListener(uri -> {
                     String imageUrl = uri.toString();
-                    Toast.makeText(CreateStoryActivity.this, "Story uploaded successfully!", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(CreateStoryActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                    createNewStory(imageUrl);
                 }));
             } else {
                 Toast.makeText(this, "No image selected", Toast.LENGTH_SHORT).show();
@@ -241,6 +247,38 @@ public class CreateStoryActivity extends AppCompatActivity {
         }
         catch (Exception e) {
             Toast.makeText(CreateStoryActivity.this, "An error has been occurred when upload story image", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+    }
+
+    private void createNewStory(String imageUrl) {
+        String storyCaption = caption.getText().toString();
+        StoryDTO storyDTO = new StoryDTO(userId, imageUrl, storyCaption);
+
+        try {
+            Call<ResponseBody> call = storyService.createNewStory(storyDTO, userToken);
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(CreateStoryActivity.this, "Story uploaded successfully!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(CreateStoryActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else {
+                        Toast.makeText(CreateStoryActivity.this, "Failed to upload story: " + response.message(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable throwable) {
+                    Toast.makeText(CreateStoryActivity.this, "Failed to upload story!", Toast.LENGTH_SHORT).show();
+                    throwable.printStackTrace();
+                }
+            });
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
     }

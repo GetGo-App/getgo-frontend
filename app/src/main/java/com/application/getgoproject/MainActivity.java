@@ -32,6 +32,7 @@ import com.application.getgoproject.models.Story;
 import com.application.getgoproject.models.User;
 import com.application.getgoproject.models.UserAuthentication;
 import com.application.getgoproject.service.LocationService;
+import com.application.getgoproject.service.StoryService;
 import com.application.getgoproject.service.UserService;
 import com.application.getgoproject.utils.RetrofitClient;
 import com.application.getgoproject.utils.SharedPrefManager;
@@ -58,10 +59,11 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Locations> arrayLocation;
     private String userToken, username;
     private UserService userService;
+    private StoryService storyService;
     private StoryInHomeAdapter storyInHomeAdapter;
     private RecyclerView lvAllStory;
     private ArrayList<Story> arrayStory;
-
+    private Set<String> uniqueCreators;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +74,9 @@ public class MainActivity extends AppCompatActivity {
         Retrofit retrofit = RetrofitClient.getRetrofitInstance(this);
         locationService = retrofit.create(LocationService.class);
         userService = retrofit.create(UserService.class);
+        storyService = retrofit.create(StoryService.class);
         arrayLocation = new ArrayList<>();
+        uniqueCreators = new HashSet<>();
 
         mapping();
 
@@ -131,10 +135,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        arrayStory = getDataStory();
-        storyInHomeAdapter = new StoryInHomeAdapter(this, R.layout.layout_item_story, arrayStory);
-        lvAllStory.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        lvAllStory.setAdapter(storyInHomeAdapter);
+        arrayStory = new ArrayList<>();
+
+        getAllStories();
 
         imgAddStory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,11 +196,6 @@ public class MainActivity extends AppCompatActivity {
         arrayStory = new ArrayList<>();
     }
 
-    private ArrayList<Story> getDataStory() {
-        ArrayList<Story> listStory = new ArrayList<>();
-        listStory.add(new Story("Thu", R.drawable.avatar));
-        return listStory;
-    }
     private void packageForm(){
         Intent intent = new Intent(this, PackageActivity.class);
         startActivity(intent);
@@ -337,6 +335,44 @@ public class MainActivity extends AppCompatActivity {
         }
         catch (Exception e) {
             Log.d("Error", e.getMessage());
+        }
+    }
+
+    private void getAllStories() {
+        try {
+            Call<List<Story>> call = storyService.getAllStory(userToken);
+            call.enqueue(new Callback<List<Story>>() {
+                @Override
+                public void onResponse(Call<List<Story>> call, Response<List<Story>> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        arrayStory.clear();
+                        uniqueCreators.clear();
+
+                        for (Story story : response.body()) {
+                            if (!uniqueCreators.contains(story.getCreator())) {
+                                uniqueCreators.add(story.getCreator());
+                                arrayStory.add(story);
+                            }
+                        }
+
+                        storyInHomeAdapter = new StoryInHomeAdapter(MainActivity.this, R.layout.layout_item_story, arrayStory, userToken);
+                        lvAllStory.setLayoutManager(new LinearLayoutManager(MainActivity.this, RecyclerView.HORIZONTAL, false));
+                        lvAllStory.setAdapter(storyInHomeAdapter);
+
+                        storyInHomeAdapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Failed to fetch stories", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Story>> call, Throwable throwable) {
+                    Toast.makeText(MainActivity.this, "Failed to fetch stories: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
