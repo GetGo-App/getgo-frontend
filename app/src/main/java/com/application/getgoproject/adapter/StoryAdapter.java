@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.getgoproject.R;
+import com.application.getgoproject.StoryActivity;
 import com.application.getgoproject.callback.UserCallback;
 import com.application.getgoproject.models.Story;
 import com.application.getgoproject.models.User;
@@ -75,7 +76,9 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
         holder.close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (context instanceof StoryActivity) {
+                    ((StoryActivity) context).finish();
+                }
             }
         });
         holder.buttonFavor.setOnClickListener(new View.OnClickListener() {

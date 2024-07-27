@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -68,6 +69,9 @@ public class StoryActivity extends AppCompatActivity {
         storyUser.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         storyUser.setAdapter(storyAdapter);
 
+        // Thiết lập PagerSnapHelper để cuộn từng item một
+        PagerSnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(storyUser);
 
     }
 
