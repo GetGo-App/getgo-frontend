@@ -68,40 +68,46 @@ android:background="#fff">
         app:layout_constraintTop_toTopOf="@+id/nameUser"
         app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
-        <TextView
-            android:id="@+id/captionStory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/semiround_button"
-            android:backgroundTint="#80373636"
-            android:text="hello"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="15dp"
-            android:textColor="#fff"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toTopOf="@+id/buttonFavor"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+    <TextView
+        android:id="@+id/captionStory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/semiround_button"
+        android:backgroundTint="#80373636"
+        android:text="hello"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="15dp"
+        android:textColor="#fff"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonFavor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <ImageButton
-            android:id="@+id/buttonFavor"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:scaleType="centerCrop"
-            android:background="@android:color/transparent"
-            android:layout_marginBottom="10dp"
-            android:paddingVertical="10dp"
-            android:src="@drawable/love"
-            android:foregroundGravity="right"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+    <ImageButton
+        android:id="@+id/buttonFavor"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="centerCrop"
+        android:background="@android:color/transparent"
+        android:layout_marginBottom="10dp"
+        android:paddingVertical="10dp"
+        android:src="@drawable/love"
+        android:foregroundGravity="right"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-
+    <FrameLayout
+        android:id="@+id/fly_container"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toBottomOf="@+id/captionStory"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

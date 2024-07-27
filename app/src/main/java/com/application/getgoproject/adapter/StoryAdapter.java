@@ -1,9 +1,13 @@
 package com.application.getgoproject.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,9 +25,14 @@ import com.application.getgoproject.utils.RetrofitClient;
 import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -67,7 +76,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
         });
 
         holder.timeCreate.setText(updateTimeElapsed(story.getCreatedAt().plusHours(7)));
-        holder.captionStory.setText(story.getCaption());
+        holder.captionStory.setText(story.getCaption().trim());
         if (story.getLinkImage() != null) {
             Glide.with(context).load(story.getLinkImage()).into(holder.imgStory);
         }
@@ -84,11 +93,62 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
         holder.buttonFavor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                addFlyingHearts(Objects.requireNonNull(holder).flyContainer);
             }
         });
 
     }
+
+    private void addFlyingHearts(FrameLayout container) {
+        if (container == null) {
+            Log.e("StoryAdapter", "Container is null");
+            return;
+        }
+
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            if (container != null) {
+
+                container.removeAllViews();
+
+                Random random = new Random();
+                for (int i = 0; i < 5; i++) {
+                    final int index = i;
+                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                        if (container == null) return;
+
+                        ImageView heart = new ImageView(context);
+                        heart.setImageResource(R.drawable.love);
+
+                        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(100, 100);
+                        params.leftMargin = random.nextInt(container.getWidth() - 100);
+                        params.topMargin = container.getHeight() - 200;
+                        heart.setLayoutParams(params);
+
+                        container.addView(heart);
+
+                        Animation animation = AnimationUtils.loadAnimation(context, R.anim.heart_fly);
+                        heart.startAnimation(animation);
+
+                        animation.setAnimationListener(new Animation.AnimationListener() {
+                            @Override
+                            public void onAnimationStart(Animation animation) {}
+
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                if (container != null) {
+                                    container.post(() -> container.removeView(heart));
+                                }
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {}
+                        });
+                    }, index * 100);
+                }
+            }
+        }, 300);
+    }
+
 
     @Override
     public int getItemCount() {
@@ -103,6 +163,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
         private ShapeableImageView avatarUser;
         private TextView nameUser, timeCreate, captionStory;
         private ImageButton close, buttonFavor;
+        FrameLayout flyContainer;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -113,6 +174,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
             captionStory = itemView.findViewById(R.id.captionStory);
             close = itemView.findViewById(R.id.close);
             buttonFavor = itemView.findViewById(R.id.buttonFavor);
+            flyContainer = itemView.findViewById(R.id.fly_container);
         }
     }
 
