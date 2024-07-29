@@ -18,15 +18,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.application.getgoproject.R;
 import com.application.getgoproject.StoryActivity;
 import com.application.getgoproject.callback.UserCallback;
+import com.application.getgoproject.dto.ReactStoryDTO;
 import com.application.getgoproject.models.Story;
 import com.application.getgoproject.models.User;
+import com.application.getgoproject.models.UserAuthentication;
+import com.application.getgoproject.service.StoryService;
 import com.application.getgoproject.service.UserService;
 import com.application.getgoproject.utils.RetrofitClient;
+import com.application.getgoproject.utils.SharedPrefManager;
 import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.widget.Toast;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -34,6 +39,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,6 +51,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
     private List<Story> storyList;
     private String token;
     private UserService userService;
+    private StoryService storyService;
 
     public StoryAdapter(Context context, int layout, List<Story> storyList, String token) {
         this.context = context;
@@ -62,6 +69,9 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull StoryAdapter.ViewHolder holder, int position) {
+        UserAuthentication userAuthentication = SharedPrefManager.getInstance(context).getUser();
+        String username = userAuthentication.getUsername();
+
         Story story = storyList.get(position);
         getUserByUserId(story.getCreator(), token, new UserCallback() {
             @Override
@@ -94,6 +104,16 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
             @Override
             public void onClick(View v) {
                 addFlyingHearts(Objects.requireNonNull(holder).flyContainer);
+
+                getUserByUsername(username, token, new UserCallback() {
+                    @Override
+                    public void onUserFetched(User user) {
+                        if (user != null) {
+                            ReactStoryDTO reactStoryDTO = new ReactStoryDTO(user.getId());
+                            updateStoryReaction(story.getId(), reactStoryDTO, token);
+                        }
+                    }
+                });
             }
         });
 
@@ -195,6 +215,56 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
                     t.printStackTrace();
+                }
+            });
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getUserByUsername(String username, String token, UserCallback callback) {
+        try {
+            Retrofit retrofit = RetrofitClient.getRetrofitInstance(context);
+            userService = retrofit.create(UserService.class);
+            Call<User> call = userService.getUserByUsername(username, token);
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        User user = response.body();
+                        callback.onUserFetched(user);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    t.printStackTrace();
+                }
+            });
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateStoryReaction(String id, ReactStoryDTO reactStoryDTO, String token) {
+        try {
+            Retrofit retrofit = RetrofitClient.getRetrofitInstance(context);
+            storyService = retrofit.create(StoryService.class);
+            Call<ResponseBody> call = storyService.updateStoryReaction(id, reactStoryDTO, token);
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response.isSuccessful()) {
+                        Log.d("Update Story", "Update successfully!");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable throwable) {
+                    Toast.makeText(context, "Failed to react story!", Toast.LENGTH_LONG).show();
+                    throwable.printStackTrace();
                 }
             });
         }

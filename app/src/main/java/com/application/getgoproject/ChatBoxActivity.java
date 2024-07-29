@@ -256,10 +256,18 @@ public class ChatBoxActivity extends AppCompatActivity {
 
     public void sendMessageToAgent(String question, String userId, String token) {
         try {
+            ChatBox typingIndicator = ChatBox.createTypingIndicator();
+            chatBoxList.add(typingIndicator);
+            chatBoxAdapter.notifyItemInserted(chatBoxList.size() - 1);
+            recyclerView.scrollToPosition(chatBoxList.size() - 1);
+
             Call<ChatAgentMessage> call = chatAgentService.sendMessageToAgent(question, userId, token);
             call.enqueue(new Callback<ChatAgentMessage>() {
                 @Override
                 public void onResponse(Call<ChatAgentMessage> call, Response<ChatAgentMessage> response) {
+                    chatBoxList.remove(typingIndicator);
+                    chatBoxAdapter.notifyItemRemoved(chatBoxList.size());
+
                     if (response.isSuccessful() && response.body() != null) {
                         ChatAgentMessage chatAgentMessage = response.body();
 
@@ -282,6 +290,8 @@ public class ChatBoxActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<ChatAgentMessage> call, Throwable throwable) {
+                    chatBoxList.remove(typingIndicator);
+                    chatBoxAdapter.notifyItemRemoved(chatBoxList.size());
                     addChatBox(new ChatBox("Xin lỗi, đã có lỗi xảy ra trên hệ thống. Vui lòng thử lại", false));
                 }
             });
