@@ -5,15 +5,18 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:background="#fff">
-    <ImageView
+
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgStory"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="30dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/buttonFavor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeCreate"
+        app:shapeAppearanceOverlay="@style/radiusImage"
         app:srcCompat="@drawable/signinbackground" />
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/avatarUser"
@@ -32,15 +35,15 @@ android:background="#fff">
     <TextView
         android:id="@+id/nameUser"
         android:layout_width="0dp"
-        android:layout_height="28dp"
+        android:layout_height="25dp"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="7dp"
+        android:layout_marginEnd="10dp"
         android:fontFamily="@font/kufam_bold"
         android:gravity="center_vertical"
         android:text="TextView"
         android:textColor="#000000"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toStartOf="@+id/close"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/menuButton"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/avatarUser"
         app:layout_constraintTop_toTopOf="@+id/avatarUser" />
@@ -53,16 +56,26 @@ android:background="#fff">
         android:fontFamily="@font/kufam"
         android:gravity="center_vertical"
         android:text="TextView"
-        android:textColor="#838282"
+        android:textColor="#4E4E4E"
         android:textSize="13sp"
         app:layout_constraintStart_toStartOf="@+id/nameUser"
         app:layout_constraintTop_toBottomOf="@+id/nameUser" />
+    <ImageButton
+        android:id="@+id/menuButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/close"
+        app:layout_constraintEnd_toStartOf="@+id/close"
+        app:layout_constraintTop_toTopOf="@+id/close"
+        app:srcCompat="@drawable/dots" />
 
     <ImageButton
         android:id="@+id/close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="16dp"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/nameUser"
@@ -73,18 +86,17 @@ android:background="#fff">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/semiround_button"
         android:backgroundTint="#80373636"
-        android:text="hello"
+        android:gravity="center"
         android:paddingHorizontal="20dp"
         android:paddingVertical="15dp"
         android:textColor="#fff"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonFavor"
+        app:layout_constraintBottom_toBottomOf="@+id/imgStory"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -106,8 +118,32 @@ android:background="#fff">
         android:id="@+id/fly_container"
         android:layout_width="0dp"
         android:layout_height="200dp"
-        app:layout_constraintBottom_toBottomOf="@+id/captionStory"
+        app:layout_constraintBottom_toBottomOf="@+id/imgStory"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonFavor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/buttonFavor"
+        app:srcCompat="@drawable/heart_icon_liked" />
+
+    <TextView
+        android:id="@+id/numberReaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="TextView"
+        android:textSize="15sp"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButton"
+        app:layout_constraintStart_toEndOf="@+id/imageButton"
+        app:layout_constraintTop_toTopOf="@+id/imageButton" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

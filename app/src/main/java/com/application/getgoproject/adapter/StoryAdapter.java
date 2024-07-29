@@ -10,6 +10,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -86,11 +87,16 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
         });
 
         holder.timeCreate.setText(updateTimeElapsed(story.getCreatedAt().plusHours(7)));
-        holder.captionStory.setText(story.getCaption().trim());
+        if (story.getCaption().isEmpty() || story.getCaption().trim().equals("")) {
+            holder.captionStory.setVisibility(View.GONE);
+
+        } else holder.captionStory.setText(story.getCaption().trim());
+
         if (story.getLinkImage() != null) {
             Glide.with(context).load(story.getLinkImage()).into(holder.imgStory);
         }
 
+        holder.numberReaction.setText("22");
 
         holder.close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,7 +137,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
                 container.removeAllViews();
 
                 Random random = new Random();
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < 10; i++) {
                     final int index = i;
                     new Handler(Looper.getMainLooper()).postDelayed(() -> {
                         if (container == null) return;
@@ -139,7 +145,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
                         ImageView heart = new ImageView(context);
                         heart.setImageResource(R.drawable.love);
 
-                        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(100, 100);
+                        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(100, 200);
                         params.leftMargin = random.nextInt(container.getWidth() - 100);
                         params.topMargin = container.getHeight() - 200;
                         heart.setLayoutParams(params);
@@ -178,11 +184,11 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
         return storyList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imgStory;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        private ShapeableImageView imgStory;
         private ShapeableImageView avatarUser;
-        private TextView nameUser, timeCreate, captionStory;
-        private ImageButton close, buttonFavor;
+        private TextView nameUser, timeCreate, captionStory, numberReaction;
+        private ImageButton close, buttonFavor, menuButton;
         FrameLayout flyContainer;
 
         public ViewHolder(@NonNull View itemView) {
@@ -195,6 +201,9 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
             close = itemView.findViewById(R.id.close);
             buttonFavor = itemView.findViewById(R.id.buttonFavor);
             flyContainer = itemView.findViewById(R.id.fly_container);
+            menuButton = itemView.findViewById(R.id.menuButton);
+            numberReaction = itemView.findViewById(R.id.numberReaction);
+            menuButton.setOnClickListener(StoryAdapter.this::showPopupMenu);
         }
     }
 
@@ -296,4 +305,22 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
             return "Invalid Date";
         }
     }
+
+    private void showPopupMenu(View view) {
+        PopupMenu popupMenu = new PopupMenu(context, view);
+        popupMenu.getMenuInflater().inflate(R.menu.menu_popup, popupMenu.getMenu());
+
+        popupMenu.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.menuEdit) {
+                return true;
+            }else if (item.getItemId() == R.id.menuDelete) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+
+        popupMenu.show();
+    }
+
 }
