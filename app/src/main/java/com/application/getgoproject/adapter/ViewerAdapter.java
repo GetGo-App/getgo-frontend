@@ -1,6 +1,7 @@
 package com.application.getgoproject.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import com.application.getgoproject.R;
 import com.application.getgoproject.models.User;
+import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.List;
@@ -51,8 +53,17 @@ public class ViewerAdapter extends BaseAdapter {
         TextView nameViewer = (TextView) convertView.findViewById(R.id.nameViewer);
 
         User user = arrayViewers.get(position);
-//        avatarViewer.setImageResource(R.drawable.avatar);
-//        nameViewer.setText("thu huong");
+
+        nameViewer.setText(user.getUserName());
+        if (user.getAvatar() != null && !user.getAvatar().isEmpty()) {
+            Glide.with(context)
+                    .load(user.getAvatar())
+                    .into(avatarViewer);
+        }
+        else {
+            avatarViewer.setImageResource(R.drawable.avatar);
+        }
+
         return convertView;
     }
 }
