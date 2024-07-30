@@ -1,5 +1,7 @@
 package com.application.getgoproject.adapter;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -36,6 +39,7 @@ import android.widget.Toast;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -104,6 +108,31 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
                 if (context instanceof StoryActivity) {
                     ((StoryActivity) context).finish();
                 }
+            }
+        });
+
+        holder.viewers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LayoutInflater inflater = LayoutInflater.from(context);
+                View dialogView = inflater.inflate(R.layout.dialog_viewers, null);
+
+                ListView lvViewers = dialogView.findViewById(R.id.lvViewers);
+                ImageButton btnClose = dialogView.findViewById(R.id.btnClose);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setView(dialogView);
+                AlertDialog dialog = builder.create();
+
+                ArrayList<User> viewerArray = new ArrayList<>();
+                viewerArray.add(new User());
+                ViewerAdapter adapter = new ViewerAdapter(dialogView.getContext(), R.layout.dialog_layout_viewer, viewerArray);
+                lvViewers.setAdapter(adapter);
+                btnClose.setOnClickListener(v1 -> {
+                    dialog.dismiss();
+                });
+
+                dialog.show();
             }
         });
         holder.buttonFavor.setOnClickListener(new View.OnClickListener() {
@@ -188,7 +217,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
         private ShapeableImageView imgStory;
         private ShapeableImageView avatarUser;
         private TextView nameUser, timeCreate, captionStory, numberReaction;
-        private ImageButton close, buttonFavor, menuButton;
+        private ImageButton close, buttonFavor, menuButton, viewers;
         FrameLayout flyContainer;
 
         public ViewHolder(@NonNull View itemView) {
@@ -203,6 +232,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
             flyContainer = itemView.findViewById(R.id.fly_container);
             menuButton = itemView.findViewById(R.id.menuButton);
             numberReaction = itemView.findViewById(R.id.numberReaction);
+            viewers = itemView.findViewById(R.id.viewers);
             menuButton.setOnClickListener(StoryAdapter.this::showPopupMenu);
         }
     }
