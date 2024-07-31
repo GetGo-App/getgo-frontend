@@ -1,6 +1,10 @@
 package com.application.getgoproject.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,13 +14,18 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.application.getgoproject.MainActivity;
 import com.application.getgoproject.R;
 import com.application.getgoproject.StoryActivity;
+import com.application.getgoproject.callback.StoryCallback;
 import com.application.getgoproject.callback.UserCallback;
 import com.application.getgoproject.dto.ReactStoryDTO;
 import com.application.getgoproject.models.Story;
@@ -29,12 +38,9 @@ import com.application.getgoproject.utils.SharedPrefManager;
 import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 
-import android.os.Handler;
-import android.os.Looper;
-import android.widget.Toast;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -86,11 +92,16 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
         });
 
         holder.timeCreate.setText(updateTimeElapsed(story.getCreatedAt().plusHours(7)));
-        holder.captionStory.setText(story.getCaption().trim());
+        if (story.getCaption().isEmpty() || story.getCaption().trim().equals("")) {
+            holder.captionStory.setVisibility(View.GONE);
+
+        } else holder.captionStory.setText(story.getCaption().trim());
+
         if (story.getLinkImage() != null) {
             Glide.with(context).load(story.getLinkImage()).into(holder.imgStory);
         }
 
+        holder.numberReaction.setText(String.valueOf(story.getReactCount()));
 
         holder.close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +109,38 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
                 if (context instanceof StoryActivity) {
                     ((StoryActivity) context).finish();
                 }
+            }
+        });
+
+        holder.viewers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getReactedUsers(story.getId(), token, new StoryCallback() {
+                    @Override
+                    public void onListUserFetched(List<User> users) {
+                        if (users != null && !users.isEmpty()) {
+                            LayoutInflater inflater = LayoutInflater.from(context);
+                            View dialogView = inflater.inflate(R.layout.dialog_viewers, null);
+
+                            ListView lvViewers = dialogView.findViewById(R.id.lvViewers);
+                            ImageButton btnClose = dialogView.findViewById(R.id.btnClose);
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            builder.setView(dialogView);
+                            AlertDialog dialog = builder.create();
+
+                            List<User> viewerArray = new ArrayList<>(users);
+                            ViewerAdapter adapter = new ViewerAdapter(dialogView.getContext(), R.layout.dialog_layout_viewer, viewerArray);
+                            lvViewers.setAdapter(adapter);
+
+                            btnClose.setOnClickListener(v1 -> {
+                                dialog.dismiss();
+                            });
+
+                            dialog.show();
+                        }
+                    }
+                });
             }
         });
         holder.buttonFavor.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +160,21 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
             }
         });
 
+        holder.menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getUserByUsername(username, token, new UserCallback() {
+                    @Override
+                    public void onUserFetched(User user) {
+                        if (user != null) {
+                            if (user.getId().equals(story.getCreator())) {
+                                showPopupMenu(holder.menuButton, story.getId());
+                            }
+                        }
+                    }
+                });
+            }
+        });
     }
 
     private void addFlyingHearts(FrameLayout container) {
@@ -131,7 +189,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
                 container.removeAllViews();
 
                 Random random = new Random();
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < 10; i++) {
                     final int index = i;
                     new Handler(Looper.getMainLooper()).postDelayed(() -> {
                         if (container == null) return;
@@ -139,7 +197,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
                         ImageView heart = new ImageView(context);
                         heart.setImageResource(R.drawable.love);
 
-                        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(100, 100);
+                        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(100, 200);
                         params.leftMargin = random.nextInt(container.getWidth() - 100);
                         params.topMargin = container.getHeight() - 200;
                         heart.setLayoutParams(params);
@@ -178,11 +236,11 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
         return storyList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imgStory;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        private ShapeableImageView imgStory;
         private ShapeableImageView avatarUser;
-        private TextView nameUser, timeCreate, captionStory;
-        private ImageButton close, buttonFavor;
+        private TextView nameUser, timeCreate, captionStory, numberReaction;
+        private ImageButton close, buttonFavor, menuButton, viewers;
         FrameLayout flyContainer;
 
         public ViewHolder(@NonNull View itemView) {
@@ -195,6 +253,9 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
             close = itemView.findViewById(R.id.close);
             buttonFavor = itemView.findViewById(R.id.buttonFavor);
             flyContainer = itemView.findViewById(R.id.fly_container);
+            menuButton = itemView.findViewById(R.id.menuButton);
+            numberReaction = itemView.findViewById(R.id.numberReaction);
+            viewers = itemView.findViewById(R.id.viewers);
         }
     }
 
@@ -294,6 +355,87 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
         } catch (Exception e) {
             e.printStackTrace();
             return "Invalid Date";
+        }
+    }
+
+    private void showPopupMenu(View view, String storyId) {
+        PopupMenu popupMenu = new PopupMenu(context, view);
+        popupMenu.getMenuInflater().inflate(R.menu.menu_popup, popupMenu.getMenu());
+
+        popupMenu.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.menuEdit) {
+                return true;
+            }else if (item.getItemId() == R.id.menuDelete) {
+                new AlertDialog.Builder(context)
+                        .setTitle("Delete Story")
+                        .setMessage("Are you sure you want to delete this story?")
+                        .setPositiveButton("Yes", (dialog, which) -> {
+                            deleteStoryById(storyId);
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+                return true;
+            } else {
+                return false;
+            }
+        });
+
+        popupMenu.show();
+    }
+
+    private void getReactedUsers(String id, String token, StoryCallback callback) {
+        try {
+            Retrofit retrofit = RetrofitClient.getRetrofitInstance(context);
+            storyService = retrofit.create(StoryService.class);
+
+            Call<List<User>> call = storyService.getReactedUsers(id, token);
+            call.enqueue(new Callback<List<User>>() {
+                @Override
+                public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                    if (response.isSuccessful()) {
+                        List<User> userList = response.body();
+                        callback.onListUserFetched(userList);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<User>> call, Throwable throwable) {
+                    throwable.printStackTrace();
+                }
+            });
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void deleteStoryById(String storyId) {
+        try {
+            Retrofit retrofit = RetrofitClient.getRetrofitInstance(context);
+            storyService = retrofit.create(StoryService.class);
+            Call<ResponseBody> call = storyService.deleteStory(storyId, token);
+
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(context, "Story deleted successfully!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(context, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        context.startActivity(intent);
+                    } else {
+                        Toast.makeText(context, "Failed to delete story", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    t.printStackTrace();
+                }
+            });
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

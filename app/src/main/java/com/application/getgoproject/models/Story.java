@@ -9,14 +9,16 @@ public class Story {
     private String caption;
     private LocalDateTime createdAt;
     private LocalDateTime expiredAt;
+    private int reactCount;
 
-    public Story(String id, String creator, String linkImage, String caption, LocalDateTime createdAt, LocalDateTime expiredAt) {
+    public Story(String id, String creator, String linkImage, String caption, LocalDateTime createdAt, LocalDateTime expiredAt, int reactCount) {
         this.id = id;
         this.creator = creator;
         this.linkImage = linkImage;
         this.caption = caption;
         this.createdAt = createdAt;
         this.expiredAt = expiredAt;
+        this.reactCount = reactCount;
     }
 
     public String getId() {
@@ -65,5 +67,13 @@ public class Story {
 
     public void setExpiredAt(LocalDateTime expiredAt) {
         this.expiredAt = expiredAt;
+    }
+
+    public int getReactCount() {
+        return reactCount;
+    }
+
+    public void setReactCount(int reactCount) {
+        this.reactCount = reactCount;
     }
 }
