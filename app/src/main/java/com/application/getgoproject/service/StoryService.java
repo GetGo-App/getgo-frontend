@@ -1,5 +1,6 @@
 package com.application.getgoproject.service;
 
+import com.application.getgoproject.dto.ReactStoryDTO;
 import com.application.getgoproject.dto.StoryDTO;
 import com.application.getgoproject.models.Story;
 
@@ -10,6 +11,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -23,4 +25,7 @@ public interface StoryService {
 
     @GET("stories/user/{userId}")
     Call<List<Story>> getUserStory(@Path("userId") String userId, @Header("Authorization") String token);
+
+    @PATCH("stories/{id}/reactions")
+    Call<ResponseBody> updateStoryReaction(@Path("id") String id, @Body ReactStoryDTO reactStoryDTO, @Header("Authorization") String token);
 }
