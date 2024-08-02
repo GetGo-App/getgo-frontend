@@ -161,40 +161,40 @@
                 app:layout_constraintStart_toStartOf="@+id/textView15"
                 app:layout_constraintTop_toBottomOf="@+id/textView15">
 
-                <RadioButton
-                    android:id="@+id/btnMale"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:checked="true"
-                    android:text="VN Pay"
-                    android:textColor="#000000"
-                    app:layout_constraintStart_toStartOf="@+id/guideline"
-                    app:layout_constraintTop_toBottomOf="@+id/textView15" />
+<!--                <RadioButton-->
+<!--                    android:id="@+id/btnMale"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    android:checked="true"-->
+<!--                    android:text="VN Pay"-->
+<!--                    android:textColor="#000000"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/guideline"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textView15" />-->
 
                 <RadioButton
                     android:id="@+id/btnFemale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:checked="false"
+                    android:checked="true"
                     android:text="Momo"
                     android:textColor="#000000"
                     app:layout_constraintBottom_toBottomOf="@+id/btnMale"
                     app:layout_constraintStart_toEndOf="@+id/btnMale"
                     app:layout_constraintTop_toTopOf="@+id/btnMale" />
 
-                <RadioButton
-                    android:id="@+id/btnOther"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:checked="false"
-                    android:text="Card"
-                    android:textColor="#000000"
-                    app:layout_constraintBottom_toBottomOf="@+id/btnFemale"
-                    app:layout_constraintStart_toEndOf="@+id/btnFemale"
-                    app:layout_constraintTop_toTopOf="@+id/btnFemale" />
+<!--                <RadioButton-->
+<!--                    android:id="@+id/btnOther"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    android:checked="false"-->
+<!--                    android:text="Card"-->
+<!--                    android:textColor="#000000"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/btnFemale"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/btnFemale"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/btnFemale" />-->
             </RadioGroup>
 
             <LinearLayout
@@ -205,11 +205,11 @@
                 android:gravity="right"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="65dp"
-                    android:layout_height="48dp"
-                    app:srcCompat="@drawable/vnpay" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/imageView5"-->
+<!--                    android:layout_width="65dp"-->
+<!--                    android:layout_height="48dp"-->
+<!--                    app:srcCompat="@drawable/vnpay" />-->
 
                 <ImageView
                     android:id="@+id/imageView10"
@@ -218,12 +218,12 @@
                     android:layout_weight="1"
                     app:srcCompat="@drawable/momo" />
 
-                <ImageView
-                    android:id="@+id/imageView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/add_card" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/imageView11"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    app:srcCompat="@drawable/add_card" />-->
             </LinearLayout>
         </LinearLayout>
 

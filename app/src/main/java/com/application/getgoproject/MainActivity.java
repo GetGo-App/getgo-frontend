@@ -1,23 +1,38 @@
 package com.application.getgoproject;
 
+import static android.provider.MediaStore.ACTION_IMAGE_CAPTURE;
+
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.application.getgoproject.adapter.StoryInHomeAdapter;
 import com.application.getgoproject.callback.LocationCallback;
 import com.application.getgoproject.callback.UserCallback;
 import com.application.getgoproject.models.Locations;
+import com.application.getgoproject.models.Story;
 import com.application.getgoproject.models.User;
 import com.application.getgoproject.models.UserAuthentication;
 import com.application.getgoproject.service.LocationService;
+import com.application.getgoproject.service.StoryService;
 import com.application.getgoproject.service.UserService;
 import com.application.getgoproject.utils.RetrofitClient;
 import com.application.getgoproject.utils.SharedPrefManager;
@@ -28,6 +43,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.imageview.ShapeableImageView;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -48,6 +64,11 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Locations> arrayLocation;
     private String userToken, username;
     private UserService userService;
+    private StoryService storyService;
+    private StoryInHomeAdapter storyInHomeAdapter;
+    private RecyclerView lvAllStory;
+    private ArrayList<Story> arrayStory;
+    private Set<String> uniqueCreators;
 
     //region GG AUTHENTICATION
     GoogleSignInOptions gso;
@@ -68,7 +89,9 @@ public class MainActivity extends AppCompatActivity {
         Retrofit retrofit = RetrofitClient.getRetrofitInstance(this);
         locationService = retrofit.create(LocationService.class);
         userService = retrofit.create(UserService.class);
+        storyService = retrofit.create(StoryService.class);
         arrayLocation = new ArrayList<>();
+        uniqueCreators = new HashSet<>();
 
         mapping();
 
@@ -110,8 +133,8 @@ public class MainActivity extends AppCompatActivity {
         imgBanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Not opened yet!", Toast.LENGTH_LONG).show();
-//                packageForm();
+//                Toast.makeText(MainActivity.this, "Not opened yet!", Toast.LENGTH_LONG).show();
+                packageForm();
             }
         });
         avatar.setOnClickListener(new View.OnClickListener() {
@@ -126,12 +149,17 @@ public class MainActivity extends AppCompatActivity {
                 locationListForm();
             }
         });
-//        imgAddStory.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                cameraForm();
-//            }
-//        });
+
+        arrayStory = new ArrayList<>();
+
+        getAllStories();
+
+        imgAddStory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cameraForm();
+            }
+        });
 
         getAllLocations(userToken, new LocationCallback() {
             @Override
@@ -166,6 +194,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+
     }
     private void mapping(){
         avatar = findViewById(R.id.avatar);
@@ -174,10 +204,13 @@ public class MainActivity extends AppCompatActivity {
         btnAssistant = findViewById(R.id.btnAssistant);
         btnStatus = findViewById(R.id.btnStatus);
         btnQr = findViewById(R.id.btnQr);
-//        imgAddStory =findViewById(R.id.imgAddStory);
+        imgAddStory = findViewById(R.id.imgAddStory);
         tvUsername = findViewById(R.id.username);
         textPlace = findViewById(R.id.textPlace);
+        lvAllStory = findViewById(R.id.lvAllStory);
+        arrayStory = new ArrayList<>();
     }
+
     private void packageForm(){
         Intent intent = new Intent(this, PackageActivity.class);
         startActivity(intent);
@@ -317,6 +350,46 @@ public class MainActivity extends AppCompatActivity {
         }
         catch (Exception e) {
             Log.d("Error", e.getMessage());
+        }
+    }
+
+    private void getAllStories() {
+        try {
+            Call<List<Story>> call = storyService.getAllStory(userToken);
+            call.enqueue(new Callback<List<Story>>() {
+                @Override
+                public void onResponse(Call<List<Story>> call, Response<List<Story>> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        List<Story> stories = response.body();
+                        arrayStory.clear();
+                        uniqueCreators.clear();
+                        LocalDateTime now = LocalDateTime.now();
+
+                        for (Story story : stories) {
+                            if (story.getExpiredAt().isAfter(now) && !uniqueCreators.contains(story.getCreator())) {
+                                uniqueCreators.add(story.getCreator());
+                                arrayStory.add(story);
+                            }
+                        }
+
+                        storyInHomeAdapter = new StoryInHomeAdapter(MainActivity.this, R.layout.layout_item_story, arrayStory, userToken);
+                        lvAllStory.setLayoutManager(new LinearLayoutManager(MainActivity.this, RecyclerView.HORIZONTAL, false));
+                        lvAllStory.setAdapter(storyInHomeAdapter);
+
+                        storyInHomeAdapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Failed to fetch stories", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Story>> call, Throwable throwable) {
+                    Toast.makeText(MainActivity.this, "Failed to fetch stories: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

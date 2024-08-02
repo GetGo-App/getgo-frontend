@@ -1,48 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:layout_width="250dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:maxWidth="330dp"
+    android:background="@drawable/black_button"
+    android:backgroundTint="#000000"
+    android:layout_marginStart="8dp"
+    android:elevation="4dp"
     android:gravity="start"
-    android:padding="8dp"
-    android:weightSum="2">
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        app:cardBackgroundColor="#80D9D9D9"
-        android:elevation="4dp"
-        app:cardCornerRadius="8dp">
-
-        <ImageView
-            android:id="@+id/imgLocation"
-            android:layout_width="match_parent"
-            android:layout_height="@android:dimen/thumbnail_width"
-            android:scaleType="fitXY"
-            app:srcCompat="@drawable/sapa" />
+    android:padding="8dp">
 
         <TextView
-            android:id="@+id/tvNameLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/semiround_button"
-            android:backgroundTint="#77FFFFFF"
-            android:fontFamily="@font/kufam"
-            android:gravity="left"
-            android:paddingHorizontal="5dp"
-            android:layout_marginHorizontal="5dp"
-            android:text="TextView"
-            android:textColor="#000000"
-            android:textSize="13sp" />
-    </androidx.cardview.widget.CardView>
+        android:id="@+id/textMessage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Sure! Here's an itinerary you can consider:"
+        android:textColor="#fff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Container for the map -->
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/map_view"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="8dp"/>
-</LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/lineLocal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/locationMessage"
+        app:layout_constraintEnd_toEndOf="@+id/textMessage"
+        app:layout_constraintStart_toStartOf="@+id/textMessage"
+        app:layout_constraintTop_toBottomOf="@+id/textMessage" />
+
+    <TextView
+        android:id="@+id/locationMessage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:text="I hope this itinerary helps you have a wonderful time in Ho Chi Minh City! Let me know if you have any other questions."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/lineLocal"
+        app:layout_constraintStart_toStartOf="@+id/lineLocal" />
+</androidx.constraintlayout.widget.ConstraintLayout>

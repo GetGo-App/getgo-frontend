@@ -12,7 +12,6 @@ public class User {
     private String email;
     private String phoneNumber;
     private String birthday;
-
     private String avatar;
     private String role;
     private boolean isActive;

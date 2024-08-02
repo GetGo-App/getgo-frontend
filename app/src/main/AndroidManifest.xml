@@ -6,6 +6,11 @@
         android:name="android.hardware.camera"
         android:required="false" />
 
+    <queries>
+        <package android:name="com.facebook.katana"/>
+        <package android:name="com.mservice.momotransfer"/>
+    </queries>
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -59,13 +64,13 @@
         <activity android:name=".PaymentMethodActivity"/>
         <activity android:name=".TransactionActivity"/>
         <activity android:name=".QRcodeActivity"/>
-        <activity android:name=".CustomCaptureActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".StoryActivity"/>
         <activity android:name=".TermOfServiceActivity"/>
         <activity android:name=".PrivacyPolicyActivity"/>
         <activity android:name=".NewStatusActivity"/>
         <activity android:name=".ListStatusActivity"/>
         <activity android:name=".ImageActivity"/>
+        <activity android:name=".CreateStoryActivity"/>
     </application>
 
 </manifest>
