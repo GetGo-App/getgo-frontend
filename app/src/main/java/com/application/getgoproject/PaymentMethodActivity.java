@@ -6,9 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,7 +14,6 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.application.getgoproject.adapter.PaymentMethodAdapter;
 import com.application.getgoproject.callback.UserCallback;
 import com.application.getgoproject.models.ListItem;
 import com.application.getgoproject.models.ListPackage;
@@ -25,14 +22,8 @@ import com.application.getgoproject.models.UserAuthentication;
 import com.application.getgoproject.service.UserService;
 import com.application.getgoproject.utils.RetrofitClient;
 import com.application.getgoproject.utils.SharedPrefManager;
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -173,6 +164,17 @@ public class PaymentMethodActivity extends AppCompatActivity {
         }
         catch (Exception e) {
             Log.d("Error", e.getMessage());
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_MOMO) {
+            Intent intent = new Intent(PaymentMethodActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 }
