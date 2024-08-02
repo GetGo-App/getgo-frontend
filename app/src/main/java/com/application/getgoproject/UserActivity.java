@@ -1,6 +1,9 @@
 package com.application.getgoproject;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -106,6 +109,9 @@ public class UserActivity extends AppCompatActivity {
                 } else if (clickedItem.getTitle().equals("Log out")) {
                     logout();
                 }
+                else if (clickedItem.getTitle().equals("Support")) {
+                    openFacebookPage(UserActivity.this);
+                }
             }
         });
 
@@ -206,6 +212,22 @@ public class UserActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void openFacebookPage(Context context) {
+        String facebookUrl = context.getString(R.string.facebook_page_url);
+        String facebookUrlScheme = "fb://facewebmodal/f?href=" + facebookUrl;
+
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            packageManager.getPackageInfo("com.facebook.katana", 0);
+            Intent facebookIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(facebookUrlScheme));
+            context.startActivity(facebookIntent);
+        } catch (Exception e) {
+            Intent facebookIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(facebookUrl));
+            context.startActivity(facebookIntent);
+        }
+    }
+
 
     @Override
     protected void onResume() {

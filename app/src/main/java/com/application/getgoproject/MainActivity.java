@@ -39,6 +39,7 @@ import com.application.getgoproject.utils.SharedPrefManager;
 import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -118,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
         imgBanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Not opened yet!", Toast.LENGTH_LONG).show();
-//                packageForm();
+//                Toast.makeText(MainActivity.this, "Not opened yet!", Toast.LENGTH_LONG).show();
+                packageForm();
             }
         });
         avatar.setOnClickListener(new View.OnClickListener() {
@@ -345,11 +346,13 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<List<Story>> call, Response<List<Story>> response) {
                     if (response.isSuccessful() && response.body() != null) {
+                        List<Story> stories = response.body();
                         arrayStory.clear();
                         uniqueCreators.clear();
+                        LocalDateTime now = LocalDateTime.now();
 
-                        for (Story story : response.body()) {
-                            if (!uniqueCreators.contains(story.getCreator())) {
+                        for (Story story : stories) {
+                            if (story.getExpiredAt().isAfter(now) && !uniqueCreators.contains(story.getCreator())) {
                                 uniqueCreators.add(story.getCreator());
                                 arrayStory.add(story);
                             }
