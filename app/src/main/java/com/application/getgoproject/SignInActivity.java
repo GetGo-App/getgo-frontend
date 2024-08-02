@@ -12,17 +12,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
+import com.application.getgoproject.dto.GoogleAuthenticationDto;
 import com.application.getgoproject.dto.SignInDto;
 import com.application.getgoproject.models.UserAuthentication;
+import com.application.getgoproject.service.GoogleAuthenticationService;
 import com.application.getgoproject.service.SignInService;
+import com.application.getgoproject.service.SignUpService;
 import com.application.getgoproject.utils.JwtUtils;
 import com.application.getgoproject.utils.RetrofitClient;
 import com.application.getgoproject.utils.SharedPrefManager;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,7 +40,14 @@ import retrofit2.Retrofit;
 
 public class SignInActivity extends AppCompatActivity {
 
+    //region GG AUTHENTICATION
+    GoogleSignInOptions gso;
+    GoogleSignInClient gsc;
+
+    //endregion
+
     private SignInService signInService;
+    private GoogleAuthenticationService googleAuthenticationService;
 
     private TextView tvsignup, tvForget;
     private EditText edEmail, edPassword;
@@ -45,8 +61,24 @@ public class SignInActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_signin);
 
+        //region SetUp GG Authentication
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestIdToken("852575728862-mq0j0jg1ig0dief06cmenqhl65b09tsh.apps.googleusercontent.com")
+                .requestEmail().build();
+        gsc = GoogleSignIn.getClient(SignInActivity.this, gso);
+
+//        gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//            }
+//        });
+
+        //endregion
+
+
         Retrofit retrofit = RetrofitClient.getRetrofitInstance(this);
         signInService = retrofit.create(SignInService.class);
+        googleAuthenticationService = retrofit.create(GoogleAuthenticationService.class);
 
         anhXa();
 
@@ -73,6 +105,7 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(SignInActivity.this,"Sign in with Google", Toast.LENGTH_SHORT).show();
+                googleSignIn();
 //                homeForm();
             }
         });
@@ -183,5 +216,60 @@ public class SignInActivity extends AppCompatActivity {
                 Log.d("Login Error!!", throwable.getMessage());
             }
         });
+    }
+
+    private void googleSignIn(){
+        GoogleSignInAccount acc = GoogleSignIn.getLastSignedInAccount(this);
+        if(acc != null){
+            googleAuthentication();
+            homeForm();
+        }
+
+
+        Intent signInIntent = gsc.getSignInIntent();
+
+        startActivityForResult(signInIntent, 1000);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1000){
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+
+            try {
+                task.getResult(ApiException.class);
+                googleAuthentication();
+                homeForm();
+            } catch (ApiException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private void googleAuthentication(){
+        GoogleSignInAccount acc = GoogleSignIn.getLastSignedInAccount(this);
+        if(acc != null){
+            Call<UserAuthentication> call = googleAuthenticationService.googleAuth(new GoogleAuthenticationDto(acc.getEmail()));
+            call.enqueue(new Callback<UserAuthentication>() {
+                @Override
+                public void onResponse(Call<UserAuthentication> call, Response<UserAuthentication> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        UserAuthentication userAuthentication = response.body();
+                        SharedPrefManager.getInstance(SignInActivity.this).saveUser(userAuthentication);
+                        Log.d("User token", userAuthentication.getAccessToken());
+                    }
+                    else if (response.code() == 400) {
+                        edEmail.setError("Email has been already used");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UserAuthentication> call, Throwable throwable) {
+                    Log.d("Error Signup", throwable.getMessage());
+                }
+            });
+
+        }
     }
 }

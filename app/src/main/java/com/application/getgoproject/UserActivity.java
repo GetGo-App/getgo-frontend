@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,6 +27,12 @@ import com.application.getgoproject.service.UserService;
 import com.application.getgoproject.utils.RetrofitClient;
 import com.application.getgoproject.utils.SharedPrefManager;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.ArrayList;
@@ -36,6 +43,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class UserActivity extends AppCompatActivity {
+
+    //region GG AUTHENTICATION
+    GoogleSignInOptions gso;
+    GoogleSignInClient gsc;
+
+    //endregion
 
     private UserService userService;
 
@@ -52,6 +65,11 @@ public class UserActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_user);
         mapping();
+
+        //region SetUp GG Authentication
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gsc = GoogleSignIn.getClient(UserActivity.this, gso);
+        //endregion
 
         UserAuthentication userAuthentication = SharedPrefManager.getInstance(this).getUser();
             String userName = userAuthentication.getUsername();
@@ -204,6 +222,17 @@ public class UserActivity extends AppCompatActivity {
     }
 
     private void logout() {
+        //Remove google account (logout for google account)
+        GoogleSignInAccount acc = GoogleSignIn.getLastSignedInAccount(this);
+        if(acc != null){
+            gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                }
+            });
+        }
+        
+
         SharedPrefManager.getInstance(this).clear();
         Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show();
 
