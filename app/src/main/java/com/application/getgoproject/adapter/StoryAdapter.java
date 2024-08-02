@@ -119,23 +119,19 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
                     @Override
                     public void onListUserFetched(List<User> users) {
                         if (users != null && !users.isEmpty()) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
                             LayoutInflater inflater = LayoutInflater.from(context);
                             View dialogView = inflater.inflate(R.layout.dialog_viewers, null);
 
                             ListView lvViewers = dialogView.findViewById(R.id.lvViewers);
-                            ImageButton btnClose = dialogView.findViewById(R.id.btnClose);
-
-                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                            builder.setView(dialogView);
-                            AlertDialog dialog = builder.create();
 
                             List<User> viewerArray = new ArrayList<>(users);
-                            ViewerAdapter adapter = new ViewerAdapter(dialogView.getContext(), R.layout.dialog_layout_viewer, viewerArray);
+                            ViewerAdapter adapter = new ViewerAdapter(context, R.layout.dialog_layout_viewer, viewerArray);
                             lvViewers.setAdapter(adapter);
 
-                            btnClose.setOnClickListener(v1 -> {
-                                dialog.dismiss();
-                            });
+                            builder.setView(dialogView);
+                            AlertDialog dialog = builder.create();
 
                             dialog.show();
                         }

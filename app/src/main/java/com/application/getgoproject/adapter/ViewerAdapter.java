@@ -16,9 +16,9 @@ import com.google.android.material.imageview.ShapeableImageView;
 import java.util.List;
 
 public class ViewerAdapter extends BaseAdapter {
-    private Context context;
-    private int layout;
-    private List<User> arrayViewers;
+    private final Context context;
+    private final int layout;
+    private final List<User> arrayViewers;
 
     public ViewerAdapter(Context context, int layout, List<User> arrayViewers) {
         this.context = context;
@@ -46,14 +46,15 @@ public class ViewerAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = inflater.inflate(layout, null);
+        if (convertView == null) {
+            LayoutInflater inflater = LayoutInflater.from(context);
+            convertView = inflater.inflate(layout, parent, false);
+        }
 
         ShapeableImageView avatarViewer = (ShapeableImageView) convertView.findViewById(R.id.avatarViewer);
         TextView nameViewer = (TextView) convertView.findViewById(R.id.nameViewer);
 
         User user = arrayViewers.get(position);
-
         nameViewer.setText(user.getUserName());
         if (user.getAvatar() != null && !user.getAvatar().isEmpty()) {
             Glide.with(context)
