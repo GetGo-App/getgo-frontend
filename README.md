@@ -104,7 +104,7 @@ This project is built about the Android application of GetGo - a tourism support
 1. Clone the repository:
 
 ```sh
-git clone https://github.com/HieuNghia0000/GetGo-Mobile.git
+git clone https://github.com/GetGo-App/getgo-frontend
 ```
 
 2. Open the project in Android Studio:
