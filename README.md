@@ -24,24 +24,24 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <h3 align="center">GetGo Mobile</h3>
+  <h3 align="center">GetGo Frontend</h3>
 
   <p align="center">
     An awesome README to jumpstart your projects!
     <br />
-    <a href="https://github.com/HieuNghia0000/GetGo-Mobile"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/GetGo-App/getgo-frontend"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/HieuNghia0000/GetGo-Mobile/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    <a href="https://github.com/GetGo-App/getgo-frontend/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     ·
-    <a href="https://github.com/HieuNghia0000/GetGo-Mobile/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+    <a href="https://github.com/GetGo-App/getgo-frontend/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
   </p>
 </div>
 
 
 
 <!-- TABLE OF CONTENTS -->
-<details>
+<!-- <details>
   <summary>Table of Contents</summary>
   <ol>
     <li>
@@ -60,12 +60,17 @@
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
   </ol>
-</details>
+</details> -->
+
+
+## Table of Contents
+1. [About the Project](#introduction)
+2. [Getting Started](#getting-started)
+3. [Contributing](#contribution)
 
 
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
+## About The Project <a id="introduction"></a>
 
 
 GetGo is an Android application designed to help users explore and get the most out of their travel experiences. With this app, users can discover new destinations, plan their trips, and share their stories with the community.
@@ -73,6 +78,14 @@ GetGo is an Android application designed to help users explore and get the most 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+
+<div align="center">
+  <img src="assets/home.png" width="300" alt="Image 1" />
+  <img src="assets/detailed_location.png" width="300" alt="Image 2" />
+  <p align="center">Demonstrating the UI of the GetGo app. The left panel showcases the home page, while the right panel displays detailed information about a location when the user taps to view more details</p>
+</div>
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 ### Built With
@@ -95,7 +108,7 @@ This project is built about the Android application of GetGo - a tourism support
 
 
 <!-- GETTING STARTED -->
-## Getting Started
+## Getting Started <a id="getting-started"></a>
 
 ### Prerequisites
 * Android Studio
@@ -126,7 +139,7 @@ git clone https://github.com/GetGo-App/getgo-frontend
 
 
 <!-- CONTRIBUTING -->
-## Contributing
+## Contributing <a id="contribution"></a>
 
 We welcome contributions to improve GetGo-Mobile. If you would like to contribute, please follow these steps:
 
