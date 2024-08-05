@@ -79,7 +79,7 @@ We welcome contributions to improve GetGo-Mobile. If you would like to contribut
 
 ## Contact
 
-Nghia Nguyen - promine20032@gmail.com
+Nghia Phan - promine20032@gmail.com
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
