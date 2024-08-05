@@ -1,66 +1,9 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/HieuNghia0000/GetGo-Mobile/pull/73 -->
-<a id="readme-top"></a>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
+# Get Go Front-End
+
+This project is built about the Android application of GetGo - a tourism support application which assist people for suggesting a suitable tourist route.
 
 
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-
-
-
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <h3 align="center">GetGo Frontend</h3>
-
-  <p align="center">
-    An awesome README to jumpstart your projects!
-    <br />
-    <a href="https://github.com/GetGo-App/getgo-frontend"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/GetGo-App/getgo-frontend/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
-    ·
-    <a href="https://github.com/GetGo-App/getgo-frontend/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
-  </p>
-</div>
-
-
-
-<!-- TABLE OF CONTENTS -->
-<!-- <details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-  </ol>
-</details> -->
+[![JAVA][java-shield]][java-url] [![Firebase][firebase-shield]][firebase-url]
 
 
 ## Table of Contents
@@ -85,29 +28,17 @@ GetGo is an Android application designed to help users explore and get the most 
   <p align="center">Demonstrating the UI of the GetGo app. The left panel showcases the home page, while the right panel displays detailed information about a location when the user taps to view more details</p>
 </div>
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-### Built With
-
-This project is built about the Android application of GetGo - a tourism support application which assist people for suggesting a suitable tourist route.
-
-* [![JAVA][java-shield]][java-url]
-* [![Firebase][firebase-shield]][firebase-url]
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- FEATURES -->
 ## Features
 
-* Explore Destinations: Browse and discover new travel destinations with detailed information and user reviews.
-* Trip Planning: Plan your trips by adding destinations to your itinerary and managing your travel schedule.
-* Story Sharing: Upload and share your travel stories with the community. View stories from other users to get inspired.
-* User Profiles: Create and manage your user profile. View and interact with other users' profiles.
-* Social Media Integration: Connect with your social media accounts to share your experiences and follow friends' journeys.
+* **Explore Destinations:** Browse and discover new travel destinations with detailed information and user reviews.
+* **Trip Planning:** Plan your trips by adding destinations to your itinerary and managing your travel schedule.
+* **Story Sharing:** Upload and share your travel stories with the community. View stories from other users to get inspired.
+* **User Profiles:** Create and manage your user profile. View and interact with other users' profiles.
+* **Social Media Integration:** Connect with your social media accounts to share your experiences and follow friends' journeys.
 
 
-<!-- GETTING STARTED -->
 ## Getting Started <a id="getting-started"></a>
 
 ### Prerequisites
@@ -116,29 +47,26 @@ This project is built about the Android application of GetGo - a tourism support
 ### Installation
 1. Clone the repository:
 
-```sh
-git clone https://github.com/GetGo-App/getgo-frontend
-```
+    ```sh
+    git clone https://github.com/GetGo-App/getgo-frontend
+    ```
 
 2. Open the project in Android Studio:
-* Launch Android Studio.
-* Select "Open an existing Android Studio project."
-* Navigate to the cloned repository and select the GetGo-Mobile folder.
+    * Launch Android Studio.
+    * Select "Open an existing Android Studio project."
+    * Navigate to the cloned repository and select the GetGo-Mobile folder.
   
 3. Build the project:
 
-* Sync the project with Gradle files.
-* Build the project by selecting Build > Rebuild Project.
+    * Sync the project with Gradle files.
+    * Build the project by selecting Build > Rebuild Project.
 
 4. Run the app:
 
-* Connect your Android device or start an emulator.
-* Click the Run button or select Run > Run 'app'.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+    * Connect your Android device or start an emulator.
+    * Click the Run button or select Run > Run 'app'.
 
 
-<!-- CONTRIBUTING -->
 ## Contributing <a id="contribution"></a>
 
 We welcome contributions to improve GetGo-Mobile. If you would like to contribute, please follow these steps:
@@ -149,22 +77,16 @@ We welcome contributions to improve GetGo-Mobile. If you would like to contribut
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-<!-- CONTACT -->
 ## Contact
 
-Email - promine20032@gmail.com
+Nghia Nguyen - promine20032@gmail.com
 
-Project Link: [https://github.com/HieuNghia0000/GetGo-Mobile](https://github.com/HieuNghia0000/GetGo-Mobile)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
 [contributors-url]: https://github.com/HieuNghia0000/GetGo-Mobile/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
