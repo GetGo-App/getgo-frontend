@@ -19,9 +19,6 @@ This project is built about the Android application of GetGo - a tourism support
 GetGo is an Android application designed to help users explore and get the most out of their travel experiences. With this app, users can discover new destinations, plan their trips, and share their stories with the community.
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 <div align="center">
   <img src="assets/home.png" width="300" alt="Image 1" />
   <img src="assets/detailed_location.png" width="300" alt="Image 2" />
